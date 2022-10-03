@@ -14,5 +14,7 @@ As shown in <<architecture1>>, this solution sets up the following:
 * AWS Glue for converting Parquet files and partitioning poststage data.
 * An AWS Lake Formation data lake for governance and security.
 * Amazon Athena to query the data lake and access the poststage data.
+* Amazon SageMaker with sample Jupyter notebooks that analysts can use to provision tenants and manage workflows.
 * (Optional) Amazon QuickSight for business-intelligence analytics, interactive dashboards, and visualizations that business stakeholders can use.
-* (Optional) Amazon SageMaker with sample Jupyter notebooks that analysts can use to provision tenants and manage workflows.
+
+

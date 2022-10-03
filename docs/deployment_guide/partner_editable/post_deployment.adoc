@@ -19,7 +19,39 @@ Follow these steps to enable AWS Lake Formation to control your AWS Glue Data Ca
 * For *Tables*, choose *All Tables*.
 * Keep *Data Filters - Optional* empty.
 * For *Table Permissions*, choose *Super*.
-.. Choose *Grant* at the bottom.
+.. Choose *Grant* at the bottom. 
+
+=== Hydrate your data lake with Jupyter notebooks
+
+To hydrate the data lake and begin populating it with data from your AMC instance, follow these steps. When you’re finished, business stakeholders can use Amazon Athena to access the data returned from the workflow execution.
+
+1. Sign in to the AWS Management Console, and open the Amazon SageMaker console.
+
+2. On the left side of your screen, choose *Notebook* -> *Notebook Instances* (You should see one notebook named aws-quickstart-platform-manager-notebooks with status *In Service*. The prefix 'aws' may differ depending on the value set in the ddk.json file).
+
+3. Click "Open JupyterLab" to open the Notebook Instance in a new tab
+
+4. Open 'Getting_Started_With_AMC_Quickstart.ipynb' or refer to the README.md for  information on the additional notebooks contained.
+
+This 'Getting Started' notebook covers the following:
+
+* _Insert TPS Records_: To initialize the process of onboarding your AMC instance on the Amazon AD Tech platform, this notebook will walk through the steps to adds client configurations to a TPS Customer Configuration table in Amazon DynamoDB. The configuration includes your AMC Endpoint URL, AMC Bucket Name and other related information on your AMC Instance. The Tenant Provisioning Service (TPS) will then automatically:
+
+** Onboard clients using configuration which is persisted in a DynamoDB Table. It helps to reduce time to onboard new customers
+
+** Provide a centralized location to manage various clients and modules and supports multi-tenancy
+
+* _Create Workflows_: To initialize the creation, scheduling and execution of AMC workflows, this notebook will walk through the steps to add a workflow to an AMC Workflows table in Amazon DynamoDB. From there you will also invoke this workflow to execute and populate data from your AMC Instance to your AMC S3 Bucket. WFM also allows you to:
+
+** Automatically trigger the deployment of the SQS queues, IAM policies, workflows and workflow schedules in WFM for the customer’s AMC instance upon adding or updating a customer record to the Tenant Provisioning Service (TPS)
+
+** Synchronize workflows and workflow schedules in the Workflow Library service with multiple AMC Instances
+
+** Send execution requests to an SQS queue rather than directly to the AMC endpoint to prevents timeout failures when there are large number of requests in a short period of time
+
+** Schedule with dynamic relative time windows rather than using AMC’s scheduling feature which only allows predefined scheduled reporting such as Daily or Weekly
+
+** Track the status of all workflow executions for customer AMC instances whether they are submitted through WFM or other means (postman, etc.). Having the status synced to DynamoDB allows events to be triggered or notifications to be sent when executions change state. This table can also be used to track historical executions for troubleshooting or performance monitoring.
 
 === Delete deployed resources when finished
 
