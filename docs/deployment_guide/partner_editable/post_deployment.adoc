@@ -1,27 +1,10 @@
-== Postdeployment steps
+== User Guide
 
-=== Set AWS Lake Formation permissions
-
-Follow these steps to enable AWS Lake Formation to control your AWS Glue Data Catalog resources and to give your AWS Identity and Access Management (IAM) role permission to access the tables in the Data Catalog.
-
-. Sign in to the AWS Management Console, and open the AWS Lake Formation console.
-
-. Enable Lake Formation to control your Data Catalog resources.
-.. In the navigation pane, under *Data catalog*, choose *Settings*.
-.. Clear both check boxes and choose *Save*.
-
-. Give your IAM role permission to access the tables in the Data Catalog.
-.. In the navigation pane, under *Permissions*, choose *Data Lake Permissions*.
-.. Choose *Grant* in the upper right, and do the following:
-* For *IAM users and roles*, enter your current IAM role.
-* For *LF-Tags or catalog resources*, choose *Named data catalog resources*.
-* For *Databases*, choose your database: `aws_datalake_<environment>_<team>_<name>_db"` (default `aws_datalake_dev_demoteam_amcdataset_db`).
-* For *Tables*, choose *All Tables*.
-* Keep *Data Filters - Optional* empty.
-* For *Table Permissions*, choose *Super*.
-.. Choose *Grant* at the bottom. 
+The following sections detail how to get started using the solution once deployed.
 
 === Hydrate your data lake with Jupyter notebooks
+
+If your AMC S3 bucket already contained data before deployment of this solution, it will not be picked up automatically by the data lake. Only workflows run after deployment will trigger this process.
 
 To hydrate the data lake and begin populating it with data from your AMC instance, follow these steps. When you’re finished, business stakeholders can use Amazon Athena to access the data returned from the workflow execution.
 
@@ -52,6 +35,43 @@ This 'Getting Started' notebook covers the following:
 ** Schedule with dynamic relative time windows rather than using AMC’s scheduling feature which only allows predefined scheduled reporting such as Daily or Weekly
 
 ** Track the status of all workflow executions for customer AMC instances whether they are submitted through WFM or other means (postman, etc.). Having the status synced to DynamoDB allows events to be triggered or notifications to be sent when executions change state. This table can also be used to track historical executions for troubleshooting or performance monitoring.
+
+Once you have hydrated the data lake by running workflows, the data will populate in the *stage* S3 bucket under the *post-stage* prefix.
+
+=== Query data with Athena
+
+To get started querying the newly populated tables with Athena you must ensure your account and resources are set up with the proper permissions. 
+
+Follow these steps to enable AWS Lake Formation to control your AWS Glue Data Catalog resources and to give your AWS Identity and Access Management (IAM) role permission to access the tables in the Data Catalog.
+
+. Sign in to the AWS Management Console, and open the AWS Lake Formation console.
+
+. Enable Lake Formation to control your Data Catalog resources.
+.. In the navigation pane, under *Data catalog*, choose *Settings*.
+.. Clear both check boxes and choose *Save*.
+
+. Give your IAM role permission to access the tables in the Data Catalog.
+.. In the navigation pane, under *Permissions*, choose *Data Lake Permissions*.
+.. Choose *Grant* in the upper right, and do the following:
+* For *IAM users and roles*, enter your current IAM role.
+* For *LF-Tags or catalog resources*, choose *Named data catalog resources*.
+* For *Databases*, choose your database: `aws_datalake_<environment>_<team>_<name>_db"` (default `aws_datalake_dev_demoteam_amcdataset_db`).
+* For *Tables*, choose *All Tables*.
+* Keep *Data Filters - Optional* empty.
+* For *Table Permissions*, choose *Super*.
+.. Choose *Grant* at the bottom.
+
+If this is your first time using Athena on this AWS account then you must set the query result location in S3 by following the below steps.
+
+.. Navigate to the Athena console.
+.. From the top menu click on *Settings*.
+.. Click *Manage*.
+.. Click *Browse S3* next to the first open field.
+.. Find the deployed S3 bucket with the suffix '-athena' (Bucket name follows the same convention as the others deployed. Any custom bucket can be designated for this purpose, this one is simply deployed as part of the solution for ease).
+.. Check off the bucket and click *Choose*.
+.. *Save* the new settings.
+
+You are now ready to start querying your tables with Athena.
 
 === Delete deployed resources when finished
 
