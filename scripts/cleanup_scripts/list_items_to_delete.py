@@ -144,7 +144,7 @@ def list_cw_logs(prefix):
             elif re.match("/aws/codebuild/codepipelineAssetsFileAsset-*", page["logGroupName"]):
                 cw_log_list.append(page["logGroupName"])
     except:
-        print('Could not list CloudWatch Logs.')
+        print('Could not list CloudWatch logs.')
         raise
     else:
         return cw_log_list  
@@ -160,7 +160,7 @@ if __name__ == "__main__":
             config = json.loads(config_data.read())
             prefix = config["environments"][env]["resource_prefix"]
 
-        print("Collecting Resources to Delete")
+        print("Collecting resources to delete")
         resources={}
         bucket_list = list_s3_buckets(prefix)
         resources["s3"]=bucket_list
@@ -186,7 +186,7 @@ if __name__ == "__main__":
         cw_logs_list = list_cw_logs(prefix)
         resources["cwlogs"]=cw_logs_list
 
-        print("Writing Items to Delete to JSON File: delete_file.json")
+        print("Writing items to delete to JSON file: delete_file.json")
         with open("delete_file.json", "w+") as delete_file:
             json.dump(resources,delete_file)
         

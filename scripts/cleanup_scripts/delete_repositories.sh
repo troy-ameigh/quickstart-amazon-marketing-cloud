@@ -16,7 +16,6 @@ DEFAULT_REPO=""
 usage() {
     echo "Usage Options for ${BASENAME}
     -s : Name of the AWS Profile for the CICD Account
-    -t : Name of the Child CICD account
     -r : Region for the Deployment
     -d : Name of Repositories to Delete
     -h : Displays this help message
@@ -26,12 +25,12 @@ usage() {
 delete_repositories() {
 
     for REPOSITORY in ${REPOSITORIES[@]}; do
-        REPOSITORY_DETAILS=$(aws codecommit get-repository --repository-name ${REPOSITORY} --region ${REGION} --profile ${CICD_PROFILE} &>/dev/null)
+        REPOSITORY_DETAILS=$(aws codecommit get-repository --repository-name ${REPOSITORY} --region ${REGION} --profile ${PROFILE} &>/dev/null)
         RETSTAT=$?
         echo "Deleting REPO ${REPOSITORY}"
         if [ ${RETSTAT} -eq 0 ]; then
-            echo "Remote Repository ${REPOSITORY} already exists, deleting..."
-            aws codecommit delete-repository --profile ${CICD_PROFILE} --region ${REGION} --repository-name ${REPOSITORY}
+            echo "Remote repository ${REPOSITORY} already exists, deleting..."
+            aws codecommit delete-repository --profile ${PROFILE} --region ${REGION} --repository-name ${REPOSITORY}
             # pushd ${REPOSITORY}
             rm -rf .git
             # popd
@@ -40,10 +39,10 @@ delete_repositories() {
             echo "Deleting local .git directory if it exists."
             # pushd ${REPOSITORY}
             if [ -d .git ]; then
-                echo "Local .git Repository exists, deleting..."
+                echo "Local .git repository exists, deleting..."
                 rm -rf .git
             else
-                echo "Local .git Repository does not exist."
+                echo "Local .git repository does not exist."
             fi
             # popd
         fi
@@ -51,10 +50,9 @@ delete_repositories() {
 
 }
 
-while getopts "s:t:r:d:h" option; do
+while getopts "s:r:d:h" option; do
     case ${option} in
-    s) CICD_PROFILE=${OPTARG:-$DEFAULT_PROFILE} ;;
-    t) CHILD_PROFILE=${OPTARG:-$DEFAULT_PROFILE} ;;
+    s) PROFILE=${OPTARG:-$DEFAULT_PROFILE} ;;
     r) REGION=${OPTARG:-$DEFAULT_REGION} ;;
     d) REPO=${OPTARG:-$DEFAULT_REPO} ;;
     h)
@@ -62,15 +60,15 @@ while getopts "s:t:r:d:h" option; do
         exit
         ;;
     \?)
-        echo "Unknown Option ${OPTARG} at ${OPTIND} "
+        echo "Unknown option ${OPTARG} at ${OPTIND} "
         exit 10
         ;;
     :)
-        echo "Missing Argument for ${OPTARG} at ${OPTIND} "
+        echo "Missing argument for ${OPTARG} at ${OPTIND} "
         exit 20
         ;;
     *)
-        echo "Option Not Implemented"
+        echo "Option not implemented"
         exit 30
         ;;
     esac
@@ -80,7 +78,6 @@ OPTIND=1
 # declare -a REPOSITORIES=$(find . -maxdepth 1 -name "orion*" -type d | sed "s/.\///")
 declare -a REPOSITORIES=$REPO
 
-CICD_ACCOUNT=$(aws sts get-caller-identity --query "Account" --output text --profile ${CICD_PROFILE})
-CHILD_ACCOUNT=$(aws sts get-caller-identity --query "Account" --output text --profile ${CHILD_PROFILE})
+ACCOUNT=$(aws sts get-caller-identity --query "Account" --output text --profile ${PROFILE})
 
 delete_repositories

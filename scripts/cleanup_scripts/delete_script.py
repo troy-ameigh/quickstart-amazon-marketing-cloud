@@ -37,7 +37,7 @@ def empty_bucket(bucket_name):
     versions = s3_client.list_object_versions(Bucket=bucket_name) # list all versions in this bucket
     if 'Contents' in response:
         for item in response['Contents']:
-            print('deleting file', item['Key'])
+            print('Deleting file', item['Key'])
             s3_client.delete_object(Bucket=bucket_name, Key=item['Key'])
             while response['KeyCount'] == 1000:
                 response = s3_client.list_objects_v2(
@@ -45,7 +45,7 @@ def empty_bucket(bucket_name):
                 StartAfter=response['Contents'][0]['Key'],
                 )
                 for item in response['Contents']:
-                    print('deleting file', item['Key'])
+                    print('Deleting file', item['Key'])
                     s3_client.delete_object(Bucket=bucket_name, Key=item['Key'])
     
     if 'Versions' in versions and len(versions['Versions'])>0:
@@ -68,8 +68,7 @@ def schedule_key_deletion(key_id):
     response = kms_client.schedule_key_deletion(
         KeyId=key_id,
         PendingWindowInDays=7
-    )
-    print(f"Key Deletion Scheduled: {key_id}")  
+    ) 
     return
 
 def delete_queue(queue_url):
@@ -122,55 +121,57 @@ if __name__ == "__main__":
 
             if len(items["s3"]) > 0:
                 for s3_bucket in items["s3"]:
-                    print(f"Emptying Content From: {s3_bucket}")
+                    print(f"Emptying content from: {s3_bucket}")
                     empty_bucket(s3_bucket)
-                    print(f"Bucket: {s3_bucket} is Empty")
+                    print(f"Bucket emptied: {s3_bucket}")
             
                 for s3_bucket in items["s3"]:
-                    print(f"Deleting Bucket: {s3_bucket}")
+                    print(f"Deleting bucket: {s3_bucket}")
                     delete_bucket(s3_bucket)
-                    print(f"Bucket: {s3_bucket} Deleted")
+                    print(f"Bucket deleted: {s3_bucket}")
 
             if len(items["ddb"]) > 0:
                 for ddb_table in items["ddb"]:
-                    print(f"Deleting Table: {ddb_table}")
+                    print(f"Deleting table: {ddb_table}")
                     delete_table(ddb_table)
-                    print(f"Table Name: {ddb_table} Deleted")
+                    print(f"Table deleted: {ddb_table}")
 
             if len(items["sqs"]) > 0:
                 for queue_url in items["sqs"]:
-                    print(f"Deleting SQS Queue: {queue_url}")
+                    print(f"Deleting SQS queue: {queue_url}")
                     delete_queue(queue_url)
-                    print(f"Queue Deleted: {queue_url}")
+                    print(f"Queue deleted: {queue_url}")
             
             if len(items["lambdaLayer"]) > 0:
                 for layer in items["lambdaLayer"]:
                     print(layer)
-                    print(f"Deleting Lambda Layer: {layer['layerName']} Version {layer['version']}")
+                    print(f"Deleting Lambda layer: {layer['layerName']} Version {layer['version']}")
                     delete_lambda_layer(layer)
-                    print(f"Lambda Layer Deleted: {layer}")
+                    print(f"Lambda layer deleted: {layer}")
 
             if len(items["eventbridge"]) > 0:
                 for rule in items["eventbridge"]:
-                    print(f"Deleting Eventbridge Rule: {rule}")
+                    print(f"Deleting Eventbridge rule: {rule}")
                     delete_rule(rule)
-                    print(f"Eventbridge Rule Deleted: {rule}")
+                    print(f"Eventbridge rule deleted: {rule}")
             
             if len(items["cloudformation"]) > 0:
                 for stack in items["cloudformation"]:
-                    print(f"Deleting Cloudformation Stack: {stack}")
+                    print(f"Deleting Cloudformation stack: {stack}")
                     delete_cfn_stack(stack)
-                    print(f"Cloudformation Stack Deleted: {stack}")
+                    print(f"Cloudformation stack deleted: {stack}")
             
             if len(items["cwlogs"]) > 0:
                 for log_group in items["cwlogs"]:
-                    print(f"Deleting Log Group: {log_group}")
+                    print(f"Deleting log group: {log_group}")
                     delete_log_group(log_group)
+                    print(f"Log group deleted: {log_group}")
 
             if len(items["kms"]) > 0:
                 for key_id in items["kms"]:
-                    print(f"Scheduling KMS Key Delete: {key_id}")
+                    print(f"Scheduling KMS key delete: {key_id}")
                     schedule_key_deletion(key_id)
+                    print(f"Key deletion scheduled: {key_id}") 
             
             json_data.close()
 
