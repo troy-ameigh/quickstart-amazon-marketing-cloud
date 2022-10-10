@@ -12,7 +12,7 @@ To hydrate the data lake and begin populating it with data from your AMC instanc
 
 2. On the left side of your screen, choose *Notebook* -> *Notebook Instances* (You should see one notebook named aws-quickstart-platform-manager-notebooks with status *In Service*. The prefix 'aws' may differ depending on the value set in the ddk.json file).
 
-3. Click "Open JupyterLab" to open the Notebook Instance in a new tab
+3. Click "Open JupyterLab" to open the Notebook Instance in a new tab.
 
 4. Open 'Getting_Started_With_AMC_Quickstart.ipynb' or refer to the README.md for  information on the additional notebooks contained.
 
@@ -42,15 +42,86 @@ Once you have hydrated the data lake by running workflows, the data will populat
 
 If this is your first time using Athena on this AWS account then you must set the query result location in S3 by following the below steps.
 
-.. Navigate to the Athena console.
-.. From the top menu click on *Settings*.
-.. Click *Manage*.
-.. Click *Browse S3* next to the first open field.
-.. Find the deployed S3 bucket with the suffix '-athena' (Bucket name follows the same convention as the others deployed. Any custom bucket can be designated for this purpose, this one is simply deployed as part of the solution for ease).
-.. Check off the bucket and click *Choose*.
-.. *Save* the new settings.
+. Navigate to the Athena console.
+. From the top menu click on *Settings*.
+. Click *Manage*.
+. Click *Browse S3* next to the first open field.
+. Find the deployed S3 bucket with the suffix '-athena' (Bucket name follows the same convention as the others deployed. Any custom bucket can be designated for this purpose, this one is simply deployed as part of the solution for ease).
+. Check off the bucket and click *Choose*.
+. *Save* the new settings.
 
 You are now ready to start querying your tables with Athena.
+
+=== (Optional) Build a QuickSight dashboard
+
+This section walks through how to build a QuickSight dashboard with AMC data from your data lake. 
+
+==== Set up QuickSight
+
+You need author access to a QuickSight account to get started with building your first dashboard. If you do not have a QuickSight account already, create one by following these steps:
+
+. Open the AWS Console and search for QuickSight to launch it.
+. On the QuickSight page, click *Sign up for QuickSight*.
+. Keep the default *Enterprise* edition, scroll down and click the *Continue* button.
+. Enter a *QuickSight account name* and *Notification email address*.
+. Scroll down and click the *Finish* button.
+
+You will now be taken to the QuickSight console.
+
+==== Authorize your QuickSight connection
+
+To work with Lake Formation and Athena on QuickSight, you must ensure that you have the proper AWS resource permissions configured. To perform this action you must be an Amazon QuickSight administrator. To check if you have access, verify that you see the Manage QuickSight option when you open the menu from your profile at the upper right.
+
+Use the following procedure to make sure that you have successfully authorized Amazon Quicksight to use Athena and S3 (permissions to AWS resources apply to all Amazon QuickSight users).
+
+. Authorize Amazon QuickSight to access the Athena and Amazon S3 services
+.. Choose your profile name (upper right) and click on *Manage QuickSight*.
+.. Navigate to *Security & Permissions*.
+.. Under *QuickSight access to AWS services*, choose *Manage*.
+.. Find *Athena* in the list. Clear the box by Athena, then select it again to enable Athena. Then choose *Next*.
+.. Under *S3 Bucket*, choose the S3 buckets that you want to allow read-access by Amazon QuickSight. 
+.. From the right column, *Write permissions for Athena Workgroup*, choose the S3 buckets that you want to allow query result write-access to. 
+.. Choose *Finish* to confirm your selection.
+.. Click *Save* to update your new settings for Amazon QuickSight access to AWS services.
+. Authorize Amazon QuickSight to access Lake Formation database and tables
+.. Collect the Amazon Resource Names (ARNs) of the QuickSight users and groups that need to access the data in Lake Formation. These users should be QuickSight authors or administrators.
+... Use the AWS CLI to find user ARNs or construct the ARNs manually below.
+... To construct manually, replace *REGION_NAME*, *ACCOUNT_ID*, and *QUICKSIGHT_USERNAME* from the following string: `arn:aws:quicksight:<REGION_NAME>:<ACCOUNT_ID>:user/default/<QUICKSIGHT_USERNAME>`
+... To collect user ARNS programmatically with the AWS CLI, run the following list-users command in your terminal (Linux or Mac) or at your command prompt (Windows): `aws quicksight list-users --aws-account-id 111122223333 --namespace default --region us-east-1`
+.. Sign in to the AWS Console and open the AWS Lake Formation console as the data lake administrator. A data lake administrator can grant any principal (IAM, QuickSight, or Active Directory) permissions to Data Catalog resources (databases and tables) or data lake locations in Amazon S3.
+.. Choose *Databases*.
+.. Select the circle next to the database you want to grant access to your QuickSight user.
+.. From the *Actions* drop-down menu, choose *Grant*
+.. Select *SAML users and groups* and enter the QuickSight user ARN
+.. Choose *Named data catalog resources*.
+.. Under *Tables*, open the drop-down menu and select *All tables* or selectively choose individual tables to permit access to.
+.. For *Table permissions*, choose *Select* and *Describe*.
+.. Click *Grant*
+.. Repeat the preceding steps to grant multiple database permissions to your QuickSight user ARN or other users and groups. 
+
+==== Create Dataset in QuickSight
+
+After setting the above permissions you are now able to create custom datasets in QuickSight using Athena. This section details that process from the QuickSight console.
+
+. Choose *Datasets* from the navigation pane at the left, then choose *New dataset*.
+. Create a new Athena connection profile:
+.. In the *FROM NEW DATA SOURCES* section, choose the *Athena* data source card.
+.. For *Data source name*, enter a descriptive name
+.. For *Athena Workgroup*, choose your workgroup
+.. Choose *Validate connection* to test the connection
+.. Choose *Create data source*
+. On the *Choose your table* screen:
+.. Under *Catalog*, choose *AwsDataCatalog*
+.. Choose one of the following:
+... Select the database and table manually from the dropdown.
+... Pull data in with a SQL query by choosing *Use custom SQL*.
+.. Choose *Select* (or *Confirm Query* depending on the option chosen above).
+.. Choose *Visualize* and get started creating your dashboard.
+
+Once you have created your custom dashboard you can publish and optionally share it.
+
+For more information on using QuickSight features check out: https://docs.aws.amazon.com/quicksight/latest/user/welcome.html.
+
 
 === Delete deployed resources when finished
 
