@@ -2,50 +2,26 @@
 
 === Set AWS Lake Formation permissions
 
-Follow these steps to enable AWS Lake Formation to control your AWS Glue Data Catalog resources and to give your AWS Identity and Access Management (IAM) role permission to access the tables in the Data Catalog.
+Follow these steps to enable AWS Lake Formation to control your AWS Glue Data Catalog resources and to give your AWS Identity and Access Management (IAM) role permission to access the tables in the Data Catalog. Even if you are using a role with account administrator access, you must assign yourself as a Lake Formation administrator as well.
 
 . Sign in to the AWS Management Console, and open the AWS Lake Formation console.
+
+. Grant Lake Formation administrative permissions to your IAM role.
+.. In the navigation pane, under *Permissions*, choose *Administrative roles and tasks*
+.. Click on *Choose administrators* and enter your current IAM role
 
 . Enable Lake Formation to control your Data Catalog resources.
 .. In the navigation pane, under *Data catalog*, choose *Settings*.
 .. Clear both check boxes and choose *Save*.
 
-. Give your IAM role permission to access the tables in the Data Catalog.
+With administrator access you are able to access the tables in the Data Catalog by default. In order to grant other users access follow the steps below.
+
 .. In the navigation pane, under *Permissions*, choose *Data Lake Permissions*.
 .. Choose *Grant* in the upper right, and do the following:
-* For *IAM users and roles*, enter your current IAM role.
+* For *IAM users and roles*, enter the role/user you wish to grant access to.
 * For *LF-Tags or catalog resources*, choose *Named data catalog resources*.
 * For *Databases*, choose your database: `aws_datalake_<environment>_<team>_<name>_db"` (default `aws_datalake_dev_demoteam_amcdataset_db`).
 * For *Tables*, choose *All Tables*.
 * Keep *Data Filters - Optional* empty.
 * For *Table Permissions*, choose *Super*.
 .. Choose *Grant* at the bottom.
-
-=== Delete deployed resources when finished
-
-When you're finished with the architecture deployed by this solution, delete the resources from your AWS account so that you're no longer charged for them. These resources include S3 buckets, AWS CloudFormation stacks, DDK bootstrap, CodeCommit repos, AWS Key Management Service (AWS KMS) keys, Lambda layers, and Amazon Simple Queue Service (Amazon SQS) queues and rules. To delete all these resources, follow these steps.
-
-. Look into `Makefile`.
-+
-```
-$ cd quickstart-amazon-marketing-cloud
-$ cat MakeFile
-```
-
-. Verify that the following functions are passing the correct stack names.
-
-* The `delete_repositories` function is passing `-d <AMC_REPO_NAME>` (default: `ddk-amc-quickstart`).
-+
-* The `delete_bootstrap` function is passing `--stack-name <BOOTSTRAP_STACK_NAME>` (default: `DdkDevBootstrap`).
-
-. Enter the following command:
-+
-```
-$ make delete_all
-```
-
-Some CloudWatch general log groups may remain in your account with logs specific to {partner-product-name} solution resources. Examples:
-
-* `/aws/sagemaker/NotebookInstances`
-* `/aws-glue/jobs/error`
-* `/aws-glue/jobs/output`
