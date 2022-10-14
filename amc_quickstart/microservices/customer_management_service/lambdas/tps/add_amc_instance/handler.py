@@ -28,6 +28,27 @@ s3 = boto3.client("s3")
 template_url = os.environ['templateUrl']
 prefix = os.environ['Prefix']
 
+
+def check_if_bucket_exists(bucket_name):
+    try:
+        session = boto3.session.Session()
+        s3_resource = session.resource('s3')
+        s3_resource.meta.client.head_bucket(Bucket=bucket_name)
+        logger.info(f"Bucket exists. Bucket creation will be skipped")
+        return True
+    except ClientError as error:
+        error_code = int(error.response['Error']['Code'])
+        if error_code == 403:
+            logger.info(f"Bucket exists but forbidden access. Make sure that you are deploying to the correct AWS account")
+            return True
+        elif error_code == 404:
+            logger.info(f"Bucket does not exist. Bucket will be created in stack")
+            return False
+        else:
+            logger.info(f"{error_code} when trying to check bucket")
+            return False
+
+
 def parse_params(event):
     template_params = [
         {
@@ -61,6 +82,14 @@ def launch_stack(event):
         try:
             logger.info('Parsing Event Message for Parameters')
             template_params = parse_params(event)
+            logger.info(f"Checking if S3 bucket {event['BucketName']} exists")
+            bucket_flag = check_if_bucket_exists(event['BucketName'])
+            template_params.append(
+                {
+                    'ParameterKey': 'pBucketExists',
+                    'ParameterValue': str(bucket_flag)
+                }
+            )
             logger.info('Creating stack {} with pBucketName: {} and pCrossAccountAccessAccountId: {}'.format(stack_name,event['BucketName'],event['CrossAccountAccessAccountId']))
             stack_resp = None
             try:

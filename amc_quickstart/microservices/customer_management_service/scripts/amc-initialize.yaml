@@ -32,9 +32,22 @@ Parameters:
     Type: String
   pResourcePrefix:
     Type: String
+  pBucketExists:
+    Type: String
+    Description: Check if the S3 bucket already exists and deploy only if False
+    AllowedValues:
+      - "True"
+      - "False"
+    Default: "False"
+
+Conditions:
+  DeployBucket: !Equals
+    - !Ref pBucketExists
+    - "False"
 
 Resources:
   rS3Bucket:
+    Condition: DeployBucket
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref pBucketName
@@ -52,7 +65,7 @@ Resources:
   rS3BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref rS3Bucket
+      Bucket: !Ref pBucketName
       PolicyDocument:
         Version: "2012-10-17"
         Id: BucketDeliveryPolicy
