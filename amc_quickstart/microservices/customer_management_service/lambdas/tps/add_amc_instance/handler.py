@@ -34,18 +34,18 @@ def check_if_bucket_exists(bucket_name):
         session = boto3.session.Session()
         s3_resource = session.resource('s3')
         s3_resource.meta.client.head_bucket(Bucket=bucket_name)
-        logger.info(f"Bucket exists. Bucket creation will be skipped")
+        logger.info("Bucket exists. Bucket creation will be skipped")
         return True
     except ClientError as error:
         error_code = int(error.response['Error']['Code'])
         if error_code == 403:
-            logger.info(f"Bucket exists but forbidden access. Make sure that you are deploying to the correct AWS account")
+            logger.info("Bucket exists but forbidden access. Make sure that you are deploying to the correct AWS account")
             return True
         elif error_code == 404:
-            logger.info(f"Bucket does not exist. Bucket will be created in stack")
+            logger.info("Bucket does not exist. Bucket will be created in stack")
             return False
         else:
-            logger.info(f"{error_code} when trying to check bucket")
+            logger.info("Error Code {} when trying to check bucket. Message: {}".format(error.response['Error']['Code'], error.response['Error']['Message']))
             return False
 
 
