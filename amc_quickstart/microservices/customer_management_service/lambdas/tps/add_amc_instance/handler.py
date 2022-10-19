@@ -23,7 +23,6 @@ from botocore.exceptions import ClientError
 logger = Logger(service="AddAMCInstance", level="INFO")
 
 cfn = boto3.client('cloudformation')
-s3 = boto3.client("s3")
 
 template_url = os.environ['templateUrl']
 prefix = os.environ['Prefix']
