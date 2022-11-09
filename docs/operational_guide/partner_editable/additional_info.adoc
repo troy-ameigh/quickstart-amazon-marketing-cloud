@@ -23,10 +23,6 @@ The Workflow Management Service can be used to manage, schedule and execute AMC 
 
 ** Track the status of all workflow executions for customer AMC instances whether they are submitted through WFM or other means (postman, etc.). Having the status synced to DynamoDB allows events to be triggered or notifications to be sent when executions change state. This table can also be used to track historical executions for troubleshooting or performance monitoring.
 
-The WFM Schedules is a workflow scheduling tool built outside of the AMC scheduler. This allows for more fine-grained control using CRON scheduling.
-
-The WFM Library can be used to store workflows and schedules that are automatically loaded in to every new and existing customer record. This allows for quick and easy deployment that will be used across customer accounts without needing to create individual workflows or schedules for each customer.
-
 == Getting started with hydrating your data lake
 To hydrate the data lake and begin populating it with data from your AMC instance, follow these steps. When you’re finished, business stakeholders can use Amazon Athena to access the data returned from the workflow execution.
 
