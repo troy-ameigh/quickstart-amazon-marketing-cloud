@@ -1,0 +1,2202 @@
+{
+ "Parameters": {
+  "datalakelibrarylayerarnssmParameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/Layer/DataLakeLibrary"
+  },
+  "artifactsbucketkeyarnssmParameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/KMS/ArtifactsBucketKeyArn"
+  },
+  "artifactsbucketarnssmParameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/S3/ArtifactsBucketArn"
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/ddk/dev/hnb659fds/bootstrap-version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Resources": {
+  "tpss3deploymentrole2FD406E3": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-s3-deployment-role/Resource"
+   }
+  },
+  "tpss3deploymentroleDefaultPolicyE404F141": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "kms:Decrypt",
+        "kms:Encrypt",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "artifactsbucketkeyarnssmParameter"
+       }
+      },
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::ddk-dev-hnb659fds-assets-440278670152-eu-west-1"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::ddk-dev-hnb659fds-assets-440278670152-eu-west-1/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:DeleteObject*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging",
+        "s3:Abort*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Ref": "artifactsbucketarnssmParameter"
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Ref": "artifactsbucketarnssmParameter"
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "tpss3deploymentroleDefaultPolicyE404F141",
+    "Roles": [
+     {
+      "Ref": "tpss3deploymentrole2FD406E3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-s3-deployment-role/DefaultPolicy/Resource"
+   }
+  },
+  "tpsscripts3deploymentAwsCliLayerD62E48A3": {
+   "Type": "AWS::Lambda::LayerVersion",
+   "Properties": {
+    "Content": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "92c405c4551a308bcdd55823f8b16268bd3c38fd2a011edaaf3ed72a80f557c4.zip"
+    },
+    "Description": "/opt/awscli/aws"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-script-s3-deployment/AwsCliLayer/Resource",
+    "aws:asset:path": "../asset.92c405c4551a308bcdd55823f8b16268bd3c38fd2a011edaaf3ed72a80f557c4.zip",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Content"
+   }
+  },
+  "tpsscripts3deploymentCustomResource4F2F3503": {
+   "Type": "Custom::CDKBucketDeployment",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536",
+      "Arn"
+     ]
+    },
+    "SourceBucketNames": [
+     "ddk-dev-hnb659fds-assets-440278670152-eu-west-1"
+    ],
+    "SourceObjectKeys": [
+     "4b0e512b737a17e7371d59af35073c09071bed38d6b228e9b1ef718b8682dd14.zip"
+    ],
+    "DestinationBucketName": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::Split": [
+        "/",
+        {
+         "Fn::Select": [
+          5,
+          {
+           "Fn::Split": [
+            ":",
+            {
+             "Ref": "artifactsbucketarnssmParameter"
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "DestinationBucketKeyPrefix": "tps/scripts/demoteam",
+    "Prune": true,
+    "SystemMetadata": {
+     "sse": "aws:kms",
+     "sse-kms-key-id": {
+      "Fn::Select": [
+       1,
+       {
+        "Fn::Split": [
+         "/",
+         {
+          "Fn::Select": [
+           5,
+           {
+            "Fn::Split": [
+             ":",
+             {
+              "Ref": "artifactsbucketkeyarnssmParameter"
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-script-s3-deployment/CustomResource/Default"
+   }
+  },
+  "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "f98b78092dcdd31f5e6d47489beb5f804d4835ef86a8085d0a2053cb9ae711da.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "tpss3deploymentrole2FD406E3",
+      "Arn"
+     ]
+    },
+    "Handler": "index.handler",
+    "Layers": [
+     {
+      "Ref": "tpsscripts3deploymentAwsCliLayerD62E48A3"
+     }
+    ],
+    "Runtime": "python3.7",
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "tpss3deploymentroleDefaultPolicyE404F141",
+    "tpss3deploymentrole2FD406E3"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource",
+    "aws:asset:path": "../asset.f98b78092dcdd31f5e6d47489beb5f804d4835ef86a8085d0a2053cb9ae711da",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "demoteamtpssnssqsamckey72CF5653": {
+   "Type": "AWS::KMS::Key",
+   "Properties": {
+    "KeyPolicy": {
+     "Statement": [
+      {
+       "Action": "kms:*",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::440278670152:root"
+          ]
+         ]
+        }
+       },
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "Service": [
+         "s3.amazonaws.com",
+         "sqs.amazonaws.com",
+         "sns.amazonaws.com"
+        ]
+       },
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "KMS Key for AMC Onboarding bucket SNS topic & SQS queue",
+    "EnableKeyRotation": true,
+    "PendingWindowInDays": 30
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/demoteam-tps-sns-sqs-amc-key/Resource"
+   }
+  },
+  "demoteamtpssnssqsamckeyAlias6CED0C0B": {
+   "Type": "AWS::KMS::Alias",
+   "Properties": {
+    "AliasName": "alias/amc-tps-sqs-sns-ingegration-key",
+    "TargetKeyId": {
+     "Fn::GetAtt": [
+      "demoteamtpssnssqsamckey72CF5653",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/demoteam-tps-sns-sqs-amc-key/Alias/Resource"
+   }
+  },
+  "amctpssqssnsingegrationkeyB6358D48": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "demoteamtpssnssqsamckey72CF5653",
+      "Arn"
+     ]
+    },
+    "Name": "/AMC/KMS/demoteam/tps/SQSSNSKMSKey"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/amc-tps-sqs-sns-ingegration-key/Resource"
+   }
+  },
+  "tpsdemoteamCustomerConfigdevtableF53AAA94": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "KeySchema": [
+     {
+      "AttributeName": "customerId",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "customerName",
+      "KeyType": "RANGE"
+     }
+    ],
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "customerId",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "customerName",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": true
+    },
+    "SSESpecification": {
+     "KMSMasterKeyId": {
+      "Fn::GetAtt": [
+       "demoteamtpssnssqsamckey72CF5653",
+       "Arn"
+      ]
+     },
+     "SSEEnabled": true,
+     "SSEType": "KMS"
+    },
+    "StreamSpecification": {
+     "StreamViewType": "NEW_AND_OLD_IMAGES"
+    },
+    "TableName": "tps-demoteam-CustomerConfig-dev"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-CustomerConfig-dev-table/Resource"
+   }
+  },
+  "tpsdemoteamCustomerConfigdevtablearnssm800BAACE": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "tpsdemoteamCustomerConfigdevtableF53AAA94",
+      "Arn"
+     ]
+    },
+    "Name": "/AMC/DynamoDB/tps/demoteam/CustomerConfigTableArn"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-CustomerConfig-dev-table-arn-ssm/Resource"
+   }
+  },
+  "tpsdemoteamdevCustomerAMCInstanceOnboardingqueueDLQfifoF015AFB8": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "ContentBasedDeduplication": true,
+    "DelaySeconds": 10,
+    "FifoQueue": true,
+    "KmsMasterKeyId": {
+     "Fn::GetAtt": [
+      "demoteamtpssnssqsamckey72CF5653",
+      "Arn"
+     ]
+    },
+    "QueueName": "tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue-DLQ.fifo",
+    "VisibilityTimeout": 30
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue-DLQ.fifo/Resource"
+   }
+  },
+  "tpsdemoteamdevCustomerAMCInstanceOnboardingqueueDLQfifoPolicy9AB9231D": {
+   "Type": "AWS::SQS::QueuePolicy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "sqs:AddPermission",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ReceiveMessage",
+        "sqs:RemovePermission",
+        "sqs:SendMessage",
+        "sqs:SetQueueAttributes"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::440278670152:root"
+          ]
+         ]
+        }
+       },
+       "Resource": {
+        "Fn::GetAtt": [
+         "tpsdemoteamdevCustomerAMCInstanceOnboardingqueueDLQfifoF015AFB8",
+         "Arn"
+        ]
+       },
+       "Sid": "QueueOwnerOnlyAccess"
+      },
+      {
+       "Action": "SQS:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": false
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": {
+        "Fn::GetAtt": [
+         "tpsdemoteamdevCustomerAMCInstanceOnboardingqueueDLQfifoF015AFB8",
+         "Arn"
+        ]
+       },
+       "Sid": "HttpsOnly"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Queues": [
+     {
+      "Ref": "tpsdemoteamdevCustomerAMCInstanceOnboardingqueueDLQfifoF015AFB8"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue-DLQ.fifo/Policy/Resource"
+   }
+  },
+  "amctpsdemoteamdevCustomerAMCInstanceOnboardingqueueDLQfifoB6F0705B": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": "tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue-DLQ.fifo",
+    "Name": "/AMC/SQS/tps/demoteam/CustomerAMCInstanceOnboardingDLQ"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue-DLQ.fifo/Resource"
+   }
+  },
+  "tpsdemoteamdevCustomerAMCInstanceOnboardingqueuefifo31F9330E": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "ContentBasedDeduplication": true,
+    "DelaySeconds": 10,
+    "FifoQueue": true,
+    "KmsMasterKeyId": {
+     "Fn::GetAtt": [
+      "demoteamtpssnssqsamckey72CF5653",
+      "Arn"
+     ]
+    },
+    "QueueName": "tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue.fifo",
+    "RedrivePolicy": {
+     "deadLetterTargetArn": {
+      "Fn::GetAtt": [
+       "tpsdemoteamdevCustomerAMCInstanceOnboardingqueueDLQfifoF015AFB8",
+       "Arn"
+      ]
+     },
+     "maxReceiveCount": 10
+    },
+    "VisibilityTimeout": 30
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue.fifo/Resource"
+   }
+  },
+  "tpsdemoteamdevCustomerAMCInstanceOnboardingqueuefifoPolicy311154F5": {
+   "Type": "AWS::SQS::QueuePolicy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "sqs:AddPermission",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ReceiveMessage",
+        "sqs:RemovePermission",
+        "sqs:SendMessage",
+        "sqs:SetQueueAttributes"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::440278670152:root"
+          ]
+         ]
+        }
+       },
+       "Resource": {
+        "Fn::GetAtt": [
+         "tpsdemoteamdevCustomerAMCInstanceOnboardingqueuefifo31F9330E",
+         "Arn"
+        ]
+       },
+       "Sid": "QueueOwnerOnlyAccess"
+      },
+      {
+       "Action": "SQS:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": false
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": {
+        "Fn::GetAtt": [
+         "tpsdemoteamdevCustomerAMCInstanceOnboardingqueuefifo31F9330E",
+         "Arn"
+        ]
+       },
+       "Sid": "HttpsOnly"
+      },
+      {
+       "Action": "sqs:SendMessage",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "sns.amazonaws.com"
+       },
+       "Resource": {
+        "Fn::GetAtt": [
+         "tpsdemoteamdevCustomerAMCInstanceOnboardingqueuefifo31F9330E",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Queues": [
+     {
+      "Ref": "tpsdemoteamdevCustomerAMCInstanceOnboardingqueuefifo31F9330E"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue.fifo/Policy/Resource"
+   }
+  },
+  "amctpsdemoteamdevCustomerAMCInstanceOnboardingqueuefifo183337A0": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": "tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue.fifo",
+    "Name": "/AMC/SQS/tps/demoteam/CustomerAMCInstanceOnboardingQueue"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue.fifo/Resource"
+   }
+  },
+  "tpsdemoteamCustomerConfigSNSTopicdevfifo1A7CC7C8": {
+   "Type": "AWS::SNS::Topic",
+   "Properties": {
+    "ContentBasedDeduplication": true,
+    "FifoTopic": true,
+    "KmsMasterKeyId": {
+     "Fn::GetAtt": [
+      "demoteamtpssnssqsamckey72CF5653",
+      "Arn"
+     ]
+    },
+    "TopicName": "tps-demoteam-CustomerConfig-SNSTopic-dev.fifo"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-CustomerConfig-SNSTopic-dev.fifo/Resource"
+   }
+  },
+  "Subscription391C9821": {
+   "Type": "AWS::SNS::Subscription",
+   "Properties": {
+    "Protocol": "sqs",
+    "TopicArn": {
+     "Ref": "tpsdemoteamCustomerConfigSNSTopicdevfifo1A7CC7C8"
+    },
+    "Endpoint": {
+     "Fn::GetAtt": [
+      "tpsdemoteamdevCustomerAMCInstanceOnboardingqueuefifo31F9330E",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/Subscription/Resource"
+   }
+  },
+  "amctpsdemoteamsnscustomerconfigtopicssm0CCD1D12": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": "tps-demoteam-CustomerConfig-SNSTopic-dev.fifo",
+    "Name": "/AMC/SNS/tps/demoteam/CustomerConfigTopicName"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-sns-customer-config-topic-ssm/Resource"
+   }
+  },
+  "AddAMCInstanceRole5BDC11E2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    },
+    "Policies": [
+     {
+      "PolicyDocument": {
+       "Statement": [
+        {
+         "Action": [
+          "s3:CreateBucket",
+          "s3:ListBucket",
+          "s3:PutBucketPolicy",
+          "s3:PutBucketAcl",
+          "s3:PutBucketPublicAccessBlock",
+          "s3:PutAccountPublicAccessBlock",
+          "s3:GetAccountPublicAccessBlock",
+          "s3:GetBucketPublicAccessBlock",
+          "s3:PutBucketEncryption",
+          "s3:PutBucketNotification",
+          "s3:PutBucketNotificationConfiguration",
+          "s3:PutBucketTagging",
+          "s3:SetBucketEncryption",
+          "s3:GetBucketAcl",
+          "s3:GetBucketNotification",
+          "s3:GetBucketEncryption",
+          "s3:GetEncryptionConfiguration",
+          "s3:PutEncryptionConfiguration",
+          "s3:GetBucketPolicy",
+          "s3:GetBucketPolicyStatus",
+          "s3:DeleteBucketPolicy"
+         ],
+         "Effect": "Allow",
+         "Resource": "*"
+        },
+        {
+         "Action": "s3:DeleteBucket",
+         "Effect": "Allow",
+         "Resource": "arn:aws:s3:::amc*"
+        },
+        {
+         "Action": [
+          "s3:GetObject",
+          "s3:PutObject"
+         ],
+         "Effect": "Allow",
+         "Resource": "arn:aws:s3:::*/tps/*"
+        },
+        {
+         "Action": "kms:CreateKey",
+         "Effect": "Allow",
+         "Resource": "*"
+        },
+        {
+         "Action": [
+          "kms:TagResource",
+          "kms:CreateAlias",
+          "kms:UpdateAlias",
+          "kms:DescribeKey",
+          "kms:PutKeyPolicy",
+          "kms:ScheduleKeyDeletion"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          {
+           "Fn::Join": [
+            "",
+            [
+             "arn:aws:kms:",
+             {
+              "Ref": "AWS::Region"
+             },
+             ":",
+             {
+              "Ref": "AWS::AccountId"
+             },
+             ":key/*"
+            ]
+           ]
+          },
+          {
+           "Fn::Join": [
+            "",
+            [
+             "arn:aws:kms:",
+             {
+              "Ref": "AWS::Region"
+             },
+             ":",
+             {
+              "Ref": "AWS::AccountId"
+             },
+             ":alias/*"
+            ]
+           ]
+          }
+         ]
+        },
+        {
+         "Action": "iam:PassRole",
+         "Effect": "Allow",
+         "Resource": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:aws:iam::",
+            {
+             "Ref": "AWS::AccountId"
+            },
+            ":role/service-role/tps*"
+           ]
+          ]
+         }
+        },
+        {
+         "Action": [
+          "cloudformation:GetTemplate",
+          "cloudformation:GetTemplateSummary",
+          "cloudformation:ListStacks",
+          "cloudformation:ValidateTemplate"
+         ],
+         "Effect": "Allow",
+         "Resource": "*"
+        },
+        {
+         "Action": [
+          "cloudformation:CreateChangeSet",
+          "cloudformation:CreateStack",
+          "cloudformation:DeleteChangeSet",
+          "cloudformation:DeleteStack",
+          "cloudformation:DescribeChangeSet",
+          "cloudformation:DescribeStacks",
+          "cloudformation:ExecuteChangeSet",
+          "cloudformation:SetStackPolicy",
+          "cloudformation:UpdateStack"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          {
+           "Fn::Join": [
+            "",
+            [
+             "arn:aws:cloudformation:",
+             {
+              "Ref": "AWS::Region"
+             },
+             ":",
+             {
+              "Ref": "AWS::AccountId"
+             },
+             ":stack/amc-*"
+            ]
+           ]
+          },
+          {
+           "Fn::Join": [
+            "",
+            [
+             "arn:aws:cloudformation:",
+             {
+              "Ref": "AWS::Region"
+             },
+             ":",
+             {
+              "Ref": "AWS::AccountId"
+             },
+             ":stack/tps-*"
+            ]
+           ]
+          },
+          {
+           "Fn::Join": [
+            "",
+            [
+             "arn:aws:cloudformation:",
+             {
+              "Ref": "AWS::Region"
+             },
+             ":aws:transform/*"
+            ]
+           ]
+          }
+         ]
+        },
+        {
+         "Action": [
+          "events:PutTargets",
+          "events:PutPermission",
+          "events:PutPartnerEvents",
+          "events:PutRule",
+          "events:PutEvents",
+          "events:CreatePartnerEventSource",
+          "events:CreateEventBus",
+          "events:CreateApiDestination",
+          "events:CreateArchive",
+          "events:CreateConnection",
+          "events:ListRuleNamesByTarget",
+          "events:ListRules",
+          "events:ListTargetsByRule",
+          "events:ListTagsForResource",
+          "events:ListEventSources",
+          "events:ListEventBuses",
+          "events:DescribeEventSource",
+          "events:DescribeEventBus",
+          "events:DescribeRule",
+          "events:EnableRule",
+          "event:ActivateEventSource",
+          "event:DeactivateEventSource",
+          "event:DeleteRule",
+          "event:RemoveTargets",
+          "lambda:AddPermission",
+          "lambda:RemovePermission"
+         ],
+         "Effect": "Allow",
+         "Resource": "*"
+        }
+       ],
+       "Version": "2012-10-17"
+      },
+      "PolicyName": "AddAMCPolicy"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/Add AMC Instance Role/Resource"
+   }
+  },
+  "AddAMCInstanceRoleDefaultPolicy744A3AD1": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "kms:Decrypt",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "artifactsbucketkeyarnssmParameter"
+       }
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters",
+        "ssm:PutParameter",
+        "ssm:DeleteParameter",
+        "ssm:AddTagsToResource"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sns:GetTopicAttributes",
+        "sns:CreateTopic",
+        "sns:ListTopics",
+        "sns:SetTopicAttributes",
+        "sns:DeleteTopic"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "tpsdemoteamCustomerConfigSNSTopicdevfifo1A7CC7C8"
+       }
+      },
+      {
+       "Action": [
+        "kms:TagResource",
+        "kms:CreateAlias",
+        "kms:UpdateAlias",
+        "kms:DescribeKey",
+        "kms:PutKeyPolicy",
+        "kms:ScheduleKeyDeletion"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "demoteamtpssnssqsamckey72CF5653",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "AddAMCInstanceRoleDefaultPolicy744A3AD1",
+    "Roles": [
+     {
+      "Ref": "AddAMCInstanceRole5BDC11E2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/Add AMC Instance Role/DefaultPolicy/Resource"
+   }
+  },
+  "tpsdemoteamAddAmcInstancedev0ED22CC4": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "aff484b197cbd274a660a9d1a400f84c3e22f85de56c8621a84a39e6fe20a432.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "AddAMCInstanceRole5BDC11E2",
+      "Arn"
+     ]
+    },
+    "Description": "Onboard AMC into environment",
+    "Environment": {
+     "Variables": {
+      "templateUrl": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::Select": [
+           0,
+           {
+            "Fn::Split": [
+             "/",
+             {
+              "Fn::Select": [
+               5,
+               {
+                "Fn::Split": [
+                 ":",
+                 {
+                  "Ref": "artifactsbucketarnssmParameter"
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         ".s3.amazonaws.com/tps/scripts/demoteam/amc-initialize.yaml"
+        ]
+       ]
+      },
+      "lambdaRoleArn": {
+       "Fn::GetAtt": [
+        "AddAMCInstanceRole5BDC11E2",
+        "Arn"
+       ]
+      },
+      "Prefix": "amc",
+      "ENV": "dev"
+     }
+    },
+    "FunctionName": "tps-demoteam-AddAmcInstance-dev",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:lambda:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":017000801446:layer:AWSLambdaPowertoolsPython:7"
+       ]
+      ]
+     }
+    ],
+    "MemorySize": 256,
+    "Runtime": "python3.8",
+    "Timeout": 600
+   },
+   "DependsOn": [
+    "AddAMCInstanceRoleDefaultPolicy744A3AD1",
+    "AddAMCInstanceRole5BDC11E2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-AddAmcInstance-dev/Resource",
+    "aws:asset:path": "../asset.aff484b197cbd274a660a9d1a400f84c3e22f85de56c8621a84a39e6fe20a432",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "tpsdemoteamAddAmcInstanceStatusCheckdevA2D3370C": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "b222ed70565488057b95da8643cf6244fe47fafb62894a1c3d21ca9bfb67de46.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "AddAMCInstanceRole5BDC11E2",
+      "Arn"
+     ]
+    },
+    "Description": "Checks if stack has finished (success/failure)",
+    "FunctionName": "tps-demoteam-AddAmcInstanceStatusCheck-dev",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:lambda:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":017000801446:layer:AWSLambdaPowertoolsPython:7"
+       ]
+      ]
+     }
+    ],
+    "MemorySize": 256,
+    "Runtime": "python3.8",
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "AddAMCInstanceRoleDefaultPolicy744A3AD1",
+    "AddAMCInstanceRole5BDC11E2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-AddAmcInstanceStatusCheck-dev/Resource",
+    "aws:asset:path": "../asset.b222ed70565488057b95da8643cf6244fe47fafb62894a1c3d21ca9bfb67de46",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "tpsdemoteampostDeployMetadataInstanceConfigdevServiceRole7C0E0FFF": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-postDeployMetadataInstanceConfig-dev/ServiceRole/Resource"
+   }
+  },
+  "tpsdemoteampostDeployMetadataInstanceConfigdevServiceRoleDefaultPolicyBC61FA54": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:s3:::*/tps/*"
+      },
+      {
+       "Action": [
+        "s3:CreateBucket",
+        "s3:PutBucketPolicy",
+        "s3:ListBucket"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Condition": {
+        "ForAnyValue:StringLike": {
+         "kms:ResourceAliases": "alias/amc-*"
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:PutItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/amc-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/wfm-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/tps-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/sas-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters",
+        "ssm:PutParameter",
+        "ssm:DeleteParameter",
+        "ssm:AddTagsToResource"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sns:GetTopicAttributes",
+        "sns:CreateTopic",
+        "sns:ListTopics",
+        "sns:SetTopicAttributes",
+        "sns:DeleteTopic"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "tpsdemoteamCustomerConfigSNSTopicdevfifo1A7CC7C8"
+       }
+      },
+      {
+       "Action": [
+        "kms:TagResource",
+        "kms:CreateAlias",
+        "kms:UpdateAlias",
+        "kms:DescribeKey",
+        "kms:PutKeyPolicy",
+        "kms:ScheduleKeyDeletion"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "demoteamtpssnssqsamckey72CF5653",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "tpsdemoteampostDeployMetadataInstanceConfigdevServiceRoleDefaultPolicyBC61FA54",
+    "Roles": [
+     {
+      "Ref": "tpsdemoteampostDeployMetadataInstanceConfigdevServiceRole7C0E0FFF"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-postDeployMetadataInstanceConfig-dev/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "tpsdemoteampostDeployMetadataInstanceConfigdev6D4674A4": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "d5473b984ee2025e11bec8bf8508c9800faea5ec022271236b0c6c1e47ef120d.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "tpsdemoteampostDeployMetadataInstanceConfigdevServiceRole7C0E0FFF",
+      "Arn"
+     ]
+    },
+    "Description": "Onboard AMC into environment",
+    "Environment": {
+     "Variables": {
+      "AccountId": {
+       "Ref": "AWS::AccountId"
+      },
+      "Region": {
+       "Ref": "AWS::Region"
+      },
+      "Prefix": "amc",
+      "ENV": "dev"
+     }
+    },
+    "FunctionName": "tps-demoteam-postDeployMetadataInstanceConfig-dev",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Ref": "datalakelibrarylayerarnssmParameter"
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:lambda:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":017000801446:layer:AWSLambdaPowertoolsPython:7"
+       ]
+      ]
+     }
+    ],
+    "MemorySize": 512,
+    "Runtime": "python3.8",
+    "Timeout": 600
+   },
+   "DependsOn": [
+    "tpsdemoteampostDeployMetadataInstanceConfigdevServiceRoleDefaultPolicyBC61FA54",
+    "tpsdemoteampostDeployMetadataInstanceConfigdevServiceRole7C0E0FFF"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-postDeployMetadataInstanceConfig-dev/Resource",
+    "aws:asset:path": "../asset.d5473b984ee2025e11bec8bf8508c9800faea5ec022271236b0c6c1e47ef120d",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "tpsdemoteaminitializeamcsfnjobrole45D6E153": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "states.eu-west-1.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-initialize-amc-sfn-job-role/Resource"
+   }
+  },
+  "tpsdemoteaminitializeamcsfnjobpolicy4CC618CF": {
+   "Type": "AWS::IAM::ManagedPolicy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:lambda:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":function:amc-tps-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:lambda:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":function:tps-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "states:DescribeExecution",
+        "states:StopExecution"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "events:DescribeRule",
+        "events:PutTargets",
+        "events:PutRule"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:events:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":rule/StepFunctionsGetEventsForStepFunctionsExecutionRule"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "",
+    "Path": "/",
+    "Roles": [
+     {
+      "Ref": "tpsdemoteaminitializeamcsfnjobrole45D6E153"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-initialize-amc-sfn-job-policy/Resource"
+   }
+  },
+  "tpsdemoteaminitializeamc": {
+   "Type": "AWS::StepFunctions::StateMachine",
+   "Properties": {
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "tpsdemoteaminitializeamcsfnjobrole45D6E153",
+      "Arn"
+     ]
+    },
+    "DefinitionString": {
+     "Fn::Join": [
+      "",
+      [
+       "{\n    \"Comment\": \"Simple pseudo flow\",\n    \"StartAt\": \"Try\",\n    \"States\": {\n        \"Try\": {\n            \"Type\": \"Parallel\",\n            \"Branches\": [\n                {\n                    \"StartAt\": \"Process AMC Instance Request\",\n                    \"States\": {\n                        \"Process AMC Instance Request\": {\n                            \"Type\": \"Task\",\n                            \"Resource\": \"",
+       {
+        "Fn::GetAtt": [
+         "tpsdemoteamAddAmcInstancedev0ED22CC4",
+         "Arn"
+        ]
+       },
+       "\",\n                            \"Comment\": \"Process AMC Instance Request\",\n                            \"ResultPath\": \"$.body.stackId\",\n                            \"Next\": \"Wait\"\n                        },\n                        \"Wait\": {\n                            \"Type\": \"Wait\",\n                            \"Seconds\": 45,\n                            \"Next\": \"Get Stack status\"\n                        },\n                        \"Get Stack status\": {\n                            \"Type\": \"Task\",\n                            \"Resource\": \"",
+       {
+        "Fn::GetAtt": [
+         "tpsdemoteamAddAmcInstanceStatusCheckdevA2D3370C",
+         "Arn"
+        ]
+       },
+       "\",\n                            \"ResultPath\": \"$.body.stackStatus\",\n                            \"Next\": \"Did Job finish?\"\n                        },\n                        \"Did Job finish?\": {\n                            \"Type\": \"Choice\",\n                            \"Choices\": [\n                                {\n                                    \"Variable\": \"$.body.stackStatus\",\n                                    \"StringEquals\": \"CREATE_COMPLETE\",\n                                    \"Next\": \"Post-deploy update sdlf config\"\n                                },\n                                {\n                                    \"Variable\": \"$.body.stackStatus\",\n                                    \"StringEquals\": \"UPDATE_COMPLETE\",\n                                    \"Next\": \"Post-deploy update sdlf config\"\n                                },\n                                {\n                                    \"Variable\": \"$.body.stackStatus\",\n                                    \"StringEquals\": \"FAILED\",\n                                    \"Next\": \"Stack Failed\"\n                                }\n                            ],\n                            \"Default\": \"Wait\"\n                        },\n                        \"Stack Failed\": {\n                            \"Type\": \"Fail\",\n                            \"Error\": \"Stack Failed\",\n                            \"Cause\": \"Stack failed, please check the logs\"\n                        },\n                        \"Post-deploy update sdlf config\": {\n                            \"Type\": \"Task\",\n                            \"Resource\": \"",
+       {
+        "Fn::GetAtt": [
+         "tpsdemoteampostDeployMetadataInstanceConfigdev6D4674A4",
+         "Arn"
+        ]
+       },
+       "\",\n                            \"Comment\": \"Post-deploy update sdlf config\",\n                            \"ResultPath\": \"$.statusCode\",\n                            \"End\": true\n                        }\n                    }\n                }\n            ],\n            \"Catch\": [\n                {\n                    \"ErrorEquals\": [\n                        \"States.ALL\"\n                    ],\n                    \"ResultPath\": null,\n                    \"Next\": \"Failed\"\n                }\n            ],\n            \"Next\": \"Done\"\n        },\n        \"Done\": {\n            \"Type\": \"Succeed\"\n        },\n        \"Failed\": {\n            \"Type\": \"Fail\"\n        }\n    }\n}"
+      ]
+     ]
+    },
+    "StateMachineName": "tps-demoteam-initialize-amc"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-initialize-amc"
+   }
+  },
+  "tpsdemoteaminitializeamcsmD0864C59": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "tpsdemoteaminitializeamc",
+      "Arn"
+     ]
+    },
+    "Name": "/AMC/SM/tps/demoteam/InitializeAMC"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-initialize-amc-sm/Resource"
+   }
+  },
+  "amctpsdemoteamCustomerConfigDynamoDBTriggerdevServiceRole65305452": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-CustomerConfigDynamoDBTrigger-dev/ServiceRole/Resource"
+   }
+  },
+  "amctpsdemoteamCustomerConfigDynamoDBTriggerdevServiceRoleDefaultPolicy822A1035": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:GenerateDataKey"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "demoteamtpssnssqsamckey72CF5653",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": [
+        "dynamodb:ListTables",
+        "dynamodb:ListGlobalTables",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:DescribeStream",
+        "dynamodb:ListStreams",
+        "dynamodb:ListShards"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:*:*:table/",
+           {
+            "Ref": "tpsdemoteamCustomerConfigdevtableF53AAA94"
+           }
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:*:*:table/",
+           {
+            "Ref": "tpsdemoteamCustomerConfigdevtableF53AAA94"
+           },
+           "/*"
+          ]
+         ]
+        },
+        "arn:aws:dynamodb:*:*:table/wfm-*",
+        "arn:aws:dynamodb:*:*:table/tps-*",
+        "arn:aws:dynamodb:*:*:table/sas-*"
+       ]
+      },
+      {
+       "Action": "sns:Publish",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "tpsdemoteamCustomerConfigSNSTopicdevfifo1A7CC7C8"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "amctpsdemoteamCustomerConfigDynamoDBTriggerdevServiceRoleDefaultPolicy822A1035",
+    "Roles": [
+     {
+      "Ref": "amctpsdemoteamCustomerConfigDynamoDBTriggerdevServiceRole65305452"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-CustomerConfigDynamoDBTrigger-dev/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "amctpsdemoteamCustomerConfigDynamoDBTriggerdev458F0977": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "4a31e88a0b4de223d7673a02f9faee83e6011d55fd7fb900418a1ef0cfb22e68.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "amctpsdemoteamCustomerConfigDynamoDBTriggerdevServiceRole65305452",
+      "Arn"
+     ]
+    },
+    "Description": "An Amazon DynamoDB trigger that pushes the updates made to the customer config table to an SNS topic",
+    "Environment": {
+     "Variables": {
+      "SNS_TOPIC_ARN": {
+       "Ref": "tpsdemoteamCustomerConfigSNSTopicdevfifo1A7CC7C8"
+      }
+     }
+    },
+    "FunctionName": "amc-tps-demoteam-CustomerConfigDynamoDBTrigger-dev",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:lambda:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":017000801446:layer:AWSLambdaPowertoolsPython:7"
+       ]
+      ]
+     }
+    ],
+    "MemorySize": 2048,
+    "Runtime": "python3.8",
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "amctpsdemoteamCustomerConfigDynamoDBTriggerdevServiceRoleDefaultPolicy822A1035",
+    "amctpsdemoteamCustomerConfigDynamoDBTriggerdevServiceRole65305452"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-CustomerConfigDynamoDBTrigger-dev/Resource",
+    "aws:asset:path": "../asset.4a31e88a0b4de223d7673a02f9faee83e6011d55fd7fb900418a1ef0cfb22e68",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "amctpsdemoteamCustomerConfigDynamoDBTriggerdevlambdaddbeventsourcemapping8B19760D": {
+   "Type": "AWS::Lambda::EventSourceMapping",
+   "Properties": {
+    "FunctionName": {
+     "Ref": "amctpsdemoteamCustomerConfigDynamoDBTriggerdev458F0977"
+    },
+    "BatchSize": 100,
+    "EventSourceArn": {
+     "Fn::GetAtt": [
+      "tpsdemoteamCustomerConfigdevtableF53AAA94",
+      "StreamArn"
+     ]
+    },
+    "MaximumRetryAttempts": 1,
+    "StartingPosition": "TRIM_HORIZON"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-CustomerConfigDynamoDBTrigger-dev/lambda-ddb-event-source-mapping/Resource"
+   }
+  },
+  "tpsdemoteamTriggerAMCSetupStepFunctiondevServiceRoleF45C53A3": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-TriggerAMCSetupStepFunction-dev/ServiceRole/Resource"
+   }
+  },
+  "tpsdemoteamTriggerAMCSetupStepFunctiondevServiceRoleDefaultPolicy4DB608F4": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "kms:Decrypt",
+        "kms:DescribeKey"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "demoteamtpssnssqsamckey72CF5653",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:states:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":stateMachine:tps-demoteam-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:ListQueues",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:ListQueueTags",
+        "sqs:ReceiveMessage",
+        "sqs:SendMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:GetQueueUrl"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:sqs:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":tps-demoteam-dev-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "tpsdemoteamTriggerAMCSetupStepFunctiondevServiceRoleDefaultPolicy4DB608F4",
+    "Roles": [
+     {
+      "Ref": "tpsdemoteamTriggerAMCSetupStepFunctiondevServiceRoleF45C53A3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-TriggerAMCSetupStepFunction-dev/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "tpsdemoteamTriggerAMCSetupStepFunctiondevA663FB9A": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "a47a834d83f1951d2394b80b970ca38216f1ebee8ba605ba52a875576b8a30d2.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "tpsdemoteamTriggerAMCSetupStepFunctiondevServiceRoleF45C53A3",
+      "Arn"
+     ]
+    },
+    "Description": "Trigger AMC Instance setup state machine",
+    "Environment": {
+     "Variables": {
+      "STATE_MACHINE_ARN": {
+       "Fn::GetAtt": [
+        "tpsdemoteaminitializeamc",
+        "Arn"
+       ]
+      }
+     }
+    },
+    "FunctionName": "tps-demoteam-TriggerAMCSetupStepFunction-dev",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:lambda:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":017000801446:layer:AWSLambdaPowertoolsPython:7"
+       ]
+      ]
+     }
+    ],
+    "MemorySize": 128,
+    "Runtime": "python3.8",
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "tpsdemoteamTriggerAMCSetupStepFunctiondevServiceRoleDefaultPolicy4DB608F4",
+    "tpsdemoteamTriggerAMCSetupStepFunctiondevServiceRoleF45C53A3"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/tps-demoteam-TriggerAMCSetupStepFunction-dev/Resource",
+    "aws:asset:path": "../asset.a47a834d83f1951d2394b80b970ca38216f1ebee8ba605ba52a875576b8a30d2",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "MyEventSourceMapping8CE517B4": {
+   "Type": "AWS::Lambda::EventSourceMapping",
+   "Properties": {
+    "FunctionName": {
+     "Ref": "tpsdemoteamTriggerAMCSetupStepFunctiondevA663FB9A"
+    },
+    "BatchSize": 10,
+    "Enabled": true,
+    "EventSourceArn": {
+     "Fn::GetAtt": [
+      "tpsdemoteamdevCustomerAMCInstanceOnboardingqueuefifo31F9330E",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/MyEventSourceMapping/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2VSy07DMBD8lt5dU5ovaAtcoFJpKq7RxllaEz+C16aKovw7jtNHEJfs7Hhm5R1nyZcLvpjBmeaiqudKlrzLPYia7ZFscALZ5tPswIFGj45FYdFRxtdB1OjXQMgkaN7trUrKVHdWSdEm44i2YOCI1Z3/Q/SMsqKrsFG21Wj8ZfjTjWBAhJ74aig9U6DLCngX57xBi+4DHUlrWC7NUaG35iUY4QfmBqL0hp9/4sg87baFpomm4fg/27NaE+9eMd14KCslgYYmgXht0kNaLorvCU3j6lnVGtC2iqkeoBwjSiCav+Pw94AhkSNI33tKkzbqTdQfbCNFGpJAHkoSTjbXHad9dHhsPi9bEx+OPfi4nThJg9cYCzVEWMR3FUry1Zk2SqZUWUo7Wo4poUDe6uk/ccU927X+ZM1Dxh8XPJt9kZRzF4yXGvl+rL+fsRteZgIAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-tps/CDKMetadata/Default"
+   }
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

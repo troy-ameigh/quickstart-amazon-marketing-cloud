@@ -1,0 +1,2528 @@
+{
+  "version": "17.0.0",
+  "artifacts": {
+    "AMCdevQuickStartamcfoundations050F5B40.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "AMCdevQuickStartamcfoundations050F5B40.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version"
+      }
+    },
+    "AMCdevQuickStartamcfoundations050F5B40": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://440278670152/eu-west-1",
+      "properties": {
+        "templateFile": "AMCdevQuickStartamcfoundations050F5B40.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-deploy-440278670152-eu-west-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-cfn-exec-440278670152-eu-west-1",
+        "stackTemplateAssetObjectUrl": "s3://ddk-dev-hnb659fds-assets-440278670152-eu-west-1/17e0f5e2b00e0cca4139745fc484209952834e2b7e686b73e34abab3767bda54.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version",
+        "additionalDependencies": [
+          "AMCdevQuickStartamcfoundations050F5B40.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-lookup-440278670152-eu-west-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version"
+        },
+        "stackName": "AMC-dev-QuickStart-amc-foundations"
+      },
+      "dependencies": [
+        "AMCdevQuickStartamcfoundations050F5B40.assets"
+      ],
+      "metadata": {
+        "/AMC-dev-QuickStart/amc-foundations/amc-data-lake-customer-config-dev-table-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdatalakecustomerconfigdevtablekey640FF238"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-data-lake-customer-config-dev-table-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdatalakecustomerconfigdevtablekeyAliasE71131BA"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-data-lake-customer-config-dev-table-key-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdatalakecustomerconfigdevtablekeyarnssmCA28FB72"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-data-lake-customer-config-dev-table": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "amcdatalakecustomerconfigdevtable655BAC15"
+            }
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-data-lake-customer-config-dev-table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdatalakecustomerconfigdevtable655BAC15"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-data-lake-customer-config-dev-table-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdatalakecustomerconfigdevtablearnssmC2C9567E"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-ObjectMetadata-dev-table-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonObjectMetadatadevtablekey40A10CEA"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-ObjectMetadata-dev-table-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonObjectMetadatadevtablekeyAlias6F6BA249"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-ObjectMetadata-dev-table-key-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonObjectMetadatadevtablekeyarnssm3F0FC594"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-ObjectMetadata-dev-table-key-id-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonObjectMetadatadevtablekeyidssm2851394E"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-ObjectMetadata-dev-table": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "octagonObjectMetadatadevtableFCE56C80"
+            }
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-ObjectMetadata-dev-table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonObjectMetadatadevtableFCE56C80"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-ObjectMetadata-dev-table-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonObjectMetadatadevtablearnssmD2801663"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-ObjectMetadata-dev-table-name-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonObjectMetadatadevtablenamessm21E37F4F"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Datasets-dev-table-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonDatasetsdevtablekey8D220625"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Datasets-dev-table-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonDatasetsdevtablekeyAliasE616543D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Datasets-dev-table-key-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonDatasetsdevtablekeyarnssm599E1F48"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Datasets-dev-table-key-id-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonDatasetsdevtablekeyidssmDB51D49D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Datasets-dev-table": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "octagonDatasetsdevtable95526CA7"
+            }
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Datasets-dev-table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonDatasetsdevtable95526CA7"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Datasets-dev-table-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonDatasetsdevtablearnssm07811F1F"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Datasets-dev-table-name-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonDatasetsdevtablenamessmD27313A3"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Pipelines-dev-table-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelinesdevtablekey5EBB60C6"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Pipelines-dev-table-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelinesdevtablekeyAlias4F3FFFA0"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Pipelines-dev-table-key-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelinesdevtablekeyarnssm3703822E"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Pipelines-dev-table-key-id-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelinesdevtablekeyidssmEA16D6D8"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Pipelines-dev-table": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "octagonPipelinesdevtableC51D0A14"
+            }
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Pipelines-dev-table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelinesdevtableC51D0A14"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Pipelines-dev-table-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelinesdevtablearnssm101D2B02"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-Pipelines-dev-table-name-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelinesdevtablenamessmD148CFBC"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-PipelineExecutionHistory-dev-table-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelineExecutionHistorydevtablekeyA0B30BEE"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-PipelineExecutionHistory-dev-table-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelineExecutionHistorydevtablekeyAlias1DE2C89B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-PipelineExecutionHistory-dev-table-key-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelineExecutionHistorydevtablekeyarnssm21ADDB84"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-PipelineExecutionHistory-dev-table-key-id-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelineExecutionHistorydevtablekeyidssmD1F00D45"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-PipelineExecutionHistory-dev-table": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "octagonPipelineExecutionHistorydevtableF22AE839"
+            }
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-PipelineExecutionHistory-dev-table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelineExecutionHistorydevtableF22AE839"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-PipelineExecutionHistory-dev-table-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelineExecutionHistorydevtablearnssmF19D5585"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/octagon-PipelineExecutionHistory-dev-table-name-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "octagonPipelineExecutionHistorydevtablenamessmFD742161"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/register-function/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "registerfunctionServiceRole2E42059C"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/register-function/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "registerfunctionServiceRoleDefaultPolicy88CC0A92"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/register-function/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "registerfunctionEA54F590"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/register-provider/framework-onEvent/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "registerproviderframeworkonEventServiceRoleFF883D11"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/register-provider/framework-onEvent/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "registerproviderframeworkonEventServiceRoleDefaultPolicy5BD96E0C"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/register-provider/framework-onEvent/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "registerproviderframeworkonEventFD900690"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/register-service-token-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "registerservicetokenssm0E7CD31A"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-data-lake-routing-function/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdatalakeroutingfunctionServiceRole5FC9325E"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-data-lake-routing-function/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdatalakeroutingfunctionServiceRoleDefaultPolicyA3DE6A4F"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-data-lake-routing-function/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdatalakeroutingfunction45B9BC45"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-data-lake-routing-function/invoke-lambda-eventbridge": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdatalakeroutingfunctioninvokelambdaeventbridge9599EF1A"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-data-lake-routing-lambda-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdatalakeroutinglambdassmEB640128"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/lakeformation-bucket-registration-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lakeformationbucketregistrationroleE25C15C2"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-raw-bucket-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcrawbucketkey2421CE9C"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-raw-bucket-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcrawbucketkeyAlias1811AE27"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-raw-bucket-key-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcrawbucketkeyarnssm88BF00F9"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-raw-bucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcrawbucketB73209C2"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-raw-bucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcrawbucketPolicyDE10F6A5"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-raw-bucket-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcrawbucketarnssmE2CCA4DE"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-raw-bucket-name-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcrawbucketnamessm0DEEC2ED"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-raw-bucket-lakeformation-registration": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcrawbucketlakeformationregistration"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-stage-bucket-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcstagebucketkeyD1FEC8FA"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-stage-bucket-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcstagebucketkeyAliasC106FF93"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-stage-bucket-key-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcstagebucketkeyarnssmAC3816C9"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-stage-bucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcstagebucket0D096942"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-stage-bucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcstagebucketPolicy444280DB"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-stage-bucket-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcstagebucketarnssm9E580FD1"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-stage-bucket-name-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcstagebucketnamessm2AD8DCD9"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-stage-bucket-lakeformation-registration": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcstagebucketlakeformationregistration"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-analytics-bucket-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcanalyticsbucketkey91F00115"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-analytics-bucket-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcanalyticsbucketkeyAlias5E495FAF"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-analytics-bucket-key-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcanalyticsbucketkeyarnssm37C78A09"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-analytics-bucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcanalyticsbucketD7F3310B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-analytics-bucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcanalyticsbucketPolicy7E8BE02F"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-analytics-bucket-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcanalyticsbucketarnssm5F71C901"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-analytics-bucket-name-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcanalyticsbucketnamessm1719C212"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-analytics-bucket-lakeformation-registration": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcanalyticsbucketlakeformationregistration"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-artifacts-bucket-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcartifactsbucketkeyEFD11087"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-artifacts-bucket-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcartifactsbucketkeyAlias4B4D8973"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-artifacts-bucket-key-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcartifactsbucketkeyarnssmDC58823D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-artifacts-bucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcartifactsbucket59EC3FBC"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-artifacts-bucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcartifactsbucketPolicyB8F7CCBD"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-artifacts-bucket-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcartifactsbucketarnssm2117A2BB"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-artifacts-bucket-name-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcartifactsbucketnamessm37F18AF9"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-artifacts-bucket-lakeformation-registration": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcartifactsbucketlakeformationregistration"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-athena-bucket-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcathenabucketkeyAAD3FDB1"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-athena-bucket-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcathenabucketkeyAlias0CC50C83"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-athena-bucket-key-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcathenabucketkeyarnssm5E291A0E"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-athena-bucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcathenabucketCB8DBE02"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-athena-bucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcathenabucketPolicy22E013D7"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-athena-bucket-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcathenabucketarnssmE9A31B11"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-athena-bucket-name-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcathenabucketnamessm8F6DEE33"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc-athena-bucket-lakeformation-registration": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcathenabucketlakeformationregistration"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/wrangler-layers": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wranglerlayers"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/data-lake-library-layer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "datalakelibrarylayerD190EE1A"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/data_lake_library_layer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "datalakelibrarylayer940B92A1"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc Trail/S3/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcTrailS3C68A70D9"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc Trail/S3/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcTrailS3PolicyCFC285E2"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/amc Trail/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcTrail1EFD3F1C"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-foundations/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "AMC-dev-QuickStart/amc-foundations"
+    },
+    "AMCdevQuickStartamcdatalakepipeline56435D1B.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "AMCdevQuickStartamcdatalakepipeline56435D1B.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version"
+      }
+    },
+    "AMCdevQuickStartamcdatalakepipeline56435D1B": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://440278670152/eu-west-1",
+      "properties": {
+        "templateFile": "AMCdevQuickStartamcdatalakepipeline56435D1B.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-deploy-440278670152-eu-west-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-cfn-exec-440278670152-eu-west-1",
+        "stackTemplateAssetObjectUrl": "s3://ddk-dev-hnb659fds-assets-440278670152-eu-west-1/691e34c12d308030a60230eeefa06818aca4563be46456403672d288f6de8847.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version",
+        "additionalDependencies": [
+          "AMCdevQuickStartamcdatalakepipeline56435D1B.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-lookup-440278670152-eu-west-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version"
+        },
+        "stackName": "AMC-dev-QuickStart-amc-data-lake-pipeline"
+      },
+      "dependencies": [
+        "AMCdevQuickStartamcfoundations050F5B40",
+        "AMCdevQuickStartamcdatalakepipeline56435D1B.assets"
+      ],
+      "metadata": {
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/raw-bucket-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "rawbucketssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/stage-bucket-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "stagebucketssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/analytics-bucket-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "analyticsbucketssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/demoteam-adtech-stage-a-octagon_pipeline-register/demoteam-adtech-stage-a-octagon_pipeline-provider-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageademoteamadtechstageaoctagonpipelineregisterdemoteamadtechstageaoctagonpipelineproviderssmParameter101CA698"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/demoteam-adtech-stage-a-octagon_pipeline-register/demoteam-adtech-stage-a-octagon_pipeline-custom-resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageademoteamadtechstageaoctagonpipelineregisterdemoteamadtechstageaoctagonpipelinecustomresourceBD6A423F"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/raw-bucket-key-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagearawbucketkeyarnssmParameter21E72B87"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/raw-bucket-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagearawbucketarnssmParameter84D97BB4"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/stage-bucket-key-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageastagebucketkeyarnssmParameter2D9F0846"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/stage-bucket-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageastagebucketarnssmParameter6BC14CD8"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/foundation-routing-function-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageafoundationroutingfunctionssmParameter7E41D9F3"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/data-lake-library-layer-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageadatalakelibrarylayerarnssmParameter6DCD25C0"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/{self._prefix}-routing/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaselfprefixroutingServiceRoleE27071B7"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/{self._prefix}-routing/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaselfprefixroutingServiceRoleDefaultPolicyE9B31E45"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/{self._prefix}-routing/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaselfprefixroutingFBE540D6"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-redrive-a/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechredriveaServiceRole1DEEC816"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-redrive-a/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechredriveaServiceRoleDefaultPolicyFB1A7B81"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-redrive-a/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechredriveaD0659A2F"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-post-update/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcpostupdateServiceRoleDC6D8EC8"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-post-update/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcpostupdateServiceRoleDefaultPolicy910532F0"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-post-update/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcpostupdate6F3C9872"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-preupdate/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcpreupdateServiceRole97153551"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-preupdate/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcpreupdateServiceRoleDefaultPolicy9EC0A8F8"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-preupdate/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcpreupdate3F1E7387"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-error-a/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcerroraServiceRoleD0ABCE41"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-error-a/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcerroraServiceRoleDefaultPolicy6678F19A"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-error-a/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcerrora1A61D409"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-process/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcprocessServiceRole274728BA"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-process/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcprocessServiceRoleDefaultPolicyE412DEC6"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-process/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcprocessF07C5CB6"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sm-a-sfn-job-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechsmasfnjobrole5975F48A"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sm-a-sfn-job-policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechsmasfnjobpolicy123F7529"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sm-a-sm-a": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechsmasma236033A0"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sm-a/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechsmaB686FB69"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sqs-key-a/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechsqskeya1CF2F50C"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sqs-key-a/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechsqskeyaAlias2585F553"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sqs-stage-a-key-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechsqsstageakeyarnssm8BAB7A42"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sqs-stage-a-key-id-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechsqsstageakeyidssm2F5B3A3E"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-dlq-a.fifo/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechdlqafifo562AB63D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-dlq-a.fifo/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechdlqafifoPolicyDAD8C5EF"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-dlq-a.fifo-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechdlqafifossm1A656CE3"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-queue-a.fifo/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechqueueafifoE23E62B5"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-queue-a.fifo/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechqueueafifoPolicy3933A418"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-queue-a.fifo-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaamcdemoteamadtechqueueafifossmAD28D785"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/MyEventSourceMapping/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstageaMyEventSourceMapping0BD12D86"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/demoteam-adtech-stage-b-octagon_pipeline-register/demoteam-adtech-stage-b-octagon_pipeline-provider-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebdemoteamadtechstageboctagonpipelineregisterdemoteamadtechstageboctagonpipelineproviderssmParameter8950D3C3"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/demoteam-adtech-stage-b-octagon_pipeline-register/demoteam-adtech-stage-b-octagon_pipeline-custom-resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebdemoteamadtechstageboctagonpipelineregisterdemoteamadtechstageboctagonpipelinecustomresourceFDC8F2BC"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/stage-bucket-key-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebstagebucketkeyarnssmParameter7CCA5CA3"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/stage-bucket-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/data-lake-library-layer-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebdatalakelibrarylayerarnssmParameter6F23D7D8"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-routing-b/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechroutingbServiceRoleD17CEC2D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-routing-b/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechroutingbServiceRoleDefaultPolicyC24F7555"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-routing-b/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechroutingb98C61886"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-redrive-b/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechredrivebServiceRoleC4EF0628"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-redrive-b/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechredrivebServiceRoleDefaultPolicy649E3BB7"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-redrive-b/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechredrivebF3B062BD"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-postupdate-b/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechpostupdatebServiceRole6D8AE0DF"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-postupdate-b/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechpostupdatebServiceRoleDefaultPolicy96F381A2"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-postupdate-b/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechpostupdateb3BE8727F"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-checkjob-b/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechcheckjobbServiceRole38F759E7"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-checkjob-b/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechcheckjobbServiceRoleDefaultPolicy1C328A11"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-checkjob-b/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechcheckjobb155EAE55"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-error-b/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcerrorbServiceRoleBDDF4948"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-error-b/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcerrorbServiceRoleDefaultPolicy2BC8EB4C"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-error-b/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcerrorbAB2CF2E0"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-process-b/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechprocessbServiceRoleE3DEC684"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-process-b/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechprocessbServiceRoleDefaultPolicyA45D6900"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-process-b/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechprocessb8286A96E"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-sm-b-sfn-job-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechsmbsfnjobroleE1B0C512"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-sm-b-sfn-job-policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechsmbsfnjobpolicy16A4EDEB"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-sm-b-sm-b": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechsmbsmb4DD9D2BD"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-sm-b/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamadtechstagebamcdemoteamadtechsmbB43132AF"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-pipeline/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "AMC-dev-QuickStart/amc-data-lake-pipeline"
+    },
+    "AMCdevQuickStartamcwfmDE7BC17D.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "AMCdevQuickStartamcwfmDE7BC17D.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version"
+      }
+    },
+    "AMCdevQuickStartamcwfmDE7BC17D": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://440278670152/eu-west-1",
+      "properties": {
+        "templateFile": "AMCdevQuickStartamcwfmDE7BC17D.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-deploy-440278670152-eu-west-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-cfn-exec-440278670152-eu-west-1",
+        "stackTemplateAssetObjectUrl": "s3://ddk-dev-hnb659fds-assets-440278670152-eu-west-1/3d1e341b03d96716b5df1427a13a294f4c5ac2b0813cfda0f1fd7847abfdca73.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version",
+        "additionalDependencies": [
+          "AMCdevQuickStartamcwfmDE7BC17D.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-lookup-440278670152-eu-west-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version"
+        },
+        "stackName": "AMC-dev-QuickStart-amc-wfm"
+      },
+      "dependencies": [
+        "AMCdevQuickStartamcfoundations050F5B40",
+        "AMCdevQuickStartamcwfmDE7BC17D.assets"
+      ],
+      "metadata": {
+        "/AMC-dev-QuickStart/amc-wfm/athena-bucket-key-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "athenabucketkeyarnssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/athena-bucket-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "athenabucketarnssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-master-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteammasterkeyBC77F6A1"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-master-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteammasterkeyAlias263B963B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/amc-wfm-demoteam-master-key-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcwfmdemoteammasterkeyarnssm057B1271"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AthenaWorkGroup-dev": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamAthenaWorkGroupdev"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-CustomerConfig-dev-table": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "wfmdemoteamCustomerConfigdevtable732533C8"
+            }
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-CustomerConfig-dev-table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamCustomerConfigdevtable732533C8"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-CustomerConfig-table-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamCustomerConfigtablearnssm752BD4E8"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AMCWorkflows-dev-table": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "wfmdemoteamAMCWorkflowsdevtable669FF376"
+            }
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AMCWorkflows-dev-table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamAMCWorkflowsdevtable669FF376"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AMCWorkflows-table-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamAMCWorkflowstablearnssmE24A71D8"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AMCWorkflowLibrary-dev-table": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "wfmdemoteamAMCWorkflowLibrarydevtableD5DD6E1B"
+            }
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AMCWorkflowLibrary-dev-table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamAMCWorkflowLibrarydevtableD5DD6E1B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AMCWorkflowLibrary-table-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamAMCWorkflowLibrarytablearnssm926FA0AC"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AMCWorkflowSchedules-dev-table": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "wfmdemoteamAMCWorkflowSchedulesdevtable695B399A"
+            }
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AMCWorkflowSchedules-dev-table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamAMCWorkflowSchedulesdevtable695B399A"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AMCWorkflowSchedules-table-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamAMCWorkflowSchedulestablearnssm576211A6"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AMCExecutionStatus-dev-table": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "wfmdemoteamAMCExecutionStatusdevtable2DC710FC"
+            }
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AMCExecutionStatus-dev-table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamAMCExecutionStatusdevtable2DC710FC"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AMCExecutionStatus-table-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamAMCExecutionStatustablearnssmFE6121F3"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-SNSTopic-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamSNSTopicdev0E25EBDA"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/Subscription/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Subscription391C9821"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WFM-Athena-WorkgroupAccess-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWFMAthenaWorkgroupAccess108CC6AAF"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WFM-Glue-CatalogAccess-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWFMGlueCatalogAccess11CB141C6"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-SQS-ExecutionQueue-RW-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamSQSExecutionQueueRW1F2BD433B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WFM-S3-AthenaResults-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWFMS3AthenaResults140504825"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-Workflowmgr-KMS-DecryptSNSSQS-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowmgrKMSDecryptSNSSQS19C7E53A4"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-ApiGateway-AMCAPIInvoke-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamApiGatewayAMCAPIInvoke14C7F78EE"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-Workflowmgr-DynamoDB-ModifyAMCAPIInvokeIAMPolicy-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowmgrDynamoDBModifyAMCAPIInvokeIAMPolicy187ED9422"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-LakeFormation-GetDataAccess-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamLakeFormationGetDataAccess16FD54C37"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-Lambda-ExecutionQueueProducerInvoke-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamLambdaExecutionQueueProducerInvoke19EC588FC"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-Lambda-AMCApiInterfaceInvoke-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamLambdaAMCApiInterfaceInvoke18AAC03D5"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-Lambda-WorkflowExecutionConsumerInvoke-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamLambdaWorkflowExecutionConsumerInvoke11DEAA880"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-Lambda-SyncWorkflowStatuses-invoke-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamLambdaSyncWorkflowStatusesinvoke15D1EB61B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-Lambda-permissions-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamLambdapermissions18917BD03"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WFM-SNSPublish-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWFMSNSPublish1E72EBBEF"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WFM-DynamoDB-ReadExecutionStatus-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWFMDynamoDBReadExecutionStatus1C3CD8C87"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WFM-DynamoDB-WriteExecutionStatus-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWFMDynamoDBWriteExecutionStatus1A2EDF180"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-DynamoDB-AMCWorkflows-Read-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamDynamoDBAMCWorkflowsRead1C7FAA7AB"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WFM-DynamoDB-CustomerConfig-RW-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWFMDynamoDBCustomerConfigRW1D8F82D7D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-Workflowmgr-DynamoDB-ReadCustomerConfig-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowmgrDynamoDBReadCustomerConfig1FF0BD727"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WorkflowLibraryQueueConsumer-DynamoDB-WorkflowandWorkflowSchedules-Write-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowLibraryQueueConsumerDynamoDBWorkflowandWorkflowSchedulesWrite1DE0AC5D2"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-DynamoDB-WriteWorkflowLibrary-Write-1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamDynamoDBWriteWorkflowLibraryWrite100E5582B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role Workflow Schedule Trigger 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleWorkflowScheduleTrigger14EA7C008"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role Workflow Schedule Trigger 1/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleWorkflowScheduleTrigger1DefaultPolicy1DD05253"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role Customer Config Trigger 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleCustomerConfigTrigger180CA5F78"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role Customer Config Trigger 1/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleCustomerConfigTrigger1DefaultPolicyE145DC86"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role Workflow Library Trigger 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleWorkflowLibraryTrigger1B066D817"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role Workflow Library Trigger 1/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleWorkflowLibraryTrigger1DefaultPolicy419A08B1"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role AmcApiInterface Lambda 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleAmcApiInterfaceLambda10A4A4BB4"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role AmcApiInterface Lambda 1/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleAmcApiInterfaceLambda1DefaultPolicy20265C72"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role CustomerConfigQueueConsumer 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleCustomerConfigQueueConsumer1C52370CC"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role WorkflowLibraryQueueConsumer 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleWorkflowLibraryQueueConsumer1C7B72BA8"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role SyncWorkflowStatuses 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleSyncWorkflowStatuses1105A40A0"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role SyncWorkflowStatuses 1/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleSyncWorkflowStatuses1DefaultPolicy3F82EC79"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role LambdaWorkflowStatusTrigger 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleLambdaWorkflowStatusTrigger16F3A0AE0"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role LambdaWorkflowStatusTrigger 1/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleLambdaWorkflowStatusTrigger1DefaultPolicy617FAD9C"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role WorkflowTableTrigger 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleWorkflowTableTrigger15CB51A64"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role WorkflowTableTrigger 1/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleWorkflowTableTrigger1DefaultPolicyBC463DD4"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role GenerateExecutionResubmissions 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleGenerateExecutionResubmissions15601DBE3"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role GenerateExecutionResubmissions 1/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleGenerateExecutionResubmissions1DefaultPolicyA7C5B009"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role EventQueueConsumer 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleEventQueueConsumer1B0D3CF9D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role EventQueueConsumer 1/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleEventQueueConsumer1DefaultPolicy23965F4D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role EventQueueProducer 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleEventQueueProducer1CA88C28B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role EventQueueProducer 1/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleEventQueueProducer1DefaultPolicy239E1B96"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role RunWorkFlowByCampaign 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleRunWorkFlowByCampaign1B2136B41"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role RunWorkFlowByCampaign 1/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleRunWorkFlowByCampaign1DefaultPolicy9697B8C5"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role CustomScheduler 1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleCustomScheduler1DCB519C5"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/IAM Role CustomScheduler 1/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleCustomScheduler1DefaultPolicy1EDCCE21"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/WFMHelperLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WFMHelperLayerCB60111A"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-SyncWorkflowStatuses-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamSyncWorkflowStatusesdev20E463C4"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-GenerateDateRangeValues-dev/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamGenerateDateRangeValuesdevServiceRole9C77A1C6"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-GenerateDateRangeValues-dev/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamGenerateDateRangeValuesdevServiceRoleDefaultPolicyF82CCC7B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-GenerateDateRangeValues-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamGenerateDateRangeValuesdevC9A2BDEF"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-GenerateExecutionResubmissions-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamGenerateExecutionResubmissionsdevEC26CAC0"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WorkflowStatusTrigger-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowStatusTriggerdev7ABEC5EC"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WorkflowStatusTrigger-dev/lambda-ddb-event-source-mapping/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowStatusTriggerdevlambdaddbeventsourcemappingC3B5710E"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AmcApiInterface-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamAmcApiInterfacedev1C3E5678"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-AmcApiInterface-dev/wfm-syncExecutionStatuses": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamAmcApiInterfacedevwfmsyncExecutionStatuses9683BF54"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WorkflowTableTrigger-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowTableTriggerdev59310244"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WorkflowTableTrigger-dev/lambda-ddb-event-source-mapping/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowTableTriggerdevlambdaddbeventsourcemappingE6B1FE15"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WorkflowExecutionQueueConsumer-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowExecutionQueueConsumerdev2462CABE"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WorkflowExecutionQueueConsumer-dev/wfm-TriggerExecutionQueueConsumer": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowExecutionQueueConsumerdevwfmTriggerExecutionQueueConsumerBC34296D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-ExecutionQueueProducer-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamExecutionQueueProducerdev5B752EA5"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-ExecutionQueueProducer-dev/EventsInvokeProducerLambda": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamExecutionQueueProducerdevEventsInvokeProducerLambda2818F061"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-ExecuteWorkflowByCampaign-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamExecuteWorkflowByCampaigndevB96AEF11"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-ExecuteWorkflowByCampaign-dev/EventsInvokeRunByCampaignLambda": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamExecuteWorkflowByCampaigndevEventsInvokeRunByCampaignLambdaFBE053F2"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WorkflowScheduleTrigger-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowScheduleTriggerdev5AE18E8B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WorkflowScheduleTrigger-dev/lambda-ddb-event-source-mapping/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowScheduleTriggerdevlambdaddbeventsourcemapping296F618B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WorkflowLibraryTrigger-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowLibraryTriggerdev2F58AD6C"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-WorkflowLibraryTrigger-dev/lambda-ddb-event-source-mapping/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamWorkflowLibraryTriggerdevlambdaddbeventsourcemapping4EAD42E0"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-CustomerConfigTrigger-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamCustomerConfigTriggerdev79F563E3"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-CustomerConfigTrigger-dev/lambda-ddb-event-source-mapping/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamCustomerConfigTriggerdevlambdaddbeventsourcemappingCC066DB7"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-CustomScheduler-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamCustomSchedulerdevC6C972E7"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-CustomScheduler-dev/wfm-CustomSchedulerOnHourly": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamCustomSchedulerdevwfmCustomSchedulerOnHourly97EBF146"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-CustomScheduler-dev/wfm-CustomSchedulerOnDaily": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamCustomSchedulerdevwfmCustomSchedulerOnDailyD4E2AB4D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-CustomScheduler-dev/wfm-CustomSchedulerOnWeekly": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamCustomSchedulerdevwfmCustomSchedulerOnWeekly8A297B21"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-demoteam-CustomScheduler-dev/wfm-CustomSchedulerOnMonthly": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmdemoteamCustomSchedulerdevwfmCustomSchedulerOnMonthlyD8360C50"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-TriggerExecutionQueueConsumer-rule": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmTriggerExecutionQueueConsumerrule"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-syncExecutionStatuses-rule": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmsyncExecutionStatusesrule"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-CustomSchedulerOnHourly-rule": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmCustomSchedulerOnHourlyrule"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-CustomSchedulerOnDaily-rule": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmCustomSchedulerOnDailyrule"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-CustomSchedulerOnWeekly-rule": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmCustomSchedulerOnWeeklyrule"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/wfm-CustomSchedulerOnMonthly-rule": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "wfmCustomSchedulerOnMonthlyrule"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-wfm/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "AMC-dev-QuickStart/amc-wfm"
+    },
+    "AMCdevQuickStartamctps1EAA7559.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "AMCdevQuickStartamctps1EAA7559.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version"
+      }
+    },
+    "AMCdevQuickStartamctps1EAA7559": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://440278670152/eu-west-1",
+      "properties": {
+        "templateFile": "AMCdevQuickStartamctps1EAA7559.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-deploy-440278670152-eu-west-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-cfn-exec-440278670152-eu-west-1",
+        "stackTemplateAssetObjectUrl": "s3://ddk-dev-hnb659fds-assets-440278670152-eu-west-1/fea6d06f839ce1af460ea9bb7688a1ab84d70a5aa9549e566e0d7f6a82a7c30d.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version",
+        "additionalDependencies": [
+          "AMCdevQuickStartamctps1EAA7559.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-lookup-440278670152-eu-west-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version"
+        },
+        "stackName": "AMC-dev-QuickStart-amc-tps"
+      },
+      "dependencies": [
+        "AMCdevQuickStartamcfoundations050F5B40",
+        "AMCdevQuickStartamctps1EAA7559.assets"
+      ],
+      "metadata": {
+        "/AMC-dev-QuickStart/amc-tps/data-lake-library-layer-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "datalakelibrarylayerarnssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/artifacts-bucket-key-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "artifactsbucketkeyarnssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/artifacts-bucket-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "artifactsbucketarnssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-s3-deployment-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpss3deploymentrole2FD406E3"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-s3-deployment-role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpss3deploymentroleDefaultPolicyE404F141"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-script-s3-deployment/AwsCliLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsscripts3deploymentAwsCliLayerD62E48A3"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-script-s3-deployment/CustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsscripts3deploymentCustomResource4F2F3503"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/demoteam-tps-sns-sqs-amc-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "demoteamtpssnssqsamckey72CF5653"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/demoteam-tps-sns-sqs-amc-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "demoteamtpssnssqsamckeyAlias6CED0C0B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/amc-tps-sqs-sns-ingegration-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amctpssqssnsingegrationkeyB6358D48"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-CustomerConfig-dev-table": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "tpsdemoteamCustomerConfigdevtableF53AAA94"
+            }
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-CustomerConfig-dev-table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteamCustomerConfigdevtableF53AAA94"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-CustomerConfig-dev-table-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteamCustomerConfigdevtablearnssm800BAACE"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue-DLQ.fifo/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteamdevCustomerAMCInstanceOnboardingqueueDLQfifoF015AFB8"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue-DLQ.fifo/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteamdevCustomerAMCInstanceOnboardingqueueDLQfifoPolicy9AB9231D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue-DLQ.fifo/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amctpsdemoteamdevCustomerAMCInstanceOnboardingqueueDLQfifoB6F0705B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue.fifo/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteamdevCustomerAMCInstanceOnboardingqueuefifo31F9330E"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue.fifo/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteamdevCustomerAMCInstanceOnboardingqueuefifoPolicy311154F5"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-dev-CustomerAMCInstanceOnboarding-queue.fifo/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amctpsdemoteamdevCustomerAMCInstanceOnboardingqueuefifo183337A0"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-CustomerConfig-SNSTopic-dev.fifo/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteamCustomerConfigSNSTopicdevfifo1A7CC7C8"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/Subscription/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Subscription391C9821"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-sns-customer-config-topic-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amctpsdemoteamsnscustomerconfigtopicssm0CCD1D12"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/Add AMC Instance Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AddAMCInstanceRole5BDC11E2"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/Add AMC Instance Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AddAMCInstanceRoleDefaultPolicy744A3AD1"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-AddAmcInstance-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteamAddAmcInstancedev0ED22CC4"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-AddAmcInstanceStatusCheck-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteamAddAmcInstanceStatusCheckdevA2D3370C"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-postDeployMetadataInstanceConfig-dev/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteampostDeployMetadataInstanceConfigdevServiceRole7C0E0FFF"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-postDeployMetadataInstanceConfig-dev/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteampostDeployMetadataInstanceConfigdevServiceRoleDefaultPolicyBC61FA54"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-postDeployMetadataInstanceConfig-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteampostDeployMetadataInstanceConfigdev6D4674A4"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-initialize-amc-sfn-job-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteaminitializeamcsfnjobrole45D6E153"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-initialize-amc-sfn-job-policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteaminitializeamcsfnjobpolicy4CC618CF"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-initialize-amc": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteaminitializeamc"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-initialize-amc-sm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteaminitializeamcsmD0864C59"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-CustomerConfigDynamoDBTrigger-dev/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amctpsdemoteamCustomerConfigDynamoDBTriggerdevServiceRole65305452"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-CustomerConfigDynamoDBTrigger-dev/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amctpsdemoteamCustomerConfigDynamoDBTriggerdevServiceRoleDefaultPolicy822A1035"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-CustomerConfigDynamoDBTrigger-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amctpsdemoteamCustomerConfigDynamoDBTriggerdev458F0977"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/amc-tps-demoteam-CustomerConfigDynamoDBTrigger-dev/lambda-ddb-event-source-mapping/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amctpsdemoteamCustomerConfigDynamoDBTriggerdevlambdaddbeventsourcemapping8B19760D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-TriggerAMCSetupStepFunction-dev/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteamTriggerAMCSetupStepFunctiondevServiceRoleF45C53A3"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-TriggerAMCSetupStepFunction-dev/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteamTriggerAMCSetupStepFunctiondevServiceRoleDefaultPolicy4DB608F4"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/tps-demoteam-TriggerAMCSetupStepFunction-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "tpsdemoteamTriggerAMCSetupStepFunctiondevA663FB9A"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/MyEventSourceMapping/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyEventSourceMapping8CE517B4"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-tps/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "AMC-dev-QuickStart/amc-tps"
+    },
+    "AMCdevQuickStartamcplatformmanager169C6A0D.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "AMCdevQuickStartamcplatformmanager169C6A0D.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version"
+      }
+    },
+    "AMCdevQuickStartamcplatformmanager169C6A0D": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://440278670152/eu-west-1",
+      "properties": {
+        "templateFile": "AMCdevQuickStartamcplatformmanager169C6A0D.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-deploy-440278670152-eu-west-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-cfn-exec-440278670152-eu-west-1",
+        "stackTemplateAssetObjectUrl": "s3://ddk-dev-hnb659fds-assets-440278670152-eu-west-1/2c262067a8834326313d1b38f1edc1aa0031442f8d9b7dec2b55df660738787b.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version",
+        "additionalDependencies": [
+          "AMCdevQuickStartamcplatformmanager169C6A0D.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-lookup-440278670152-eu-west-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version"
+        },
+        "stackName": "AMC-dev-QuickStart-amc-platform-manager"
+      },
+      "dependencies": [
+        "AMCdevQuickStartamcfoundations050F5B40",
+        "AMCdevQuickStartamcplatformmanager169C6A0D.assets"
+      ],
+      "metadata": {
+        "/AMC-dev-QuickStart/amc-platform-manager/artifacts-bucket-key-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "artifactsbucketkeyarnssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/artifacts-bucket-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "artifactsbucketarnssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/platform-manager-s3-deployment-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "platformmanagers3deploymentrole6B13D8DC"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/platform-manager-s3-deployment-role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "platformmanagers3deploymentroleDefaultPolicyF4B17FB3"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/platform-manager-script-s3-deployment/AwsCliLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "platformmanagerscripts3deploymentAwsCliLayerF2724A69"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/platform-manager-script-s3-deployment/CustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "platformmanagerscripts3deploymentCustomResourceE7C820F7"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/platform-manager-table-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "platformmanagertablekeyA29C5678"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/platform-manager-table-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "platformmanagertablekeyAliasE36AA37E"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/platform-manager-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "platformmanagerroleD0219463"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/platform-manager-role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "platformmanagerroleDefaultPolicy8D57F13D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/platform-manager-policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "platformmanagerpolicy465B1BF1"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/platform-manager-lc": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "platformmanagerlc"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/platform-manager-nb": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "platformmanagernb"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/SageMakerDataLakeSettings": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SageMakerDataLakeSettings"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-platform-manager/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "AMC-dev-QuickStart/amc-platform-manager"
+    },
+    "AMCdevQuickStartamcdatalakedatasetsCD89FD26.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "AMCdevQuickStartamcdatalakedatasetsCD89FD26.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version"
+      }
+    },
+    "AMCdevQuickStartamcdatalakedatasetsCD89FD26": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://440278670152/eu-west-1",
+      "properties": {
+        "templateFile": "AMCdevQuickStartamcdatalakedatasetsCD89FD26.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-deploy-440278670152-eu-west-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-cfn-exec-440278670152-eu-west-1",
+        "stackTemplateAssetObjectUrl": "s3://ddk-dev-hnb659fds-assets-440278670152-eu-west-1/e33064416e9e344523174736bd12be69281079794d9336a92fc6183da5edc7b0.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version",
+        "additionalDependencies": [
+          "AMCdevQuickStartamcdatalakedatasetsCD89FD26.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-lookup-440278670152-eu-west-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/ddk/dev/hnb659fds/bootstrap-version"
+        },
+        "stackName": "AMC-dev-QuickStart-amc-data-lake-datasets"
+      },
+      "dependencies": [
+        "AMCdevQuickStartamcdatalakepipeline56435D1B",
+        "AMCdevQuickStartamcdatalakedatasetsCD89FD26.assets"
+      ],
+      "metadata": {
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/stage-bucket-key-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "stagebucketkeyarnssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/stage-bucket-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "stagebucketarnssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/artifacts-bucket-key-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "artifactsbucketkeyarnssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/artifacts-bucket-arn-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "artifactsbucketarnssmParameter"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-glue-script-s3-deployment-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcgluescripts3deploymentrole0E7A8F26"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-glue-script-s3-deployment-role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcgluescripts3deploymentroleDefaultPolicyF298BE99"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-glue-script-s3-deployment/AwsCliLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcgluescripts3deploymentAwsCliLayerDF68D450"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-glue-script-s3-deployment/CustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcgluescripts3deploymentCustomResourceF90634CA"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-glue-stageb-job-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcgluestagebjobrole8B6F34E2"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-glue-job-policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcgluejobpolicy21F9F438"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-heavy-transform-demoteam-amcdataset-job": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcheavytransformdemoteamamcdatasetjob"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-heavy-transform-demoteam-amcdataset-job-name/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcheavytransformdemoteamamcdatasetjobname7A1069FD"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-heavy-transform-demoteam-amcdataset-job-role-arn/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcheavytransformdemoteamamcdatasetjobrolearnCB04721A"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/MyCfnDataLakeSettings": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyCfnDataLakeSettings"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/demoteam-amcdataset-octagon_dataset-register/demoteam-amcdataset-octagon_dataset-provider-ssm.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "demoteamamcdatasetoctagondatasetregisterdemoteamamcdatasetoctagondatasetproviderssmParameterC31E7F0B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/demoteam-amcdataset-octagon_dataset-register/demoteam-amcdataset-octagon_dataset-custom-resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "demoteamamcdatasetoctagondatasetregisterdemoteamamcdatasetoctagondatasetcustomresource1829D4AC"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-amcdataset-database": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcamcdatasetdatabase"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-amcdataset-glue-job-database-lakeformation-permissions": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcamcdatasetgluejobdatabaselakeformationpermissions"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-demoteam-amcdataset-stage-catalog/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamamcdatasetstagecatalogE6D1BE09"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-demoteam-amcdataset-sqs-key-b/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamamcdatasetsqskeybBDFAC139"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-demoteam-amcdataset-sqs-key-b/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamamcdatasetsqskeybAliasE294BE0D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-demoteam-amcdataset-sqs-stage-b-key-arn-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamamcdatasetsqsstagebkeyarnssm042FC672"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-demoteam-amcdataset-sqs-stage-b-key-id-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamamcdatasetsqsstagebkeyidssmA1F7152F"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-demoteam-amcdataset-dlq-b.fifo/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamamcdatasetdlqbfifo67C5234D"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-demoteam-amcdataset-dlq-b.fifo/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamamcdatasetdlqbfifoPolicy3FFC72FE"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-demoteam-amcdataset-dlq-b.fifo-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamamcdatasetdlqbfifossmBB6932D8"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-demoteam-amcdataset-queue-b.fifo/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamamcdatasetqueuebfifo7FD1462B"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-demoteam-amcdataset-queue-b.fifo/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamamcdatasetqueuebfifoPolicy9B45D5A6"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-demoteam-amcdataset-queue-b.fifo-ssm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamamcdatasetqueuebfifossm5FBF4791"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-demoteam-amcdataset-rule-b": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamamcdatasetruleb"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/amc-demoteam-amcdataset-routing-b": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amcdemoteamamcdatasetroutingb"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/AMC-dev-QuickStart/amc-data-lake-datasets/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "AMC-dev-QuickStart/amc-data-lake-datasets"
+    }
+  }
+}

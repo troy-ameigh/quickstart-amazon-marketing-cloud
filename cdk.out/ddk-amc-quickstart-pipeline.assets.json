@@ -1,0 +1,20 @@
+{
+  "version": "17.0.0",
+  "files": {
+    "53cbe4125e7ff6ec7b5b06952d5febb6562689aa50931f4fce456a9a8d1616fa": {
+      "source": {
+        "path": "ddk-amc-quickstart-pipeline.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "440278670152-eu-west-1": {
+          "bucketName": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+          "objectKey": "53cbe4125e7ff6ec7b5b06952d5febb6562689aa50931f4fce456a9a8d1616fa.json",
+          "region": "eu-west-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::440278670152:role/ddk-dev-hnb659fds-file-publish-440278670152-eu-west-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

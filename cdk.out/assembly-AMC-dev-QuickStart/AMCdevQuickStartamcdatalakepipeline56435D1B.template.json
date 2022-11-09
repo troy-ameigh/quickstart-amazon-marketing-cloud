@@ -1,0 +1,5114 @@
+{
+ "Parameters": {
+  "rawbucketssmParameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/S3/RawBucketArn"
+  },
+  "stagebucketssmParameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/S3/StageBucketArn"
+  },
+  "analyticsbucketssmParameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/S3/AnalyticsBucketArn"
+  },
+  "amcdemoteamadtechstageademoteamadtechstageaoctagonpipelineregisterdemoteamadtechstageaoctagonpipelineproviderssmParameter101CA698": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/Lambda/RegisterProviderServiceToken"
+  },
+  "amcdemoteamadtechstagearawbucketkeyarnssmParameter21E72B87": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/KMS/RawBucketKeyArn"
+  },
+  "amcdemoteamadtechstagearawbucketarnssmParameter84D97BB4": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/S3/RawBucketArn"
+  },
+  "amcdemoteamadtechstageastagebucketkeyarnssmParameter2D9F0846": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/KMS/StageBucketKeyArn"
+  },
+  "amcdemoteamadtechstageastagebucketarnssmParameter6BC14CD8": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/S3/StageBucketArn"
+  },
+  "amcdemoteamadtechstageafoundationroutingfunctionssmParameter7E41D9F3": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/Lambda/Routing"
+  },
+  "amcdemoteamadtechstageadatalakelibrarylayerarnssmParameter6DCD25C0": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/Layer/DataLakeLibrary"
+  },
+  "amcdemoteamadtechstagebdemoteamadtechstageboctagonpipelineregisterdemoteamadtechstageboctagonpipelineproviderssmParameter8950D3C3": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/Lambda/RegisterProviderServiceToken"
+  },
+  "amcdemoteamadtechstagebstagebucketkeyarnssmParameter7CCA5CA3": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/KMS/StageBucketKeyArn"
+  },
+  "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/S3/StageBucketArn"
+  },
+  "amcdemoteamadtechstagebdatalakelibrarylayerarnssmParameter6F23D7D8": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/AMC/Layer/DataLakeLibrary"
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/ddk/dev/hnb659fds/bootstrap-version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Resources": {
+  "amcdemoteamadtechstageademoteamadtechstageaoctagonpipelineregisterdemoteamadtechstageaoctagonpipelinecustomresourceBD6A423F": {
+   "Type": "AWS::CloudFormation::CustomResource",
+   "Properties": {
+    "ServiceToken": {
+     "Ref": "amcdemoteamadtechstageademoteamadtechstageaoctagonpipelineregisterdemoteamadtechstageaoctagonpipelineproviderssmParameter101CA698"
+    },
+    "RegisterProperties": {
+     "version": 1,
+     "status": "ACTIVE",
+     "name": "demoteam-adtech-stage-a",
+     "type": "octagon_pipeline",
+     "description": "amc data lake light transform",
+     "id": "demoteam-adtech-stage-a"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/demoteam-adtech-stage-a-octagon_pipeline-register/demoteam-adtech-stage-a-octagon_pipeline-custom-resource/Default"
+   }
+  },
+  "amcdemoteamadtechstageaselfprefixroutingServiceRoleE27071B7": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/{self._prefix}-routing/ServiceRole/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaselfprefixroutingServiceRoleDefaultPolicyE9B31E45": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:states:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":stateMachine:amc-demoteam-adtech-sm-a"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Condition": {
+        "ForAnyValue:StringLike": {
+         "kms:ResourceAliases": [
+          "alias/amc-*",
+          "alias/tps-*"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "s3:ListBucket",
+        "s3:GetBucketVersioning"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:s3:::amc-dev-",
+          {
+           "Ref": "AWS::Region"
+          },
+          "-",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          "-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:s3:::",
+          {
+           "Fn::Select": [
+            0,
+            {
+             "Fn::Split": [
+              "/",
+              {
+               "Fn::Select": [
+                5,
+                {
+                 "Fn::Split": [
+                  ":",
+                  {
+                   "Ref": "amcdemoteamadtechstageastagebucketarnssmParameter6BC14CD8"
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          "/pre-stage/demoteam/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "dynamodb:DescribeTable",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:GetRecords",
+        "dynamodb:ListTables"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/octagon-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/amc-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueues",
+        "sqs:GetQueueUrl",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:ListQueueTags"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:sqs:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":amc-demoteam-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "amcdemoteamadtechstageaselfprefixroutingServiceRoleDefaultPolicyE9B31E45",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstageaselfprefixroutingServiceRoleE27071B7"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/{self._prefix}-routing/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaselfprefixroutingFBE540D6": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "d934f916da1a35116372c955126c930c7dbd45661e5b86544ce3776187a35588.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstageaselfprefixroutingServiceRoleE27071B7",
+      "Arn"
+     ]
+    },
+    "Description": "Triggers Step Function",
+    "Environment": {
+     "Variables": {
+      "STEPFUNCTION": {
+       "Fn::Join": [
+        "",
+        [
+         "arn:aws:states:",
+         {
+          "Ref": "AWS::Region"
+         },
+         ":",
+         {
+          "Ref": "AWS::AccountId"
+         },
+         ":stateMachine:sdlf-demoteam-adtech-sm-a"
+        ]
+       ]
+      }
+     }
+    },
+    "FunctionName": "amc-demoteam-adtech-routing-a",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Ref": "amcdemoteamadtechstageadatalakelibrarylayerarnssmParameter6DCD25C0"
+     }
+    ],
+    "MemorySize": 256,
+    "Runtime": "python3.8",
+    "Timeout": 60
+   },
+   "DependsOn": [
+    "amcdemoteamadtechstageaselfprefixroutingServiceRoleDefaultPolicyE9B31E45",
+    "amcdemoteamadtechstageaselfprefixroutingServiceRoleE27071B7"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/{self._prefix}-routing/Resource",
+    "aws:asset:path": "../asset.d934f916da1a35116372c955126c930c7dbd45661e5b86544ce3776187a35588",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechredriveaServiceRole1DEEC816": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-redrive-a/ServiceRole/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechredriveaServiceRoleDefaultPolicyFB1A7B81": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:states:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":stateMachine:amc-demoteam-adtech-sm-a"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Condition": {
+        "ForAnyValue:StringLike": {
+         "kms:ResourceAliases": [
+          "alias/amc-*",
+          "alias/tps-*"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "s3:ListBucket",
+        "s3:GetBucketVersioning"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:s3:::amc-dev-",
+          {
+           "Ref": "AWS::Region"
+          },
+          "-",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          "-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:s3:::",
+          {
+           "Fn::Select": [
+            0,
+            {
+             "Fn::Split": [
+              "/",
+              {
+               "Fn::Select": [
+                5,
+                {
+                 "Fn::Split": [
+                  ":",
+                  {
+                   "Ref": "amcdemoteamadtechstageastagebucketarnssmParameter6BC14CD8"
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          "/pre-stage/demoteam/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "dynamodb:DescribeTable",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:GetRecords",
+        "dynamodb:ListTables"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/octagon-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/amc-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueues",
+        "sqs:GetQueueUrl",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:ListQueueTags"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:sqs:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":amc-demoteam-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "amcdemoteamadtechstageaamcdemoteamadtechredriveaServiceRoleDefaultPolicyFB1A7B81",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstageaamcdemoteamadtechredriveaServiceRole1DEEC816"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-redrive-a/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechredriveaD0659A2F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "17e8b94b5dd2bc13ea52a50ff243e1a8255c0003207f4aeed2eb56ab34706eb3.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstageaamcdemoteamadtechredriveaServiceRole1DEEC816",
+      "Arn"
+     ]
+    },
+    "Description": "Redrive Step Function stageA",
+    "Environment": {
+     "Variables": {
+      "TEAM": "demoteam",
+      "PIPELINE": "adtech",
+      "STAGE": "StageA"
+     }
+    },
+    "FunctionName": "amc-demoteam-adtech-redrive-a",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Ref": "amcdemoteamadtechstageadatalakelibrarylayerarnssmParameter6DCD25C0"
+     }
+    ],
+    "MemorySize": 256,
+    "Runtime": "python3.8",
+    "Timeout": 600
+   },
+   "DependsOn": [
+    "amcdemoteamadtechstageaamcdemoteamadtechredriveaServiceRoleDefaultPolicyFB1A7B81",
+    "amcdemoteamadtechstageaamcdemoteamadtechredriveaServiceRole1DEEC816"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-redrive-a/Resource",
+    "aws:asset:path": "../asset.17e8b94b5dd2bc13ea52a50ff243e1a8255c0003207f4aeed2eb56ab34706eb3",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "amcdemoteamadtechstageaamcpostupdateServiceRoleDC6D8EC8": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-post-update/ServiceRole/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcpostupdateServiceRoleDefaultPolicy910532F0": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:states:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":stateMachine:amc-demoteam-adtech-sm-a"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Condition": {
+        "ForAnyValue:StringLike": {
+         "kms:ResourceAliases": [
+          "alias/amc-*",
+          "alias/tps-*"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "s3:ListBucket",
+        "s3:GetBucketVersioning"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:s3:::amc-dev-",
+          {
+           "Ref": "AWS::Region"
+          },
+          "-",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          "-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:s3:::",
+          {
+           "Fn::Select": [
+            0,
+            {
+             "Fn::Split": [
+              "/",
+              {
+               "Fn::Select": [
+                5,
+                {
+                 "Fn::Split": [
+                  ":",
+                  {
+                   "Ref": "amcdemoteamadtechstageastagebucketarnssmParameter6BC14CD8"
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          "/pre-stage/demoteam/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "dynamodb:DescribeTable",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:GetRecords",
+        "dynamodb:ListTables"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/octagon-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/amc-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueues",
+        "sqs:GetQueueUrl",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:ListQueueTags"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:sqs:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":amc-demoteam-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "amcdemoteamadtechstageaamcpostupdateServiceRoleDefaultPolicy910532F0",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstageaamcpostupdateServiceRoleDC6D8EC8"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-post-update/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcpostupdate6F3C9872": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "4e7abeef96c386b8ed387cddc87e5d0e91985c6c400ed59b2da068c43b55f214.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstageaamcpostupdateServiceRoleDC6D8EC8",
+      "Arn"
+     ]
+    },
+    "Description": "post update metadata",
+    "Environment": {
+     "Variables": {
+      "stage_bucket": {
+       "Fn::Join": [
+        "",
+        [
+         "amc-dev-",
+         {
+          "Ref": "AWS::Region"
+         },
+         "-",
+         {
+          "Ref": "AWS::AccountId"
+         },
+         "-stage"
+        ]
+       ]
+      }
+     }
+    },
+    "FunctionName": "amc-demoteam-adtech-postupdate-a",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Ref": "amcdemoteamadtechstageadatalakelibrarylayerarnssmParameter6DCD25C0"
+     }
+    ],
+    "MemorySize": 256,
+    "Runtime": "python3.8",
+    "Timeout": 600
+   },
+   "DependsOn": [
+    "amcdemoteamadtechstageaamcpostupdateServiceRoleDefaultPolicy910532F0",
+    "amcdemoteamadtechstageaamcpostupdateServiceRoleDC6D8EC8"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-post-update/Resource",
+    "aws:asset:path": "../asset.4e7abeef96c386b8ed387cddc87e5d0e91985c6c400ed59b2da068c43b55f214",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "amcdemoteamadtechstageaamcpreupdateServiceRole97153551": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-preupdate/ServiceRole/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcpreupdateServiceRoleDefaultPolicy9EC0A8F8": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:states:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":stateMachine:amc-demoteam-adtech-sm-a"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Condition": {
+        "ForAnyValue:StringLike": {
+         "kms:ResourceAliases": [
+          "alias/amc-*",
+          "alias/tps-*"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "s3:ListBucket",
+        "s3:GetBucketVersioning"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:s3:::amc-dev-",
+          {
+           "Ref": "AWS::Region"
+          },
+          "-",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          "-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:s3:::",
+          {
+           "Fn::Select": [
+            0,
+            {
+             "Fn::Split": [
+              "/",
+              {
+               "Fn::Select": [
+                5,
+                {
+                 "Fn::Split": [
+                  ":",
+                  {
+                   "Ref": "amcdemoteamadtechstageastagebucketarnssmParameter6BC14CD8"
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          "/pre-stage/demoteam/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "dynamodb:DescribeTable",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:GetRecords",
+        "dynamodb:ListTables"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/octagon-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/amc-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueues",
+        "sqs:GetQueueUrl",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:ListQueueTags"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:sqs:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":amc-demoteam-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "amcdemoteamadtechstageaamcpreupdateServiceRoleDefaultPolicy9EC0A8F8",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstageaamcpreupdateServiceRole97153551"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-preupdate/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcpreupdate3F1E7387": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "da0d3f244642fd15f30b8f46947ab317bd56db622896b6da87e92c01ffd9df39.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstageaamcpreupdateServiceRole97153551",
+      "Arn"
+     ]
+    },
+    "Description": "preupdate metadata",
+    "FunctionName": "amc-demoteam-adtech-preupdate-a",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Ref": "amcdemoteamadtechstageadatalakelibrarylayerarnssmParameter6DCD25C0"
+     }
+    ],
+    "MemorySize": 256,
+    "Runtime": "python3.8",
+    "Timeout": 600
+   },
+   "DependsOn": [
+    "amcdemoteamadtechstageaamcpreupdateServiceRoleDefaultPolicy9EC0A8F8",
+    "amcdemoteamadtechstageaamcpreupdateServiceRole97153551"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-preupdate/Resource",
+    "aws:asset:path": "../asset.da0d3f244642fd15f30b8f46947ab317bd56db622896b6da87e92c01ffd9df39",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "amcdemoteamadtechstageaamcerroraServiceRoleD0ABCE41": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-error-a/ServiceRole/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcerroraServiceRoleDefaultPolicy6678F19A": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:states:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":stateMachine:amc-demoteam-adtech-sm-a"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Condition": {
+        "ForAnyValue:StringLike": {
+         "kms:ResourceAliases": [
+          "alias/amc-*",
+          "alias/tps-*"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "s3:ListBucket",
+        "s3:GetBucketVersioning"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:s3:::amc-dev-",
+          {
+           "Ref": "AWS::Region"
+          },
+          "-",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          "-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:s3:::",
+          {
+           "Fn::Select": [
+            0,
+            {
+             "Fn::Split": [
+              "/",
+              {
+               "Fn::Select": [
+                5,
+                {
+                 "Fn::Split": [
+                  ":",
+                  {
+                   "Ref": "amcdemoteamadtechstageastagebucketarnssmParameter6BC14CD8"
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          "/pre-stage/demoteam/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "dynamodb:DescribeTable",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:GetRecords",
+        "dynamodb:ListTables"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/octagon-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/amc-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueues",
+        "sqs:GetQueueUrl",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:ListQueueTags"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:sqs:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":amc-demoteam-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "amcdemoteamadtechstageaamcerroraServiceRoleDefaultPolicy6678F19A",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstageaamcerroraServiceRoleD0ABCE41"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-error-a/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcerrora1A61D409": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "11cbfd7930a465c58baf36a604fa4cdc95704be6f00784ad4cb3fb7338c8d708.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstageaamcerroraServiceRoleD0ABCE41",
+      "Arn"
+     ]
+    },
+    "Description": "send errors to DLQ",
+    "FunctionName": "amc-demoteam-adtech-error-a",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Ref": "amcdemoteamadtechstageadatalakelibrarylayerarnssmParameter6DCD25C0"
+     }
+    ],
+    "MemorySize": 256,
+    "Runtime": "python3.8",
+    "Timeout": 600
+   },
+   "DependsOn": [
+    "amcdemoteamadtechstageaamcerroraServiceRoleDefaultPolicy6678F19A",
+    "amcdemoteamadtechstageaamcerroraServiceRoleD0ABCE41"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-error-a/Resource",
+    "aws:asset:path": "../asset.11cbfd7930a465c58baf36a604fa4cdc95704be6f00784ad4cb3fb7338c8d708",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "amcdemoteamadtechstageaamcprocessServiceRole274728BA": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-process/ServiceRole/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcprocessServiceRoleDefaultPolicyE412DEC6": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "kms:Decrypt",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "amcdemoteamadtechstagearawbucketkeyarnssmParameter21E72B87"
+       }
+      },
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Ref": "amcdemoteamadtechstagearawbucketarnssmParameter84D97BB4"
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Ref": "amcdemoteamadtechstagearawbucketarnssmParameter84D97BB4"
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "kms:Encrypt",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "amcdemoteamadtechstageastagebucketkeyarnssmParameter2D9F0846"
+       }
+      },
+      {
+       "Action": [
+        "s3:DeleteObject*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging",
+        "s3:Abort*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Ref": "amcdemoteamadtechstageastagebucketarnssmParameter6BC14CD8"
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Ref": "amcdemoteamadtechstageastagebucketarnssmParameter6BC14CD8"
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "s3:Get*",
+        "s3:List*",
+        "s3-object-lambda:Get*",
+        "s3-object-lambda:List*"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:states:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":stateMachine:amc-demoteam-adtech-sm-a"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Condition": {
+        "ForAnyValue:StringLike": {
+         "kms:ResourceAliases": [
+          "alias/amc-*",
+          "alias/tps-*"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "s3:ListBucket",
+        "s3:GetBucketVersioning"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:s3:::amc-dev-",
+          {
+           "Ref": "AWS::Region"
+          },
+          "-",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          "-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:s3:::",
+          {
+           "Fn::Select": [
+            0,
+            {
+             "Fn::Split": [
+              "/",
+              {
+               "Fn::Select": [
+                5,
+                {
+                 "Fn::Split": [
+                  ":",
+                  {
+                   "Ref": "amcdemoteamadtechstageastagebucketarnssmParameter6BC14CD8"
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          "/pre-stage/demoteam/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "dynamodb:DescribeTable",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:GetRecords",
+        "dynamodb:ListTables"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/octagon-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/amc-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueues",
+        "sqs:GetQueueUrl",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:ListQueueTags"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:sqs:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":amc-demoteam-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "amcdemoteamadtechstageaamcprocessServiceRoleDefaultPolicyE412DEC6",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstageaamcprocessServiceRole274728BA"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-process/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcprocessF07C5CB6": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "1e55bb334080a146236fc4d1d7bbc8726eed10be51fbb9070eaaf2d9667deb23.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstageaamcprocessServiceRole274728BA",
+      "Arn"
+     ]
+    },
+    "Description": "executes lights transform",
+    "FunctionName": "amc-demoteam-adtech-process-a",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Fn::ImportValue": "aws-data-wrangler-py3-8"
+     },
+     {
+      "Ref": "amcdemoteamadtechstageadatalakelibrarylayerarnssmParameter6DCD25C0"
+     }
+    ],
+    "MemorySize": 1536,
+    "Runtime": "python3.8",
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "amcdemoteamadtechstageaamcprocessServiceRoleDefaultPolicyE412DEC6",
+    "amcdemoteamadtechstageaamcprocessServiceRole274728BA"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-process/Resource",
+    "aws:asset:path": "../asset.1e55bb334080a146236fc4d1d7bbc8726eed10be51fbb9070eaaf2d9667deb23",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechsmasfnjobrole5975F48A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "states.eu-west-1.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSGlueServiceRole"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sm-a-sfn-job-role/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechsmasfnjobpolicy123F7529": {
+   "Type": "AWS::IAM::ManagedPolicy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:lambda:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":function:amc-demoteam-adtech-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "",
+    "Path": "/",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstageaamcdemoteamadtechsmasfnjobrole5975F48A"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sm-a-sfn-job-policy/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechsmasma236033A0": {
+   "Type": "AWS::StepFunctions::StateMachine",
+   "Properties": {
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstageaamcdemoteamadtechsmasfnjobrole5975F48A",
+      "Arn"
+     ]
+    },
+    "DefinitionString": {
+     "Fn::Join": [
+      "",
+      [
+       "{\n    \"Comment\": \"Simple pseudo flow\",\n    \"StartAt\": \"Try\",\n    \"States\": {\n        \"Try\": {\n            \"Type\": \"Parallel\",\n            \"Branches\": [\n                {\n                    \"StartAt\": \"Pre-update Comprehensive Catalogue\",\n                    \"States\": {\n                        \"Pre-update Comprehensive Catalogue\": {\n                            \"Type\": \"Task\",\n                            \"Resource\": \"",
+       {
+        "Fn::GetAtt": [
+         "amcdemoteamadtechstageaamcpreupdate3F1E7387",
+         "Arn"
+        ]
+       },
+       "\",\n                            \"Comment\": \"Pre-update Comprehensive Catalogue\",\n                            \"Next\": \"Execute Light Transformation\"\n                        },\n                        \"Execute Light Transformation\": {\n                            \"Type\": \"Task\",\n                            \"Resource\": \"",
+       {
+        "Fn::GetAtt": [
+         "amcdemoteamadtechstageaamcprocessF07C5CB6",
+         "Arn"
+        ]
+       },
+       "\",\n                            \"Comment\": \"Execute Light Transformation\",\n                            \"ResultPath\": \"$.body.processedKeys\",\n                            \"Next\": \"Post-update comprehensive Catalogue\"\n                        },\n                        \"Post-update comprehensive Catalogue\": {\n                            \"Type\": \"Task\",\n                            \"Resource\": \"",
+       {
+        "Fn::GetAtt": [
+         "amcdemoteamadtechstageaamcpostupdate6F3C9872",
+         "Arn"
+        ]
+       },
+       "\",\n                            \"Comment\": \"Post-update comprehensive Catalogue\",\n                            \"ResultPath\": \"$.statusCode\",\n                            \"End\": true\n                        }\n                    }\n                }\n            ],\n            \"Catch\": [\n                {\n                    \"ErrorEquals\": [\n                        \"States.ALL\"\n                    ],\n                    \"ResultPath\": null,\n                    \"Next\": \"Error\"\n                }\n            ],\n            \"Next\": \"Done\"\n        },\n        \"Done\": {\n            \"Type\": \"Succeed\"\n        },\n        \"Error\": {\n            \"Type\": \"Task\",\n            \"Resource\": \"",
+       {
+        "Fn::GetAtt": [
+         "amcdemoteamadtechstageaamcerrora1A61D409",
+         "Arn"
+        ]
+       },
+       "\",\n            \"Comment\": \"Send Original Payload to DLQ\",\n            \"Next\": \"Failed\"\n        },\n        \"Failed\": {\n            \"Type\": \"Fail\"\n        }\n    }\n}"
+      ]
+     ]
+    },
+    "StateMachineName": "amc-demoteam-adtech-sm-a"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sm-a-sm-a"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechsmaB686FB69": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstageaamcdemoteamadtechsmasma236033A0",
+      "Arn"
+     ]
+    },
+    "Name": "/AMC/SM/demoteam/adtechStageASM"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sm-a/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechsqskeya1CF2F50C": {
+   "Type": "AWS::KMS::Key",
+   "Properties": {
+    "KeyPolicy": {
+     "Statement": [
+      {
+       "Action": "kms:*",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::440278670152:root"
+          ]
+         ]
+        }
+       },
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "amc SQS Key Stage A",
+    "EnableKeyRotation": true,
+    "PendingWindowInDays": 30
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sqs-key-a/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechsqskeyaAlias2585F553": {
+   "Type": "AWS::KMS::Alias",
+   "Properties": {
+    "AliasName": "alias/amc-demoteam-adtech-sqs-stage-a-key",
+    "TargetKeyId": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstageaamcdemoteamadtechsqskeya1CF2F50C",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sqs-key-a/Alias/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechsqsstageakeyarnssm8BAB7A42": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstageaamcdemoteamadtechsqskeya1CF2F50C",
+      "Arn"
+     ]
+    },
+    "Name": "/AMC/KMS/SQS/demoteam/adtechStageAKeyArn"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sqs-stage-a-key-arn-ssm/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechsqsstageakeyidssm2F5B3A3E": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Ref": "amcdemoteamadtechstageaamcdemoteamadtechsqskeya1CF2F50C"
+    },
+    "Name": "/AMC/KMS/SQS/demoteam/adtechStageAKeyId"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-sqs-stage-a-key-id-ssm/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechdlqafifo562AB63D": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "FifoQueue": true,
+    "KmsMasterKeyId": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstageaamcdemoteamadtechsqskeya1CF2F50C",
+      "Arn"
+     ]
+    },
+    "QueueName": "amc-demoteam-adtech-dlq-a.fifo",
+    "VisibilityTimeout": 60
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-dlq-a.fifo/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechdlqafifoPolicyDAD8C5EF": {
+   "Type": "AWS::SQS::QueuePolicy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "sqs:AddPermission",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ReceiveMessage",
+        "sqs:RemovePermission",
+        "sqs:SendMessage",
+        "sqs:SetQueueAttributes"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::440278670152:root"
+          ]
+         ]
+        }
+       },
+       "Resource": {
+        "Fn::GetAtt": [
+         "amcdemoteamadtechstageaamcdemoteamadtechdlqafifo562AB63D",
+         "Arn"
+        ]
+       },
+       "Sid": "QueueOwnerOnlyAccess"
+      },
+      {
+       "Action": "SQS:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": false
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": {
+        "Fn::GetAtt": [
+         "amcdemoteamadtechstageaamcdemoteamadtechdlqafifo562AB63D",
+         "Arn"
+        ]
+       },
+       "Sid": "HttpsOnly"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Queues": [
+     {
+      "Ref": "amcdemoteamadtechstageaamcdemoteamadtechdlqafifo562AB63D"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-dlq-a.fifo/Policy/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechdlqafifossm1A656CE3": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": "amc-demoteam-adtech-dlq-a.fifo",
+    "Name": "/AMC/SQS/demoteam/adtechStageADLQ"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-dlq-a.fifo-ssm/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechqueueafifoE23E62B5": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "ContentBasedDeduplication": true,
+    "FifoQueue": true,
+    "KmsMasterKeyId": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstageaamcdemoteamadtechsqskeya1CF2F50C",
+      "Arn"
+     ]
+    },
+    "QueueName": "amc-demoteam-adtech-queue-a.fifo",
+    "RedrivePolicy": {
+     "deadLetterTargetArn": {
+      "Fn::GetAtt": [
+       "amcdemoteamadtechstageaamcdemoteamadtechdlqafifo562AB63D",
+       "Arn"
+      ]
+     },
+     "maxReceiveCount": 1
+    },
+    "VisibilityTimeout": 60
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-queue-a.fifo/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechqueueafifoPolicy3933A418": {
+   "Type": "AWS::SQS::QueuePolicy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "sqs:AddPermission",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ReceiveMessage",
+        "sqs:RemovePermission",
+        "sqs:SendMessage",
+        "sqs:SetQueueAttributes"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::440278670152:root"
+          ]
+         ]
+        }
+       },
+       "Resource": {
+        "Fn::GetAtt": [
+         "amcdemoteamadtechstageaamcdemoteamadtechqueueafifoE23E62B5",
+         "Arn"
+        ]
+       },
+       "Sid": "QueueOwnerOnlyAccess"
+      },
+      {
+       "Action": "SQS:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": false
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": {
+        "Fn::GetAtt": [
+         "amcdemoteamadtechstageaamcdemoteamadtechqueueafifoE23E62B5",
+         "Arn"
+        ]
+       },
+       "Sid": "HttpsOnly"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Queues": [
+     {
+      "Ref": "amcdemoteamadtechstageaamcdemoteamadtechqueueafifoE23E62B5"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-queue-a.fifo/Policy/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaamcdemoteamadtechqueueafifossmAD28D785": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": "amc-demoteam-adtech-queue-a.fifo",
+    "Name": "/AMC/SQS/demoteam/adtechStageAQueue"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/amc-demoteam-adtech-queue-a.fifo-ssm/Resource"
+   }
+  },
+  "amcdemoteamadtechstageaMyEventSourceMapping0BD12D86": {
+   "Type": "AWS::Lambda::EventSourceMapping",
+   "Properties": {
+    "FunctionName": {
+     "Ref": "amcdemoteamadtechstageaselfprefixroutingFBE540D6"
+    },
+    "BatchSize": 10,
+    "Enabled": true,
+    "EventSourceArn": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstageaamcdemoteamadtechqueueafifoE23E62B5",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-a/MyEventSourceMapping/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebdemoteamadtechstageboctagonpipelineregisterdemoteamadtechstageboctagonpipelinecustomresourceFDC8F2BC": {
+   "Type": "AWS::CloudFormation::CustomResource",
+   "Properties": {
+    "ServiceToken": {
+     "Ref": "amcdemoteamadtechstagebdemoteamadtechstageboctagonpipelineregisterdemoteamadtechstageboctagonpipelineproviderssmParameter8950D3C3"
+    },
+    "RegisterProperties": {
+     "version": 1,
+     "status": "ACTIVE",
+     "name": "demoteam-adtech-stage-b",
+     "type": "octagon_pipeline",
+     "description": "amc data lake heavy transform",
+     "id": "demoteam-adtech-stage-b"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/demoteam-adtech-stage-b-octagon_pipeline-register/demoteam-adtech-stage-b-octagon_pipeline-custom-resource/Default"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechroutingbServiceRoleD17CEC2D": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-routing-b/ServiceRole/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechroutingbServiceRoleDefaultPolicyC24F7555": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:states:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":stateMachine:amc-demoteam-adtech-sm-b"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Condition": {
+        "ForAnyValue:StringLike": {
+         "kms:ResourceAliases": [
+          "alias/amc-*",
+          "alias/tps-*"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "glue:StartCrawler",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:glue:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":crawler/amc-demoteam-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "glue:StartJobRun",
+        "glue:GetJobRun"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "s3:ListBucket",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+       }
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::Split": [
+               "/",
+               {
+                "Fn::Select": [
+                 5,
+                 {
+                  "Fn::Split": [
+                   ":",
+                   {
+                    "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "/pre-stage/demoteam/*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::Split": [
+               "/",
+               {
+                "Fn::Select": [
+                 5,
+                 {
+                  "Fn::Split": [
+                   ":",
+                   {
+                    "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "/post-stage/demoteam/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:DescribeTable",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:GetRecords",
+        "dynamodb:ListTables"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/octagon-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/amc-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueues",
+        "sqs:GetQueueUrl",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:ListQueueTags"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:sqs:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":amc-demoteam-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "amcdemoteamadtechstagebamcdemoteamadtechroutingbServiceRoleDefaultPolicyC24F7555",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstagebamcdemoteamadtechroutingbServiceRoleD17CEC2D"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-routing-b/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechroutingb98C61886": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "12ddbf7b6604beee93e81a9d1b2d73d29e5960d3c0262cb123a05a02970ddeea.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstagebamcdemoteamadtechroutingbServiceRoleD17CEC2D",
+      "Arn"
+     ]
+    },
+    "Description": "Triggers Step Function stageB",
+    "FunctionName": "amc-demoteam-adtech-routing-b",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Ref": "amcdemoteamadtechstagebdatalakelibrarylayerarnssmParameter6F23D7D8"
+     }
+    ],
+    "MemorySize": 256,
+    "Runtime": "python3.8",
+    "Timeout": 600
+   },
+   "DependsOn": [
+    "amcdemoteamadtechstagebamcdemoteamadtechroutingbServiceRoleDefaultPolicyC24F7555",
+    "amcdemoteamadtechstagebamcdemoteamadtechroutingbServiceRoleD17CEC2D"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-routing-b/Resource",
+    "aws:asset:path": "../asset.12ddbf7b6604beee93e81a9d1b2d73d29e5960d3c0262cb123a05a02970ddeea",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechredrivebServiceRoleC4EF0628": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-redrive-b/ServiceRole/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechredrivebServiceRoleDefaultPolicy649E3BB7": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:states:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":stateMachine:amc-demoteam-adtech-sm-b"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Condition": {
+        "ForAnyValue:StringLike": {
+         "kms:ResourceAliases": [
+          "alias/amc-*",
+          "alias/tps-*"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "glue:StartCrawler",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:glue:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":crawler/amc-demoteam-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "glue:StartJobRun",
+        "glue:GetJobRun"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "s3:ListBucket",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+       }
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::Split": [
+               "/",
+               {
+                "Fn::Select": [
+                 5,
+                 {
+                  "Fn::Split": [
+                   ":",
+                   {
+                    "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "/pre-stage/demoteam/*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::Split": [
+               "/",
+               {
+                "Fn::Select": [
+                 5,
+                 {
+                  "Fn::Split": [
+                   ":",
+                   {
+                    "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "/post-stage/demoteam/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:DescribeTable",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:GetRecords",
+        "dynamodb:ListTables"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/octagon-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/amc-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueues",
+        "sqs:GetQueueUrl",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:ListQueueTags"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:sqs:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":amc-demoteam-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "amcdemoteamadtechstagebamcdemoteamadtechredrivebServiceRoleDefaultPolicy649E3BB7",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstagebamcdemoteamadtechredrivebServiceRoleC4EF0628"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-redrive-b/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechredrivebF3B062BD": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "13aaf85cf5f4b8501e69742f48a3b42240e4cfb95640f2c4c1bed2ccf5fda0c7.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstagebamcdemoteamadtechredrivebServiceRoleC4EF0628",
+      "Arn"
+     ]
+    },
+    "Description": "Redrive Step Function stageB",
+    "Environment": {
+     "Variables": {
+      "TEAM": "demoteam",
+      "PIPELINE": "adtech",
+      "STAGE": "StageB"
+     }
+    },
+    "FunctionName": "amc-demoteam-adtech-redrive-b",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Ref": "amcdemoteamadtechstagebdatalakelibrarylayerarnssmParameter6F23D7D8"
+     }
+    ],
+    "MemorySize": 256,
+    "Runtime": "python3.8",
+    "Timeout": 600
+   },
+   "DependsOn": [
+    "amcdemoteamadtechstagebamcdemoteamadtechredrivebServiceRoleDefaultPolicy649E3BB7",
+    "amcdemoteamadtechstagebamcdemoteamadtechredrivebServiceRoleC4EF0628"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-redrive-b/Resource",
+    "aws:asset:path": "../asset.13aaf85cf5f4b8501e69742f48a3b42240e4cfb95640f2c4c1bed2ccf5fda0c7",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechpostupdatebServiceRole6D8AE0DF": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-postupdate-b/ServiceRole/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechpostupdatebServiceRoleDefaultPolicy96F381A2": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:states:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":stateMachine:amc-demoteam-adtech-sm-b"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Condition": {
+        "ForAnyValue:StringLike": {
+         "kms:ResourceAliases": [
+          "alias/amc-*",
+          "alias/tps-*"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "glue:StartCrawler",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:glue:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":crawler/amc-demoteam-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "glue:StartJobRun",
+        "glue:GetJobRun"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "s3:ListBucket",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+       }
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::Split": [
+               "/",
+               {
+                "Fn::Select": [
+                 5,
+                 {
+                  "Fn::Split": [
+                   ":",
+                   {
+                    "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "/pre-stage/demoteam/*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::Split": [
+               "/",
+               {
+                "Fn::Select": [
+                 5,
+                 {
+                  "Fn::Split": [
+                   ":",
+                   {
+                    "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "/post-stage/demoteam/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:DescribeTable",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:GetRecords",
+        "dynamodb:ListTables"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/octagon-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/amc-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueues",
+        "sqs:GetQueueUrl",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:ListQueueTags"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:sqs:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":amc-demoteam-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "amcdemoteamadtechstagebamcdemoteamadtechpostupdatebServiceRoleDefaultPolicy96F381A2",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstagebamcdemoteamadtechpostupdatebServiceRole6D8AE0DF"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-postupdate-b/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechpostupdateb3BE8727F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "e341fae27af5c195d2bc692d1b74c25e9c2d93b860d7e445e8181f5518ab721f.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstagebamcdemoteamadtechpostupdatebServiceRole6D8AE0DF",
+      "Arn"
+     ]
+    },
+    "Description": "post update metadata",
+    "FunctionName": "amc-demoteam-adtech-postupdate-b",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Ref": "amcdemoteamadtechstagebdatalakelibrarylayerarnssmParameter6F23D7D8"
+     }
+    ],
+    "MemorySize": 256,
+    "Runtime": "python3.8",
+    "Timeout": 600
+   },
+   "DependsOn": [
+    "amcdemoteamadtechstagebamcdemoteamadtechpostupdatebServiceRoleDefaultPolicy96F381A2",
+    "amcdemoteamadtechstagebamcdemoteamadtechpostupdatebServiceRole6D8AE0DF"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-postupdate-b/Resource",
+    "aws:asset:path": "../asset.e341fae27af5c195d2bc692d1b74c25e9c2d93b860d7e445e8181f5518ab721f",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechcheckjobbServiceRole38F759E7": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-checkjob-b/ServiceRole/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechcheckjobbServiceRoleDefaultPolicy1C328A11": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:states:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":stateMachine:amc-demoteam-adtech-sm-b"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Condition": {
+        "ForAnyValue:StringLike": {
+         "kms:ResourceAliases": [
+          "alias/amc-*",
+          "alias/tps-*"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "glue:StartCrawler",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:glue:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":crawler/amc-demoteam-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "glue:StartJobRun",
+        "glue:GetJobRun"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "s3:ListBucket",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+       }
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::Split": [
+               "/",
+               {
+                "Fn::Select": [
+                 5,
+                 {
+                  "Fn::Split": [
+                   ":",
+                   {
+                    "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "/pre-stage/demoteam/*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::Split": [
+               "/",
+               {
+                "Fn::Select": [
+                 5,
+                 {
+                  "Fn::Split": [
+                   ":",
+                   {
+                    "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "/post-stage/demoteam/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:DescribeTable",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:GetRecords",
+        "dynamodb:ListTables"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/octagon-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/amc-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueues",
+        "sqs:GetQueueUrl",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:ListQueueTags"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:sqs:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":amc-demoteam-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "amcdemoteamadtechstagebamcdemoteamadtechcheckjobbServiceRoleDefaultPolicy1C328A11",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstagebamcdemoteamadtechcheckjobbServiceRole38F759E7"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-checkjob-b/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechcheckjobb155EAE55": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "2d8e020bc89fa188c6b51e165ba80650e9219400c193defeebde22eb90b1da97.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstagebamcdemoteamadtechcheckjobbServiceRole38F759E7",
+      "Arn"
+     ]
+    },
+    "Description": "check if glue job still running",
+    "FunctionName": "amc-demoteam-adtech-checkjob-b",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Fn::ImportValue": "aws-data-wrangler-py3-8"
+     },
+     {
+      "Ref": "amcdemoteamadtechstagebdatalakelibrarylayerarnssmParameter6F23D7D8"
+     }
+    ],
+    "MemorySize": 256,
+    "Runtime": "python3.8",
+    "Timeout": 600
+   },
+   "DependsOn": [
+    "amcdemoteamadtechstagebamcdemoteamadtechcheckjobbServiceRoleDefaultPolicy1C328A11",
+    "amcdemoteamadtechstagebamcdemoteamadtechcheckjobbServiceRole38F759E7"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-checkjob-b/Resource",
+    "aws:asset:path": "../asset.2d8e020bc89fa188c6b51e165ba80650e9219400c193defeebde22eb90b1da97",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "amcdemoteamadtechstagebamcerrorbServiceRoleBDDF4948": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-error-b/ServiceRole/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcerrorbServiceRoleDefaultPolicy2BC8EB4C": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:states:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":stateMachine:amc-demoteam-adtech-sm-b"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Condition": {
+        "ForAnyValue:StringLike": {
+         "kms:ResourceAliases": [
+          "alias/amc-*",
+          "alias/tps-*"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "glue:StartCrawler",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:glue:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":crawler/amc-demoteam-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "glue:StartJobRun",
+        "glue:GetJobRun"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "s3:ListBucket",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+       }
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::Split": [
+               "/",
+               {
+                "Fn::Select": [
+                 5,
+                 {
+                  "Fn::Split": [
+                   ":",
+                   {
+                    "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "/pre-stage/demoteam/*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::Split": [
+               "/",
+               {
+                "Fn::Select": [
+                 5,
+                 {
+                  "Fn::Split": [
+                   ":",
+                   {
+                    "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "/post-stage/demoteam/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:DescribeTable",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:GetRecords",
+        "dynamodb:ListTables"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/octagon-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/amc-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueues",
+        "sqs:GetQueueUrl",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:ListQueueTags"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:sqs:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":amc-demoteam-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "amcdemoteamadtechstagebamcerrorbServiceRoleDefaultPolicy2BC8EB4C",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstagebamcerrorbServiceRoleBDDF4948"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-error-b/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcerrorbAB2CF2E0": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "7dd2b114bf813ec03b927f02f2fd31fc6889e0fc12c74e621ed7be1ac20af329.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstagebamcerrorbServiceRoleBDDF4948",
+      "Arn"
+     ]
+    },
+    "Description": "send errors to DLQ",
+    "FunctionName": "amc-demoteam-adtech-error-b",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Ref": "amcdemoteamadtechstagebdatalakelibrarylayerarnssmParameter6F23D7D8"
+     }
+    ],
+    "MemorySize": 256,
+    "Runtime": "python3.8",
+    "Timeout": 600
+   },
+   "DependsOn": [
+    "amcdemoteamadtechstagebamcerrorbServiceRoleDefaultPolicy2BC8EB4C",
+    "amcdemoteamadtechstagebamcerrorbServiceRoleBDDF4948"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-error-b/Resource",
+    "aws:asset:path": "../asset.7dd2b114bf813ec03b927f02f2fd31fc6889e0fc12c74e621ed7be1ac20af329",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechprocessbServiceRoleE3DEC684": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-process-b/ServiceRole/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechprocessbServiceRoleDefaultPolicyA45D6900": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:UnassignPrivateIpAddresses"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "kms:Decrypt",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "amcdemoteamadtechstagebstagebucketkeyarnssmParameter7CCA5CA3"
+       }
+      },
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "kms:Encrypt",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "amcdemoteamadtechstagebstagebucketkeyarnssmParameter7CCA5CA3"
+       }
+      },
+      {
+       "Action": [
+        "s3:DeleteObject*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging",
+        "s3:Abort*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:states:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":stateMachine:amc-demoteam-adtech-sm-b"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:ReEncryptTo",
+        "kms:ReEncryptFrom",
+        "kms:ListAliases",
+        "kms:ListGrants",
+        "kms:ListKeys",
+        "kms:ListKeyPolicies"
+       ],
+       "Condition": {
+        "ForAnyValue:StringLike": {
+         "kms:ResourceAliases": [
+          "alias/amc-*",
+          "alias/tps-*"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "glue:StartCrawler",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:glue:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":crawler/amc-demoteam-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "glue:StartJobRun",
+        "glue:GetJobRun"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "s3:ListBucket",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+       }
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::Split": [
+               "/",
+               {
+                "Fn::Select": [
+                 5,
+                 {
+                  "Fn::Split": [
+                   ":",
+                   {
+                    "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "/pre-stage/demoteam/*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:s3:::",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::Split": [
+               "/",
+               {
+                "Fn::Select": [
+                 5,
+                 {
+                  "Fn::Split": [
+                   ":",
+                   {
+                    "Ref": "amcdemoteamadtechstagebstagebucketarnssmParameterBB61D4B9"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "/post-stage/demoteam/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:DescribeTable",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:GetRecords",
+        "dynamodb:ListTables"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/octagon-*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:dynamodb:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":table/amc-*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:ssm:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":parameter/AMC/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueues",
+        "sqs:GetQueueUrl",
+        "sqs:ListDeadLetterSourceQueues",
+        "sqs:ListQueueTags"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:sqs:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":amc-demoteam-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "amcdemoteamadtechstagebamcdemoteamadtechprocessbServiceRoleDefaultPolicyA45D6900",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstagebamcdemoteamadtechprocessbServiceRoleE3DEC684"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-process-b/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechprocessb8286A96E": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "ddk-dev-hnb659fds-assets-440278670152-eu-west-1",
+     "S3Key": "9289ac83b2a7b93d6f76b86149fe1e036d43567571f67abea51b498197bf2927.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstagebamcdemoteamadtechprocessbServiceRoleE3DEC684",
+      "Arn"
+     ]
+    },
+    "Description": "exeute heavy transform",
+    "FunctionName": "amc-demoteam-adtech-process-b",
+    "Handler": "handler.lambda_handler",
+    "Layers": [
+     {
+      "Fn::ImportValue": "aws-data-wrangler-py3-8"
+     },
+     {
+      "Ref": "amcdemoteamadtechstagebdatalakelibrarylayerarnssmParameter6F23D7D8"
+     }
+    ],
+    "MemorySize": 256,
+    "Runtime": "python3.8",
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "amcdemoteamadtechstagebamcdemoteamadtechprocessbServiceRoleDefaultPolicyA45D6900",
+    "amcdemoteamadtechstagebamcdemoteamadtechprocessbServiceRoleE3DEC684"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-process-b/Resource",
+    "aws:asset:path": "../asset.9289ac83b2a7b93d6f76b86149fe1e036d43567571f67abea51b498197bf2927",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechsmbsfnjobroleE1B0C512": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "states.eu-west-1.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSGlueServiceRole"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "PermissionsBoundary": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::440278670152:policy/ddk-dev-hnb659fds-permissions-boundary-440278670152-eu-west-1"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-sm-b-sfn-job-role/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechsmbsfnjobpolicy16A4EDEB": {
+   "Type": "AWS::IAM::ManagedPolicy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:lambda:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":function:amc-demoteam-*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "",
+    "Path": "/",
+    "Roles": [
+     {
+      "Ref": "amcdemoteamadtechstagebamcdemoteamadtechsmbsfnjobroleE1B0C512"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-sm-b-sfn-job-policy/Resource"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechsmbsmb4DD9D2BD": {
+   "Type": "AWS::StepFunctions::StateMachine",
+   "Properties": {
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstagebamcdemoteamadtechsmbsfnjobroleE1B0C512",
+      "Arn"
+     ]
+    },
+    "DefinitionString": {
+     "Fn::Join": [
+      "",
+      [
+       "{\n    \"Comment\": \"Simple pseudo flow\",\n    \"StartAt\": \"Try\",\n    \"States\": {\n        \"Try\": {\n            \"Type\": \"Parallel\",\n            \"Branches\": [\n                {\n                    \"StartAt\": \"Process Data\",\n                    \"States\": {\n                        \"Process Data\": {\n                            \"Type\": \"Task\",\n                            \"Resource\": \"",
+       {
+        "Fn::GetAtt": [
+         "amcdemoteamadtechstagebamcdemoteamadtechprocessb8286A96E",
+         "Arn"
+        ]
+       },
+       "\",\n                            \"Comment\": \"Process Data\",\n                            \"ResultPath\": \"$.body.job\",\n                            \"Next\": \"Wait\"\n                        },\n                        \"Wait\": {\n                            \"Type\": \"Wait\",\n                            \"Seconds\": 15,\n                            \"Next\": \"Get Job status\"\n                        },\n                        \"Get Job status\": {\n                            \"Type\": \"Task\",\n                            \"Resource\": \"",
+       {
+        "Fn::GetAtt": [
+         "amcdemoteamadtechstagebamcdemoteamadtechcheckjobb155EAE55",
+         "Arn"
+        ]
+       },
+       "\",\n                            \"ResultPath\": \"$.body.job\",\n                            \"Next\": \"Did Job finish?\"\n                        },\n                        \"Did Job finish?\": {\n                            \"Type\": \"Choice\",\n                            \"Choices\": [\n                                {\n                                    \"Variable\": \"$.body.job.jobDetails.jobStatus\",\n                                    \"StringEquals\": \"SUCCEEDED\",\n                                    \"Next\": \"Post-update Comprehensive Catalogue\"\n                                },\n                                {\n                                    \"Variable\": \"$.body.job.jobDetails.jobStatus\",\n                                    \"StringEquals\": \"FAILED\",\n                                    \"Next\": \"Job Failed\"\n                                }\n                            ],\n                            \"Default\": \"Wait\"\n                        },\n                        \"Job Failed\": {\n                            \"Type\": \"Fail\",\n                            \"Error\": \"Job Failed\",\n                            \"Cause\": \"Job failed, please check the logs\"\n                        },\n                        \"Post-update Comprehensive Catalogue\": {\n                            \"Type\": \"Task\",\n                            \"Resource\": \"",
+       {
+        "Fn::GetAtt": [
+         "amcdemoteamadtechstagebamcdemoteamadtechpostupdateb3BE8727F",
+         "Arn"
+        ]
+       },
+       "\",\n                            \"Comment\": \"Post-update Comprehensive Catalogue\",\n                            \"ResultPath\": \"$.statusCode\",\n                            \"End\": true\n                        }\n                    }\n                }\n            ],\n            \"Catch\": [\n                {\n                    \"ErrorEquals\": [\n                        \"States.ALL\"\n                    ],\n                    \"ResultPath\": null,\n                    \"Next\": \"Error\"\n                }\n            ],\n            \"Next\": \"Done\"\n        },\n        \"Done\": {\n            \"Type\": \"Succeed\"\n        },\n        \"Error\": {\n            \"Type\": \"Task\",\n            \"Resource\": \"",
+       {
+        "Fn::GetAtt": [
+         "amcdemoteamadtechstagebamcerrorbAB2CF2E0",
+         "Arn"
+        ]
+       },
+       "\",\n            \"Comment\": \"Send Original Payload to DLQ\",\n            \"Next\": \"Failed\"\n        },\n        \"Failed\": {\n            \"Type\": \"Fail\"\n        }\n    }\n}"
+      ]
+     ]
+    },
+    "StateMachineName": "amc-demoteam-adtech-sm-b"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-sm-b-sm-b"
+   }
+  },
+  "amcdemoteamadtechstagebamcdemoteamadtechsmbB43132AF": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "amcdemoteamadtechstagebamcdemoteamadtechsmbsmb4DD9D2BD",
+      "Arn"
+     ]
+    },
+    "Name": "/AMC/SM/demoteam/adtechStageBSM"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/amc-demoteam-adtech-stage-b/amc-demoteam-adtech-sm-b/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2VQ0W7DIAz8lr4TL2u+oK22l6lSmn5A5RI3ZQmQxbCpivLvA7K1mfbCnW3wHbeGdQ75Cr84k3WbdeoM49GhbEVFbP0gSewupsQBNTkaxM6zs3o5u/Ow4zRyAVsvW3JbZBId6nONML56I52yJjV/i/j4zl8+ybhjWrTHvlemieP/3Uko1DBWtpvFI5a2U/KWfM5sjwYbqh/9P41JcHFCZnIMmwiCHfWXHycM4X5IwAVFeVWGBLOOmQxBfZHDIpRJtJphfKOkFWHTKeRYJBIEP8L84Mkn0zNJ58PiopwmkXwFF036cnlzV2ueCnjOoVi9s1LZ4I1TmqCa8RsOwnI4xwEAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "AMC-dev-QuickStart/amc-data-lake-pipeline/CDKMetadata/Default"
+   }
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
