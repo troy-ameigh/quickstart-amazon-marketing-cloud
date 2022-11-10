@@ -298,31 +298,20 @@ class Utils:
         }
 
 
-    def dynamodb_delete_item(self, table_name, item, check_if_item_exists=False):
+    def dynamodb_delete_item(self, table_name, item):
         dynamodb = boto3.resource('dynamodb')
         table = dynamodb.Table(table_name)
         key_schema = table.key_schema
         self.logger.info('key schema {}'.format(key_schema))
         item_key = {}
-        condition_expressions = []
 
         for key in key_schema:
-            item_key[key['AttributeName']] = item[key['AttributeName']]
-            condition_expressions.append('attribute_exists({})'.format(key['AttributeName']))
+            item_key[key] = item[key]
 
-        condition_expression = ' AND '.join(condition_expressions)
-
-        if check_if_item_exists:
-            self.logger.info(
-                'attempting delete item from table {} with key{} and conditions {}'.format(table_name, item_key,
-                                                                                           condition_expression))
-            response = table.delete_item(Key=item_key, ConditionExpression=condition_expression)
-        else:
-            self.logger.info('attempting delete item from table  with key{}'.format(table_name, item_key))
-            response = table.delete_item(Key=item_key)
-
+        self.logger.info(f'attempting delete item from table {table_name} with key {item_key}')
+        response = table.delete_item(Key=item_key)
+        
         self.logger.info('delete item response {}'.format(response))
-
         return response
 
     def dynamodb_get_workflow_executions(self, config, *, execution_status=None, workflow_id=None, minimum_create_date_string=None,

@@ -88,11 +88,7 @@ def lambda_handler(event, context):
                     "WFM": {
                       "amcWorkflowExecutionDLQSQSQueueName": f'wfm-{event["AmcTeamName"]}-{env}-workflowExecution-{event["TenantName"]}-DLQ.fifo',
                       "amcWorkflowExecutionSQSQueueName": f'wfm-{event["AmcTeamName"]}-{env}-workflowExecution-{event["TenantName"]}.fifo',
-                      "enableWorkflowLibraryNewContent": True,
-                      "enableWorkflowLibraryRemoval": True,
-                      "enableWorkflowLibraryScheduleCreation": True,
-                      "enableWorkflowLibraryScheduleRemoval": True,
-                      "enableWorkflowLibraryUpdates": True,
+                      "enableWorkflowLibrary": True,
                       "runWorkflowByCampaign": {
                         "campaignAttributionLagDays": 14,
                         "campaignListDatabaseName": f'{event["AmcTeamName"]}_amcdataset_dev_analytics',

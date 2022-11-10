@@ -100,11 +100,7 @@ class CustomerInterface():
         Parameters
         ----------
         customerConfig: {
-            enableWorkflowLibraryNewContent: bool
-            enableWorkflowLibraryRemoval: bool
-            enableWorkflowLibraryScheduleCreation: bool
-            enableWorkflowLibraryScheduleRemoval: bool
-            enableWorkflowLibraryUpdates: bool
+            enableWorkflowLibrary: bool
         }
         '''
         

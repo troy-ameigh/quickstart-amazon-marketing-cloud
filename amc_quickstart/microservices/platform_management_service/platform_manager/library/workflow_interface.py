@@ -248,7 +248,7 @@ class WorkflowInterface():
                 item['Input']['payload'][parameter] = lookup_values[parameter]
 
         #add any metadata passed in to the schedule
-        if 'metadata' in scheduleDetails and len(scheduleDetails['metadata'] > 0):
+        if 'metadata' in scheduleDetails and len(scheduleDetails['metadata']) > 0:
             item['metadata'] = {}
             for param in scheduleDetails['metadata']:
                 item['metadata'][param] = scheduleDetails['metadata'][param]

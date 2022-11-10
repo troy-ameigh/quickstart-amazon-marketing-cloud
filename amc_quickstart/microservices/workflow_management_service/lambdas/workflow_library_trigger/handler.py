@@ -14,7 +14,6 @@
 
 
 import boto3
-import json
 import os
 from aws_lambda_powertools import Logger
 from wfm import wfm_utils
@@ -26,133 +25,128 @@ sqs = boto3.client('sqs')
 ssm = boto3.client('ssm')
 ddb = boto3.client('dynamodb')
 
-from wfm import wfm_utils
 
-wfmutils = wfm_utils.Utils(logger)
+def handle_updated_item(item, event_name, configs, workflows_table, workflow_schedule_table):
 
-
-def handle_updated_item(item, event_name, configs, workflows_table, workflow_schedule_table,
-                        cloudwatch_rule_name_prefix):
-
-    # log the even type and the item received
     logger.info('event: {} item {} '.format(event_name, item))
 
-    # get the workflow endemic type from the workflow library record
+    # if the item passed in endemicType or customerPrefix then we have to remove the record from inapplicable customers
+    endemic_flag = False
+    prefix_flag = False
+
     workflow_endemic_type = ''
     if 'endemicType' in item:
         workflow_endemic_type = item['endemicType']
-
-    # get the customer prefix from the workflow library record
+        endemic_flag = True
     workflow_customer_prefix = ''
     if 'customerPrefix' in item:
         workflow_customer_prefix = item['customerPrefix']
-
+        prefix_flag = True
+    
     for customerId in configs:
-        # set the update settings to false by default
-        enable_workflow_library_updates = False
-        enable_workflow_library_new_content = False
-        enable_workflow_library_schedule_creation = False
-
-        # Load the update settings from the customer record if they exist:
-        if "enableWorkflowLibraryNewContent" in configs[customerId]['AMC']['WFM']:
-            enable_workflow_library_new_content = configs[customerId]['AMC']['WFM']["enableWorkflowLibraryNewContent"]
-
-        if "enableWorkflowLibraryUpdates" in configs[customerId]['AMC']['WFM']:
-            enable_workflow_library_updates = configs[customerId]['AMC']['WFM']["enableWorkflowLibraryUpdates"]
-
-        if "enableWorkflowLibraryScheduleCreation" in configs[customerId]['AMC']['WFM']:
-            enable_workflow_library_schedule_creation = configs[customerId]['AMC']['WFM'][
-                "enableWorkflowLibraryScheduleCreation"]
-
-        # Set the default value for the customer endemic type
-        customer_endemic_type = ''
-
-        if "endemicType" in configs[customerId]:
-            customer_endemic_type = configs[customerId]["endemicType"]
-
-        logger.info('workflow endemic type {} customer {} endemic type {}'.format(workflow_endemic_type, customerId,
-                                                                                  customer_endemic_type))
-
-        # if the endemic type is specified in the workflow and does not match the customer record then skip updating the record for the customer
-        if workflow_endemic_type != '' and workflow_endemic_type != customer_endemic_type:
-            continue
-
-        # Set the default value for the customer prefix
-        customer_customer_prefix = ''
-
-        if "customerPrefix" in configs[customerId]:
-            customer_customer_prefix = configs[customerId]["customerPrefix"]
-
-        logger.info(
-            'workflow customerPrefix  {} customer {} customerPrefix {}'.format(workflow_customer_prefix, customerId,
-                                                                               customer_customer_prefix))
-
-        # if the customer prefix is specified in the workflow and does not match the customer record then skip updating the record for the customer
-        if workflow_customer_prefix != '' and workflow_customer_prefix != customer_customer_prefix:
-            continue
+        logger.info(f'checking customer: {customerId}')
 
         workflow_item_to_update = item.copy()
         workflow_item_to_update['customerId'] = customerId
-
-        # if the customer config does not allow updates then skip
-        if not enable_workflow_library_updates:
-            continue
-
         workflow_item_to_update.pop('schedule', None)
-        wfmutils.dynamodb_put_item(workflows_table, workflow_item_to_update)
-
         if 'schedule' in item:
             schedule_item_to_update = item['schedule'].copy()
-            # copy the workflowid into the payload
             schedule_item_to_update['customerId'] = customerId
-        
-            # if the customer does not allow updates then skip
-            if enable_workflow_library_schedule_creation:
-                wfmutils.dynamodb_put_item(workflow_schedule_table, schedule_item_to_update)
+
+        enable_workflow_library = False
+        if "enableWorkflowLibrary" in configs[customerId]['AMC']['WFM']:
+            enable_workflow_library = configs[customerId]['AMC']['WFM']["enableWorkflowLibrary"]
+        if not enable_workflow_library:
+            logger.info(f'workflow library not enabled')
+            continue
+
+        customer_endemic_type = ''
+        if "endemicType" in configs[customerId]:
+            customer_endemic_type = configs[customerId]["endemicType"]
+        if endemic_flag == True and workflow_endemic_type != customer_endemic_type:
+            logger.info(f'workflow endemicType: {workflow_endemic_type}, customer endemicType: {customer_endemic_type}')
+            wfmutils.dynamodb_delete_item(
+                table_name=workflows_table, 
+                key={
+                    "customerId": customerId,
+                    "workflowId": workflow_item_to_update["workflowId"]
+                }
+            )
+            if schedule_item_to_update:
+                wfmutils.dynamodb_delete_item(table_name=workflow_schedule_table, 
+                key={
+                    "customerId": customerId,
+                    "Name": schedule_item_to_update["Name"]
+                }
+            )
+            continue
+
+        customer_customer_prefix = ''
+        if "customerPrefix" in configs[customerId]:
+            customer_customer_prefix = configs[customerId]["customerPrefix"]
+        if prefix_flag == True and workflow_customer_prefix != customer_customer_prefix:
+            logger.info(f'workflow customerPrefix: {workflow_customer_prefix}, customer customerPrefix: {customer_customer_prefix}')
+            wfmutils.dynamodb_delete_item(
+                table_name=workflows_table, 
+                key={
+                    "customerId": customerId,
+                    "workflowId": workflow_item_to_update["workflowId"]
+                }
+            )
+            if schedule_item_to_update:
+                wfmutils.dynamodb_delete_item(table_name=workflow_schedule_table, 
+                key={
+                    "customerId": customerId,
+                    "Name": schedule_item_to_update["Name"]
+                }
+            )
+            continue
+
+        # if all checks pass, add the item to the appropriate tables
+        wfmutils.dynamodb_put_item(workflows_table, workflow_item_to_update)
+        if schedule_item_to_update:
+            wfmutils.dynamodb_put_item(workflow_schedule_table, schedule_item_to_update)
 
 
-def handle_deleted_item(item, event_name, configs, workflows_table, workflow_schedule_table,
-                        cloudwatch_rule_name_prefix):
+def handle_deleted_item(item, event_name, configs, workflows_table, workflow_schedule_table):
 
-    # log the event type and the item received
     logger.info('event: {} item {} '.format(event_name, item))
 
     for customerId in configs:
-        # set the update settings to false by default
-        enable_workflow_library_removal = False
-        enable_workflow_library_schedule_removal = False
+        logger.info(f'checking customer: {customerId}')
 
-        # Load the update settings from the customer record if they exist:
-        if "enableWorkflowLibraryRemoval" in configs[customerId]['AMC']['WFM']:
-            enable_workflow_library_removal = configs[customerId]['AMC']['WFM']["enableWorkflowLibraryRemoval"]
+        enable_workflow_library = False
+        if "enableWorkflowLibrary" in configs[customerId]['AMC']['WFM']:
+            enable_workflow_library = configs[customerId]['AMC']['WFM']["enableWorkflowLibrary"]
+        if not enable_workflow_library:
+            logger.info(f'workflow library not enabled')
+            continue
 
-        if "enableWorkflowLibraryScheduleRemoval" in configs[customerId]['AMC']['WFM']:
-            enable_workflow_library_schedule_removal = configs[customerId]['AMC']['WFM'][
-                "enableWorkflowLibraryScheduleRemoval"]
-
-        workflow_item_to_delete = item.copy()
-        workflow_item_to_delete['customerId'] = customerId
-
-        workflow_exists = wfmutils.dynamodb_check_if_item_exists(workflows_table, workflow_item_to_delete)
-
-        # only remove the worklow record if the customer config allows workflow removal and the record exists
-        if enable_workflow_library_removal and workflow_exists:
-            wfmutils.dynamodb_delete_item(workflows_table, workflow_item_to_delete, True)
-
-        #remove the schedule if it existed for the workflow library record
-        schedule_item_to_delete = item['schedule'].copy()
-        schedule_item_to_delete['customerId'] = customerId
-        schedule_exists = wfmutils.dynamodb_check_if_item_exists(workflow_schedule_table, schedule_item_to_delete)
-        # only add the cloudformation rule to the list of items to be updated if it does not already exist
-        if enable_workflow_library_schedule_removal and schedule_exists:
-            wfmutils.dynamodb_delete_item(workflow_schedule_table, schedule_item_to_delete, False)
+        if enable_workflow_library:
+            workflow_item_to_delete = item.copy()
+            wfmutils.dynamodb_delete_item(
+                table_name=workflows_table, 
+                key={
+                    "customerId": customerId,
+                    "workflowId": workflow_item_to_delete["workflowId"]
+                }
+            )
+            if 'schedule' in item:
+                schedule_item_to_delete = item['schedule'].copy()
+                wfmutils.dynamodb_delete_item(table_name=workflow_schedule_table, 
+                key={
+                    "customerId": customerId,
+                    "Name": schedule_item_to_delete["Name"]
+                }
+            )
 
 
 def lambda_handler(event, context):
+
     logger.info('event: {}'.format(event))
+
     workflows_table = os.environ['WORKFLOWS_TABLE_NAME']
     workflow_schedule_table = os.environ['WORKFLOW_SCHEDULE_TABLE']
-    cloudwatch_rule_name_prefix = os.environ['CLOUDWATCH_RULE_NAME_PREFIX']
     workflow_library_table = os.environ['WORKFLOW_LIBRARY_DYNAMODB_TABLE']
 
     # check to see if the trigger is being invoked for a new customer that needs to have the default workflows deployed
@@ -166,8 +160,7 @@ def lambda_handler(event, context):
             logger.info(workflow_library_record)
             # treat each workflow records with auto deploy as if it were a newly inserted record for this customerId
             handle_updated_item(workflow_library_record, 'INSERT', customer_config, workflows_table,
-                                    workflow_schedule_table,
-                                    cloudwatch_rule_name_prefix)
+                                    workflow_schedule_table,)
         return
 
     configs = wfmutils.dynamodb_get_customer_config_records(os.environ['CUSTOMERS_DYNAMODB_TABLE'])
@@ -181,11 +174,9 @@ def lambda_handler(event, context):
             old_record = wfmutils.deseralize_dynamodb_item(record['dynamodb']['OldImage'])
 
         if record['eventName'] in ['INSERT', 'MODIFY']:
-            handle_updated_item(new_record, record['eventName'], configs, workflows_table, workflow_schedule_table,
-                                cloudwatch_rule_name_prefix)
+            handle_updated_item(new_record, record['eventName'], configs, workflows_table, workflow_schedule_table,)
 
         if record['eventName'] in ['REMOVE']:
-            handle_deleted_item(old_record, record['eventName'], configs, workflows_table, workflow_schedule_table,
-                                cloudwatch_rule_name_prefix)
+            handle_deleted_item(old_record, record['eventName'], configs, workflows_table, workflow_schedule_table,)
 
     return response
