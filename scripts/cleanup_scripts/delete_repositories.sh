@@ -27,24 +27,12 @@ delete_repositories() {
     for REPOSITORY in ${REPOSITORIES[@]}; do
         REPOSITORY_DETAILS=$(aws codecommit get-repository --repository-name ${REPOSITORY} --region ${REGION} --profile ${PROFILE} &>/dev/null)
         RETSTAT=$?
-        echo "Deleting REPO ${REPOSITORY}"
+        echo "Checking REPO ${REPOSITORY}"
         if [ ${RETSTAT} -eq 0 ]; then
-            echo "Remote repository ${REPOSITORY} already exists, deleting..."
+            echo "Remote repository ${REPOSITORY} exists, deleting now..."
             aws codecommit delete-repository --profile ${PROFILE} --region ${REGION} --repository-name ${REPOSITORY}
-            # pushd ${REPOSITORY}
-            rm -rf .git
-            # popd
         else
             echo "Repository ${REPOSITORY} does not exists in ${REGION}"
-            echo "Deleting local .git directory if it exists."
-            # pushd ${REPOSITORY}
-            if [ -d .git ]; then
-                echo "Local .git repository exists, deleting..."
-                rm -rf .git
-            else
-                echo "Local .git repository does not exist."
-            fi
-            # popd
         fi
     done
 
