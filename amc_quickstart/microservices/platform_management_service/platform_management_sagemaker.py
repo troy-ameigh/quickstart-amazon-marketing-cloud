@@ -298,7 +298,9 @@ chmod 555 /home/ec2-user/SageMaker/platform_manager/Workflow_Schedules.ipynb
 chmod 555 /home/ec2-user/SageMaker/platform_manager/Workflows.ipynb
 
 sudo -u ec2-user -i << 'EOF'
-                
+
+python -m ipykernel install --user --name python3 --display-name python3
+
 # PARAMETERS
 PACKAGE=awswrangler
 ENVIRONMENT=python3
