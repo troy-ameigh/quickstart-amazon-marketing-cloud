@@ -74,7 +74,7 @@ class AMCDeliveryKit(cdk.Stage):
         ) 
 
         # PMN
-        pmn_stack = PlatformManagerSageMaker(self, f"{self._resource_prefix}-platform-manager", environment_id=environment_id, microservice="platform-manager", resource_prefix=self._resource_prefix)
+        pmn_stack = PlatformManagerSageMaker(self, f"{self._resource_prefix}-platform-manager", environment_id=environment_id, team=self._team, microservice="platform-manager", resource_prefix=self._resource_prefix)
         pmn_stack.add_dependency(
             foundations_stack
         ) 

@@ -32,12 +32,14 @@ def get_ssm_value(scope, id: str, parameter_name: str) -> str:
         id=id,
         string_parameter_name=parameter_name,
     ).string_value
+
 class PlatformManagerSageMaker(BaseStack):
     def __init__(
         self,
         scope,
         construct_id: str,
         environment_id: str,
+        team: str,
         microservice: str,
         resource_prefix: str,
         **kwargs: Any,
@@ -45,6 +47,7 @@ class PlatformManagerSageMaker(BaseStack):
         super().__init__(scope, construct_id, environment_id, **kwargs)
 
         self._environment_id: str = environment_id
+        self._team = team
         self._microservice_name = microservice
         self._resource_prefix = resource_prefix
         self._get_artifacts()
@@ -285,9 +288,12 @@ class PlatformManagerSageMaker(BaseStack):
 #!/bin/bash
               
 set -e
-                
+
+# Load notebook files to instance       
 S3_BUCKET={self._artifacts_bucket_name}
 aws s3 sync s3://$S3_BUCKET/platform_notebook_manager_samples/ /home/ec2-user/SageMaker/
+
+# Set instance r/w/x permissions
 chmod 777 /home/ec2-user/SageMaker/platform_manager
 chmod 777 /home/ec2-user/SageMaker/platform_manager/library
 chmod 777 /home/ec2-user/SageMaker/platform_manager/reference
@@ -297,14 +303,23 @@ chmod 555 /home/ec2-user/SageMaker/platform_manager/Workflow_Library.ipynb
 chmod 555 /home/ec2-user/SageMaker/platform_manager/Workflow_Schedules.ipynb
 chmod 555 /home/ec2-user/SageMaker/platform_manager/Workflows.ipynb
 
+# Create environment variables for interface library
+TEAM_NAME="TEAM_NAME={self._team}"
+ENV="ENV={self._environment_id}"
+FILE=/home/ec2-user/SageMaker/platform_manager/.env
+
+touch $FILE
+grep -qF "$TEAM_NAME" "$FILE" || echo "$TEAM_NAME" >> "$FILE"
+grep -qF "$ENV" "$FILE" || echo "$ENV" >> "$FILE"
+
+# Set default python3 and install dependencies
 sudo -u ec2-user -i << 'EOF'
 
 python -m ipykernel install --user --name python3 --display-name python3
-
-# PARAMETERS
+       
 PACKAGE=awswrangler
 ENVIRONMENT=python3
-                
+
 source /home/ec2-user/anaconda3/bin/activate "$ENVIRONMENT"
 pip install --upgrade "$PACKAGE"
 source /home/ec2-user/anaconda3/bin/deactivate
