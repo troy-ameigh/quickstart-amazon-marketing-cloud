@@ -80,7 +80,7 @@ def dynamodb_get_wf_schedule_records(dynamodb_table_name, frequency=None):
     # Iterate over each page from the iterator
     for page in response_iterator:
         # deserialize each "item" (or record) into a dictionary
-        if 'Items' in page: #TODO this is looking for ['Items'] before payload
+        if 'Items' in page:
             for item in page['Items']:
                 wf_schedule = deseralize_dynamodb_item(item)
                 # Run only "ENABLED" workflows
@@ -126,7 +126,7 @@ def lambda_handler(event, context):
             # Each item is dict
             payload = {
                 'customerId': item['customerId'],
-                'payload': item['Input']['payload'] #TODO should['Input'] be removed?
+                'payload': item['Input']['payload']
             }
             print(payload)
             
