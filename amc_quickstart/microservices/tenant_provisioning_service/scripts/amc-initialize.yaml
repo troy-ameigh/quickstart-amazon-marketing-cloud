@@ -41,9 +41,7 @@ Parameters:
     Default: "False"
 
 Conditions:
-  DeployBucket: !Equals
-    - !Ref pBucketExists
-    - "False"
+  DeployBucket: !Equals [!Ref pBucketExists, 'False']
 
 Resources:
   rS3Bucket:
