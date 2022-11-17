@@ -26,3 +26,7 @@ The following steps can be repeated for any users you wish to grant database acc
 * Keep *Data Filters - Optional* empty.
 * For *Table Permissions*, choose *Super*.
 .. Choose *Grant* at the bottom.
+
+=== View the Operational Guide
+
+After completing the steps above, check out the Operational Guide for help getting started using the solution {#TODO INSERT LINK TO OPERATIONAL GUIDE}.

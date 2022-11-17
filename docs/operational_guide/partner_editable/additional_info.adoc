@@ -2,50 +2,58 @@
 The following guide details how to get started using the solution once the post deployment steps have been completed. For information on deploying this Quick Start, refer to the https://fwd.aws/<permalink>?[{partner-product-name} Quick Start Deployment Guide^].
 
 == Description of included microservices
-As part of the deployment, the following microservices are included that allow users to manage and interact with the solution and AMC. These services can be accessed from the platform manager in the deployed Amazon SageMaker instance.
+As part of the deployment, the following microservices are included that allow users to manage and interact with the solution and Amazon Marketing Cloud (AMC). These services can be accessed from the platform manager in the deployed Amazon SageMaker instance.
 
 === Platform Management Service
 The Platform Management Service deploys an Amazon SageMaker instance with preloaded Jupyter notebook files. These files use the platform management library to interact with the TPS and WFM microservices. 
 
 === Tenant Provisioning Service
-The Tenant Provisioning Service is an Amazon Ad Tech solution that adds functionality for managing multiple Amazon Marketing Cloud customers. It provides a centralized location to manage customers, supporting multi-tenancy and providing an ability to onboard customers quickly and easily without the need for custom solutions.
+The Tenant Provisioning Service is an Amazon Ad Tech solution that adds functionality for managing multiple AMC customers. It provides a centralized location to manage customers, supporting multi-tenancy and providing an ability to onboard customers quickly and easily without the need for custom solutions.
 
 Customers are mapped 1 to 1 with AMC instances. When a customer is onboarded, the associated AMC instance S3 bucket is checked and deployed if it does not already exist.
 
+[#architecture2]
+.Architecture for Tenant Provisioning Service
+image::../docs/operational_guide/images/AMC-Quickstart-TPS-Architecture.png[Architecture]
+												
 === Workflow Management Service
-The Workflow Management Service can be used to manage, schedule and execute AMC workflows. This service also allows you to:
+The Workflow Management Service (WFM) can be used to manage, schedule and run AMC workflows. This service also allows you to:
 
-** Synchronize workflows and workflow schedules in the Workflow Library service with multiple AMC Instances
+** Synchronize workflows and their schedules in the Workflow Library service with multiple AMC Instances.
 
-** Send execution requests to an SQS queue rather than directly to the AMC endpoint to prevents timeout failures when there are large number of requests in a short period of time
+** Send workflow requests to an SQS queue rather than directly to the AMC endpoint to prevent timeout failures when there are a large number of requests in a short period of time.
 
-** Schedule with dynamic relative time windows rather than using AMC’s scheduling feature which only allows predefined scheduled reporting such as Daily or Weekly
+** Schedule with dynamic, relative time windows rather than using AMC’s scheduling feature, which only allows predefined scheduled reporting such as Daily or Weekly. 
 
-** Track the status of all workflow executions for customer AMC instances whether they are submitted through WFM or other means (postman, etc.). Having the status synced to DynamoDB allows events to be triggered or notifications to be sent when executions change state. This table can also be used to track historical executions for troubleshooting or performance monitoring.
+** Track the status of all workflow runs for customer AMC instances whether they’re submitted through WFM or other means (postman, etc.). This table can also be used to track historical runs for troubleshooting or performance monitoring.
+
+[#architecture3]
+.Architecture for Workflow Management Service
+image::../docs/operational_guide/images/AMC-Quickstart-WFM-Architecture.png[Architecture]
 
 == Getting started with hydrating your data lake
-To hydrate the data lake and begin populating it with data from your AMC instance, follow these steps. When you’re finished, business stakeholders can use Amazon Athena to access the data returned from the workflow execution.
+If your AMC S3 bucket already contained data before deployment of this solution, it will not be picked up automatically by the data lake. Only workflows run after deployment will start this process. When you’re finished, business stakeholders can use Amazon Athena to access the data returned from the workflow run.
 
-If your AMC S3 bucket already contained data before deployment of this solution, it will not be picked up automatically by the data lake. Only workflows run after deployment will trigger this process.
+To hydrate the data lake and begin populating it with data from your AMC instance, follow these steps.
 
 1. Sign in to the AWS Management Console, and open the Amazon SageMaker console.
 
 2. On the left side of your screen, choose *Notebook* -> *Notebook Instances* (You should see one notebook named aws-quickstart-platform-manager-notebooks with status *In Service*. The prefix 'aws' may differ depending on the value set in the ddk.json file).
 
-3. Click "Open JupyterLab" to open the Notebook Instance in a new tab.
+3. Choose "Open JupyterLab" to open the Notebook Instance in a new tab.
 
-4. Open “Getting_Started.ipynb” for a walkthrough of using the TPS and WFM microservices.
+4. Open “-Getting_Started-.ipynb” for a walkthrough of using the TPS and WFM microservices.
 
-== Query data with Athena
+== Query your data with Athena
 If this is your first time using Athena on this AWS account then you must set the query result location in S3 by following the below steps.
 
-. Navigate to the Athena console.
-. From the top menu click on *Settings*.
-. Click *Manage*.
-. Click *Browse S3* next to the first open field.
-. Find the deployed S3 bucket with the suffix '-athena' (Bucket name follows the same convention as the others deployed. Any custom bucket can be designated for this purpose, this one is simply deployed as part of the solution for ease).
-. Check off the bucket and click *Choose*.
-. *Save* the new settings.
+1. Navigate to the Athena console.
+2. From the top menu choose *Settings*.
+3. Choose *Manage*.
+4. Choose *Browse S3* next to the first open field.
+5. Find the deployed S3 bucket with the suffix '-athena' (Bucket name follows the same convention as the others deployed. Any custom bucket can be designated for this purpose, this one is simply deployed as part of the solution for ease).
+6. Select the bucket and *Choose*.
+7. *Save* the new settings.
 
 You are now ready to start querying your tables with Athena.
 
@@ -53,30 +61,30 @@ You are now ready to start querying your tables with Athena.
 This section walks through how to build a QuickSight dashboard with AMC data from your data lake. 
 
 === Set up QuickSight
-You need author access to a QuickSight account to get started with building your first dashboard. If you do not have a QuickSight account already, create one by following these steps:
+You must author access to a QuickSight account to get started with building your first dashboard. If you do not have a QuickSight account already, create one by following these steps:
 
-. Open the AWS Console and search for QuickSight to launch it.
-. On the QuickSight page, click *Sign up for QuickSight*.
-. Keep the default *Enterprise* edition, scroll down and click the *Continue* button.
-. Enter a *QuickSight account name* and *Notification email address*.
-. Scroll down and click the *Finish* button.
+1. Open the AWS Console and search for QuickSight to launch it.
+2. On the QuickSight page, choose *Sign up for QuickSight*.
+3. Keep the default *Enterprise* edition, scroll down and choose *Continue*.
+4. Enter a *QuickSight account name* and *Notification email address*.
+5. Scroll down and choose *Finish*.
 
 You will now be taken to the QuickSight console.
 
 === Authorize your QuickSight connection
-To work with Lake Formation and Athena on QuickSight, you must ensure that you have the proper AWS resource permissions configured. To perform this action you must be an Amazon QuickSight administrator. To check if you have access, verify that you see the Manage QuickSight option when you open the menu from your profile at the upper right.
+To work with Lake Formation and Athena on QuickSight, you must ensure that you have the proper AWS resource permissions configured. To perform this action you must be an Amazon QuickSight administrator. To verify that you have access you should see the Manage QuickSight option when you open the menu from your profile at the upper right.
 
 Use the following procedure to make sure that you have successfully authorized Amazon Quicksight to use Athena and S3 (permissions to AWS resources apply to all Amazon QuickSight users).
 
-. Authorize Amazon QuickSight to access the Athena and Amazon S3 services
-.. Choose your profile name (upper right) and click on *Manage QuickSight*.
+. Authorize Amazon QuickSight to access the Athena and Amazon S3 services.
+.. Choose your profile name (upper right) and choose *Manage QuickSight*.
 .. Navigate to *Security & Permissions*.
 .. Under *QuickSight access to AWS services*, choose *Manage*.
 .. Find *Athena* in the list. Clear the box by Athena, then select it again to enable Athena. Then choose *Next*.
 .. Under *S3 Bucket*, choose the S3 buckets that you want to allow read-access by Amazon QuickSight. 
 .. From the right column, *Write permissions for Athena Workgroup*, choose the S3 buckets that you want to allow query result write-access to. 
 .. Choose *Finish* to confirm your selection.
-.. Click *Save* to update your new settings for Amazon QuickSight access to AWS services.
+.. Choose *Save* to update your new settings for Amazon QuickSight access to AWS services.
 . Authorize Amazon QuickSight to access Lake Formation database and tables
 .. Collect the Amazon Resource Names (ARNs) of the QuickSight users and groups that need to access the data in Lake Formation. These users should be QuickSight authors or administrators.
 ... Use the AWS CLI to find user ARNs or construct the ARNs manually below.
@@ -88,9 +96,9 @@ Use the following procedure to make sure that you have successfully authorized A
 .. From the *Actions* drop-down menu, choose *Grant*
 .. Select *SAML users and groups* and enter the QuickSight user ARN
 .. Choose *Named data catalog resources*.
-.. Under *Tables*, open the drop-down menu and select *All tables* or selectively choose individual tables to permit access to.
+.. Under *Tables*, open the drop-down menu and select *All tables* or selectively choose individual tables to permit access.
 .. For *Table permissions*, choose *Select* and *Describe*.
-.. Click *Grant*
+.. Choose *Grant*
 .. Repeat the preceding steps to grant multiple database permissions to your QuickSight user ARN or other users and groups. 
 
 === Create Dataset in QuickSight
@@ -99,9 +107,9 @@ After setting the above permissions you are now able to create custom datasets i
 . Choose *Datasets* from the navigation pane at the left, then choose *New dataset*.
 . Create a new Athena connection profile:
 .. In the *FROM NEW DATA SOURCES* section, choose the *Athena* data source card.
-.. For *Data source name*, enter a descriptive name
-.. For *Athena Workgroup*, choose your workgroup
-.. Choose *Validate connection* to test the connection
+.. For *Data source name*, enter a descriptive name.
+.. For *Athena Workgroup*, choose your workgroup.
+.. Choose *Validate connection* to test the connection.
 .. Choose *Create data source*
 . On the *Choose your table* screen:
 .. Under *Catalog*, choose *AwsDataCatalog*
@@ -111,16 +119,12 @@ After setting the above permissions you are now able to create custom datasets i
 .. Choose *Select* (or *Confirm Query* depending on the option chosen above).
 .. Choose *Visualize* and get started creating your dashboard.
 
-Once you have created your custom dashboard you can publish and optionally share it.
+Once you have created your custom dashboard you can publish and share it.
 
 For more information on using QuickSight features check out: https://docs.aws.amazon.com/quicksight/latest/user/welcome.html.
 
 == Delete deployed resources when finished
-When you're finished with the architecture deployed by this solution, delete the resources from your AWS account so that you're no longer charged for them. These resources include S3 buckets, AWS CloudFormation stacks, DDK bootstrap, CodeCommit repos, AWS Key Management Service (AWS KMS) keys, Lambda layers, and Amazon Simple Queue Service (Amazon SQS) queues and rules. 
-
-*NOTE* All AMC instance S3 buckets will be deleted even if created prior to deploying the solution.
-
-To delete all these resources, follow these steps.
+When you're finished with the architecture deployed by this solution, delete the resources from your AWS account so that you're no longer charged for them. These resources include S3 buckets, AWS CloudFormation stacks, DDK bootstrap, CodeCommit repos, AWS Key Management Service (AWS KMS) keys, Lambda layers, and Amazon Simple Queue Service (Amazon SQS) queues and rules. To delete all these resources, follow these steps.
 
 . Look into `Makefile`.
 +
@@ -146,5 +150,3 @@ Some CloudWatch general log groups may remain in your account with logs specific
 * `/aws/sagemaker/NotebookInstances`
 * `/aws-glue/jobs/error`
 * `/aws-glue/jobs/output`
-
-
