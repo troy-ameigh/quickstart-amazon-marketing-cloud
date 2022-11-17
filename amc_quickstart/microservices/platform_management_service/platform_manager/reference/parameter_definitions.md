@@ -8,9 +8,9 @@
 
 * customerName [str] = `Reference customer name.`
 
-* customerPrefix [str] = `Prefix to associate the customer with.`
+* customerPrefix [str] = `Prefix to associate the customer with. Customers with the same prefix that run a common workflow will have data stored in the same table (table = {customerPrefix}-{WorkflowId}). This can also be used to synchronize workflows between customers in the Workflow Library.`
 
-* endemicType [str] = `Either 'ENDEMIC' or 'NONDEMIC'. ENDEMIC: brands that sell on Amazon, NONDEMIC: brands that do not sell on Amazon.`
+* endemicType [str] = `Either 'ENDEMIC' or 'NONDEMIC'. ENDEMIC: brands that sell on Amazon, NONDEMIC: brands that do not sell on Amazon. This can be used to synchronize workflows between customers in the Workflow Library.`
 
 * amcDatasetName [str] = `The dataset set in data_pipeline_parameters of the ddk.json file (default is 'amcdataset').`
 
