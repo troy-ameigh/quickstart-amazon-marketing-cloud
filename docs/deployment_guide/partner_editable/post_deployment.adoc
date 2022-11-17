@@ -2,7 +2,7 @@
 
 === Set AWS Lake Formation permissions
 
-Follow these steps to enable AWS Lake Formation to control your AWS Glue Data Catalog resources and to give your AWS Identity and Access Management (IAM) role permission to access the tables in the Data Catalog. Even if you are using a role with account administrator access, you must assign yourself as a Lake Formation administrator as well.
+Follow these steps to enable AWS Lake Formation to control your AWS Glue Data Catalog resources and to give your AWS Identity and Access Management (IAM) role permission to access the tables in the Data Catalog.
 
 . Sign in to the AWS Management Console, and open the AWS Lake Formation console.
 
@@ -14,11 +14,12 @@ Follow these steps to enable AWS Lake Formation to control your AWS Glue Data Ca
 .. In the navigation pane, under *Data catalog*, choose *Settings*.
 .. Clear both check boxes and choose *Save*.
 
-With administrator access you are able to access the tables in the Data Catalog by default. In order to grant other users access follow the steps below.
+The following steps can be repeated for any users you wish to grant database access to.
 
+. Give your IAM role permission to access the tables in the Data Catalog.
 .. In the navigation pane, under *Permissions*, choose *Data Lake Permissions*.
 .. Choose *Grant* in the upper right, and do the following:
-* For *IAM users and roles*, enter the role/user you wish to grant access to.
+* For *IAM users and roles*, enter enter your current IAM role.
 * For *LF-Tags or catalog resources*, choose *Named data catalog resources*.
 * For *Databases*, choose your database: `aws_datalake_<environment>_<team>_<name>_db"` (default `aws_datalake_dev_demoteam_amcdataset_db`).
 * For *Tables*, choose *All Tables*.
