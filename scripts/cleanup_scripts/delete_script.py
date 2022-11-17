@@ -177,30 +177,3 @@ if __name__ == "__main__":
 
     except Exception as e:
         print(f"Error: {e}")
-        
-        
-        
-    # IsTruncated = True
-    # MaxKeys = 1000
-    # KeyMarker = None
-    # while IsTruncated == True:
-    #     if not KeyMarker:
-    #         version_list = s3_client.list_object_versions(Bucket=bucket_name,MaxKeys=MaxKeys)
-    #     else:
-    #         version_list = s3_client.list_object_versions(Bucket=bucket_name,MaxKeys=MaxKeys,KeyMarker=KeyMarker)
-    #     try:
-    #         objects = []
-    #         versions = version_list['Versions']
-    #         for v in versions:
-    #             objects.append({'VersionId':v['VersionId'],'Key': v['Key']})
-    #         response = s3_client.delete_objects(Bucket=bucket_name,Delete={'Objects':objects})
-	   # except:
-		  #  objects = []
-    #     	delete_markers = version_list['DeleteMarkers']
-    #     	for d in delete_markers:
-    #             objects.append({'VersionId':d['VersionId'],'Key': d['Key']})
-    #     	response = client.delete_objects(Bucket=Bucket,Delete={'Objects':objects})
-	   # print(response)
-
-    #     IsTruncated = version_list['IsTruncated']
-    #     KeyMarker = version_list['NextKeyMarker']

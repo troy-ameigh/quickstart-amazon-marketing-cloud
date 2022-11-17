@@ -24,9 +24,9 @@ from amc_quickstart.foundations.foundations_stack import FoundationsStack
 from amc_quickstart.data_lake.pipelines import SDLFPipelineStack
 from amc_quickstart.data_lake.datasets import SDLFDatasetStack
 
-from amc_quickstart.microservices.platform_management_notebooks import PlatformManagerSageMaker
-from amc_quickstart.microservices.customer_management_service import TenantProvisiongService
-from amc_quickstart.microservices.data_lake_hydration_service import WorkFlowManagerService
+from amc_quickstart.microservices.platform_management_service import PlatformManagerSageMaker
+from amc_quickstart.microservices.tenant_provisioning_service import TenantProvisiongService
+from amc_quickstart.microservices.workflow_management_service import WorkFlowManagerService
 from aws_ddk_core.config import Config
 
 class AMCDeliveryKit(cdk.Stage):
@@ -74,7 +74,7 @@ class AMCDeliveryKit(cdk.Stage):
         ) 
 
         # PMN
-        pmn_stack = PlatformManagerSageMaker(self, f"{self._resource_prefix}-platform-manager", environment_id=environment_id, microservice="platform-manager", resource_prefix=self._resource_prefix)
+        pmn_stack = PlatformManagerSageMaker(self, f"{self._resource_prefix}-platform-manager", environment_id=environment_id, team=self._team, microservice="platform-manager", resource_prefix=self._resource_prefix)
         pmn_stack.add_dependency(
             foundations_stack
         ) 

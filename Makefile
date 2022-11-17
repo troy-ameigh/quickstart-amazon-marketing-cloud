@@ -7,7 +7,7 @@ ENV=dev
 .PHONY: delete_repositories deploy_artifacts deploy_satellite deploy_all insert_tps_records create_workflows
 
  
-delete_all: delete_ddk delete_bootstrap delete_repositories delete_all_items
+delete_all: delete_ddk delete_repositories delete_all_items delete_bootstrap
 
 help:
 	@echo "Helper for the aws-ddk MakeFile";

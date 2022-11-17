@@ -1,10 +1,10 @@
 {
-  "s3": [],
-  "ddb": [],
-  "kms": [],
-  "sqs": [],
-  "lambdaLayer": [],
-  "eventbridge": [],
-  "cloudformation": [],
-  "cwlogs": []
-}
+    "s3": [],
+    "ddb": [],
+    "kms": [],
+    "sqs": [],
+    "lambdaLayer": [],
+    "eventbridge": [],
+    "cloudformation": [],
+    "cwlogs": []
+  }
