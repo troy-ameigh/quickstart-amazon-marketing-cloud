@@ -564,33 +564,6 @@ class WorkFlowManagerService(BaseStack):
             source_arn=f"arn:aws:events:{cdk.Aws.REGION}:{cdk.Aws.ACCOUNT_ID}:rule/*"
         )
 
-        # RunWorkflowByCampaign
-        lambda_run_by_campaign = LambdaFactory.function(
-            self,
-            f"{function_name_prefix}-ExecuteWorkflowByCampaign-{self._environment_id}",
-            environment_id = self._environment_id,
-            function_name=f"{function_name_prefix}-ExecuteWorkflowByCampaign-{self._environment_id}",
-            code=Code.from_asset(os.path.join(f"{Path(__file__).parents[1]}", "workflow_management_service/lambdas/execute_workflow_by_campaign")),
-            handler="handler.lambda_handler",
-            description="execute the specified workflow and pass campaignID as a parameter from a specified Athena Table",
-            memory_size=2048,
-            timeout=cdk.Duration.minutes(15),
-            runtime = Runtime.PYTHON_3_8,
-            layers = [self._wfm_helper_layer, self._powertools_layer],
-            environment={
-                "CUSTOMERS_DYNAMODB_TABLE": self._customer_config_table.table_name,
-                "ATHENA_WORKGROUP":self._athena_workgroup.name,
-                "QUEUE_WORKFLOW_EXECUTION_LAMBDA_FUNCTION_NAME": lambda_events_queue_producer.function_name
-            },
-            role=self._run_workflow_campaign_role
-        )
-        lambda_run_by_campaign.add_permission(
-            "EventsInvokeRunByCampaignLambda",
-            principal=ServicePrincipal("events.amazonaws.com"),
-            action="lambda:InvokeFunction",
-            source_arn=f"arn:aws:events:{cdk.Aws.REGION}:{cdk.Aws.ACCOUNT_ID}:rule/*"
-        )
-
         # WorkflowScheduleTrigger
         workflow_schedule_trigger = LambdaFactory.function(
             self,
@@ -606,7 +579,6 @@ class WorkFlowManagerService(BaseStack):
             layers = [self._wfm_helper_layer, self._powertools_layer],
             environment={
                 "EXECUTION_QUEUE_PRODUCER_LAMBA_ARN": lambda_events_queue_producer.function_arn,
-                "RUN_WORKFLOW_BY_CAMPAIGN_LAMBDA_ARN": lambda_run_by_campaign.function_arn
             },
             role=self._workflow_schedule_trigger_role
         )
@@ -699,7 +671,6 @@ class WorkFlowManagerService(BaseStack):
             layers = [self._wfm_helper_layer, self._powertools_layer],
             environment={
                 "EXECUTION_QUEUE_PRODUCER_LAMBA_ARN": lambda_events_queue_producer.function_arn,
-                "RUN_WORKFLOW_BY_CAMPAIGN_LAMBDA_ARN":lambda_run_by_campaign.function_arn,
                 "WORKFLOW_SCHEDULE_TABLE":self._amc_workflow_schedules_table.table_name,
                 "CLOUDWATCH_RULE_NAME_PREFIX": self._microservice_name
             },
@@ -1479,25 +1450,6 @@ class WorkFlowManagerService(BaseStack):
                 ddb_read_config_policy,
                 sns_publish_policy,
                 sqs_execution_queue_policy,
-                kms_decrypt_snssqs_key_policy
-            ]
-        )
-
-        # IAM Role RunWorkFlowByCampaign 
-        self._run_workflow_campaign_role = Role(
-            self,
-            "IAM Role RunWorkFlowByCampaign 1",
-            description=f"Role for the RunWorkFlowByCampaign Lambda for {name_prefix}",
-            assumed_by=ServicePrincipal("lambda.amazonaws.com"),
-            managed_policies=[
-                ManagedPolicy.from_aws_managed_policy_name("service-role/AWSLambdaBasicExecutionRole"),
-                ddb_read_config_policy,
-                athena_workgroup_access_policy,
-                glue_catalog_access_policy,
-                s3_athena_results_policy,
-                lambda_invoke_execution_producer,
-                lakeformation_get_data_policy,
-                sns_publish_policy,
                 kms_decrypt_snssqs_key_policy
             ]
         )

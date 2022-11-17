@@ -240,8 +240,6 @@ def lambda_handler(event, context):
             if record['eventName'] == 'REMOVE':
                 logger.info('REMOVING : {}'.format(old_record))
                 function_name = os.environ['EXECUTION_QUEUE_PRODUCER_LAMBA_ARN'].split(':')[-1]
-                if 'runBy' in old_record and old_record['runBy'].lower() == 'campaign':
-                    function_name = os.environ['RUN_WORKFLOW_BY_CAMPAIGN_LAMBDA_ARN'].split(':')[-1]
     
                 statement_id = '{}'.format(old_record['Name'])
                 delete_rule_result = delete_rule(old_record)
@@ -257,15 +255,6 @@ def lambda_handler(event, context):
     
                     function_name = os.environ['EXECUTION_QUEUE_PRODUCER_LAMBA_ARN'].split(':')[-1]
     
-                if new_record['runBy'].lower() == 'campaign':
-                    logger.info('running by {}'.format(new_record['runBy']))
-                    target = {
-                        "Arn": os.environ['RUN_WORKFLOW_BY_CAMPAIGN_LAMBDA_ARN'],
-                        "Id": "1",
-                        "Input": json.dumps(new_record["Input"])
-                    }
-                    function_name = os.environ['RUN_WORKFLOW_BY_CAMPAIGN_LAMBDA_ARN'].split(':')[-1]
-    
                 target_result = update_target(new_record, target)
                 logger.info('target update response {}'.format(target_result))
     
@@ -274,8 +263,6 @@ def lambda_handler(event, context):
         elif (newimgexist == 1 and 'custom' in new_record["ScheduleExpression"] and oldimgexist == 1 and 'cron' in old_record["ScheduleExpression"]) :
             logger.info('REMOVING : {}'.format(old_record))
             function_name = os.environ['EXECUTION_QUEUE_PRODUCER_LAMBA_ARN'].split(':')[-1]
-            if 'runBy' in old_record and old_record['runBy'].lower() == 'campaign':
-                function_name = os.environ['RUN_WORKFLOW_BY_CAMPAIGN_LAMBDA_ARN'].split(':')[-1]
 
             statement_id = '{}'.format(old_record['Name'])
             delete_rule_result = delete_rule(old_record)
@@ -283,8 +270,6 @@ def lambda_handler(event, context):
         elif (record['eventName'] == 'REMOVE' and oldimgexist == 1 and 'cron' in old_record["ScheduleExpression"]) :
             logger.info('REMOVING : {}'.format(old_record))
             function_name = os.environ['EXECUTION_QUEUE_PRODUCER_LAMBA_ARN'].split(':')[-1]
-            if 'runBy' in old_record and old_record['runBy'].lower() == 'campaign':
-                function_name = os.environ['RUN_WORKFLOW_BY_CAMPAIGN_LAMBDA_ARN'].split(':')[-1]
 
             statement_id = '{}'.format(old_record['Name'])
             delete_rule_result = delete_rule(old_record)

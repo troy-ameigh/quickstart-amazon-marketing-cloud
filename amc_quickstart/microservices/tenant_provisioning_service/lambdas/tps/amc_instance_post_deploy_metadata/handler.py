@@ -89,15 +89,6 @@ def lambda_handler(event, context):
                       "amcWorkflowExecutionDLQSQSQueueName": f'wfm-{event["AmcTeamName"]}-{env}-workflowExecution-{event["TenantName"]}-DLQ.fifo',
                       "amcWorkflowExecutionSQSQueueName": f'wfm-{event["AmcTeamName"]}-{env}-workflowExecution-{event["TenantName"]}.fifo',
                       "enableWorkflowLibrary": True,
-                      "runWorkflowByCampaign": {
-                        "campaignAttributionLagDays": 14,
-                        "campaignListDatabaseName": f'{event["AmcTeamName"]}_amcdataset_dev_analytics',
-                        "campaignListTableName": f'{event["TenantName"]}_active_campaigns_advertisers_v1_adhoc',
-                        "defaultWorkflowExecutionTimeZone": "America/New_York",
-                        "maximumCampaignAgeDays": 90,
-                        "maximumCampaignEndAgeDays": 18,
-                        "minimumCampaignAgeDays": 3
-                      },
                       "snsTopicArn": f'arn:aws:sns:{os.environ["Region"]}:{os.environ["AccountId"]}:wfm-{event["AmcTeamName"]}-SNSTopic-{env}',
                       "syncWorkflowStatuses": {
                         "amcWorkflowExecutionTrackingDynamoDBTableName": f'wfm-{event["AmcTeamName"]}-AMCExecutionStatus-{env}',
