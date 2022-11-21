@@ -24,6 +24,12 @@
 
 * sqlQuery [str] = `SQL query to run when the workflow is invoked.`
 
+* filteredMetricsDiscriminatorColumn [str] = `If provided, rows which do not meet the minimum distinct user count requirements will have values removed and then the output will be re-aggregated with AggregationType.SUM. The value provided will return as the additional column name.`
+
+* distinctUserCountColumn [str] = `If provided, the count of distinct users considered by AMC’s privacy mechanisms will be returned. The value provided will return as the additional column name.`
+
+* filteredReasonColumn [str] = `If provided, an additional column with this name will be included in the workflow output, that will contain a description of the reason why that data was filtered out of the row for privacy reasons, and null if no data was filtered out of the row.`
+
 * timeWindowEnd [str] = `End Date of the report. E.g. today(-1) will set the end time to be 1 day back from current time.`
 
 * timeWindowStart [str] = `Start date of the report. E.g today(-15) will set the start time to be 15 days back from current time.`
@@ -37,6 +43,8 @@
         `PREVIOUS_MONTH: The time window will be the entire previous month.`
 
 * workflowExecutedDate [str] = `E.g. now() will execute the workflow immediately when invoked.`
+
+* ignoreDataGaps [bool] = `When enabled this setting allows queries to run over data gaps. Set to False as default.`
 
 * state [str] = `Either 'ENABLED' or 'DISABLED' to set whether schedule is active.`
 
