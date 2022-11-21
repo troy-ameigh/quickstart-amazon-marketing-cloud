@@ -244,7 +244,7 @@ class WorkflowInterface():
                 'ignoreDataGaps'
         }
         if len(payload) > 0:
-                payload_overrides = set(scheduleDetails['payload'].keys())
+                payload_overrides = set(payload.keys())
                 check_payload_values -= payload_overrides
         if len(check_payload_values) > 0:
             lookup_values = PlatformUtilities._get_workflow_default_parameters(
