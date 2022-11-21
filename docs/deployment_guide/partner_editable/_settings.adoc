@@ -1,9 +1,9 @@
-:quickstart-project-name: quickstart-amazon-marketing-cloud
-:quickstart-github-org: aws-quickstart
+:partner-solution-project-name: quickstart-amazon-marketing-cloud
+:partner-solution-github-org: aws-quickstart
 :partner-product-name: Amazon Marketing Cloud Insights
 :partner-product-short-name: AMC Insights on AWS
 :partner-company-name: the Amazon Ad Tech Solutions team
-:doc-month: June
+:doc-month: November
 :doc-year: 2022
 :partner-contributors: Arpan Shah, Ronak Parikh, and Chaitra Nayak, Amazon Ad Tech Solutions
 //:other-contributors:
