@@ -11,10 +11,6 @@ The Platform Management Service deploys an Amazon SageMaker instance with preloa
 The Tenant Provisioning Service is an Amazon Ad Tech solution that adds functionality for managing multiple AMC customers. It provides a centralized location to manage customers, supporting multi-tenancy and providing an ability to onboard customers quickly and easily without the need for custom solutions.
 
 Customers are mapped 1 to 1 with AMC instances. When a customer is onboarded, the associated AMC instance S3 bucket is checked and deployed if it does not already exist.
-
-[#architecture2]
-.Architecture for Tenant Provisioning Service
-image::../docs/operational_guide/images/AMC-Quickstart-TPS-Architecture.png[Architecture]
 												
 === Workflow Management Service
 The Workflow Management Service (WFM) can be used to manage, schedule and run AMC workflows. This service also allows you to:
@@ -26,10 +22,6 @@ The Workflow Management Service (WFM) can be used to manage, schedule and run AM
 ** Schedule with dynamic, relative time windows rather than using AMC’s scheduling feature, which only allows predefined scheduled reporting such as Daily or Weekly. 
 
 ** Track the status of all workflow runs for customer AMC instances whether they’re submitted through WFM or other means (postman, etc.). This table can also be used to track historical runs for troubleshooting or performance monitoring.
-
-[#architecture3]
-.Architecture for Workflow Management Service
-image::../docs/operational_guide/images/AMC-Quickstart-WFM-Architecture.png[Architecture]
 
 == Getting started with hydrating your data lake
 If your AMC S3 bucket already contained data before deployment of this solution, it will not be picked up automatically by the data lake. Only workflows run after deployment will start this process. When you’re finished, business stakeholders can use Amazon Athena to access the data returned from the workflow run.
