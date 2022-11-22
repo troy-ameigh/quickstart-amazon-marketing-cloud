@@ -1,1 +1,3 @@
-This guide provides instructions for using the architecture deployed by the{partner-product-name} Quick Start. It's for Amazon Marketing Cloud (AMC) users who want to build custom analytics using the data lake, multi-tenant, and workflow-management features.
+This guide covers the information you need to use your deployed https://advertising.amazon.com/solutions/products/amazon-marketing-cloud[Amazon Marketing Cloud^] (AMC) Insights on AWS solution to do such things as build custom analytics for your data lake and use the multitenant and workflow-management features.
+
+For deployment instructions, refer to the https://fwd.aws/nAmW7?[Amazon Marketing Cloud Insights on AWS Partner Solution Deployment Guide^].
