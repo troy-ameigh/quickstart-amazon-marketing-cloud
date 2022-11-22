@@ -14,8 +14,6 @@ Follow these steps to enable AWS Lake Formation to control your AWS Glue Data Ca
 .. In the navigation pane, under *Data catalog*, choose *Settings*.
 .. Clear both check boxes and choose *Save*.
 
-The following steps can be repeated for any users you wish to grant database access to.
-
 . Give your IAM role permission to access the tables in the Data Catalog.
 .. In the navigation pane, under *Permissions*, choose *Data Lake Permissions*.
 .. Choose *Grant* in the upper right, and do the following:
@@ -26,6 +24,8 @@ The following steps can be repeated for any users you wish to grant database acc
 * Keep *Data Filters - Optional* empty.
 * For *Table Permissions*, choose *Super*.
 .. Choose *Grant* at the bottom.
+
+. Repeat the previous step for any other users who need permission to access the tables in the Data Catalog.
 
 === View the operational guide
 

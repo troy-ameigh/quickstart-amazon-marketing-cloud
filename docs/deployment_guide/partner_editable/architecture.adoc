@@ -8,19 +8,18 @@ image::../docs/deployment_guide/images/amc-architecture-diagram.png[Architecture
 
 As shown in <<architecture1>>, this solution sets up the following:
 
-* Three microservices:
-** The Tenant Provisioning Service (TPS) with AWS Lambda functions and Amazon DynamoDB tables to onboard customers and deploy their AMC Instance S3 bucket.
-** The Workflow Management Service (WFM) with AWS Lambda functions and Amazon DynamoDB tables to create, schedule, and run AMC workflows.
-** The Platform Management Service with an Amazon SageMaker Notebook Instance to interact with the TPS and WFM services.
-* One data lake with:
-** AWS Step Functions for loading, transforming, and orchestrating data.
-** One S3 bucket to store prestage and poststage data
-** AWS Glue for converting Parquet files and partitioning poststage data.
-** An AWS Lake Formation data lake for governance and security.
-* Amazon KMS to create, manage, and control cryptographic keys
-* Amazon SQS to send, store, and recieve messages for the WFM and TPS services
-* Amazon SNS to facilitate messaging between the WFM service and subscribed accounts
-* Amazon CloudWatch to collect and store real-time logs and metrics
-* AWS CodeCommit, AWS CodeBuild, and AWS CodePipeline to automate deployment and updates of the solution
+* Three Amazon Simple Storage Service (Amazon S3) buckets to store AMC query results, prestage data, and poststage data.
+
+* AWS Step Functions for loading and orchestrating data.
+
+* An AWS Lambda function for loading raw data to prestage, partitioning prestage data, and managing S3 file metadata.
+
+* AWS Glue for converting Parquet files and partitioning poststage data.
+
+* An AWS Lake Formation data lake for governance and security.
+
 * Amazon Athena to query the data lake and access the poststage data.
+
 * (Optional) Amazon QuickSight for business-intelligence analytics, interactive dashboards, and visualizations that business stakeholders can use.
+
+* (Optional) Amazon SageMaker with sample Jupyter notebooks that analysts can use to provision tenants and manage workflows.

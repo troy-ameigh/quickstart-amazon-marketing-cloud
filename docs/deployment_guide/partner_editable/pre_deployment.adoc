@@ -77,7 +77,7 @@ $ git --version
 
 === Clone the repo
 
-Once your environment is set up, clone the https://fwd.aws/Rp8mK?[{partner-product-name} repository^] as follows, replacing the information in brackets.
+After your environment is set up, clone the https://fwd.aws/Rp8mK?[{partner-product-name} repository^] as follows, replacing the information in brackets.
 
 
 ```
@@ -87,9 +87,9 @@ $ rm -rf .git
 
 ```
 
-Some of the remaining steps will differ depending on whether you chose local or Cloud9 deployment. The correct commands will be noted accordingly with either [*Local*] or [*Cloud9*]. Steps without specific notation should be done for both environment types.
-
 === Install and set up the DDK
+
+Through the rest of this document, some of the steps differ depending on whether you chose local or Cloud9 deployment. For those steps, use the commands indicated by the [*Local*] or [*Cloud9*] notations. Do all the other steps for both environment types.
 
 . Install the DataOps Development Kit.
 +
