@@ -6,10 +6,10 @@ To confirm that you have an AMC instance provisioned and active, go to https://a
 
 === Set up your environment
 
-You need to set up an environment with programmatic access to your AWS account and with various tools at appropriate versions. 
-You can set up your environment locally or in AWS Cloud9, as detailed in the following sections. 
+You must set up an environment with programmatic access to your AWS account and with various tools at appropriate versions. 
+You can set up your environment locally (option A) or in AWS Cloud9 (option B), as detailed in the following sections. 
 
-*NOTE* This architecture should be deployed in the same account as your AMC instance. This information can be found on the AMC Instance UI under 'Additional Info'. Look for the field called *Connected AWS Account ID*.
+NOTE: Deploy this architecture into the same account as your AMC instance. You can find the account ID on the AMC instance under *Additional Info* in the *Connected AWS Account ID* box.
 
 ==== Option A: Set up a local environment
 
@@ -117,7 +117,7 @@ $ pip install -r requirements.txt --no-cache-dir
 +
 The https://pypi.org/project/aws-ddk-core/[DataOps Development Kit (DDK) Core^], a library of AWS CDK constructs, is installed.
 
-.  If your AWS account hasn't been used to deploy DDK apps before, bootstrap your environment as follows, replacing the information in brackets.
+.  If your AWS account hasn't been used to deploy DDK apps before, bootstrap your environment as follows, replacing the information in angle brackets.
 +
 [*Local*]:
 +
@@ -148,7 +148,7 @@ $ vi ddk.json
 $ git init --initial-branch main
 ```
 
-. Create a new CodeCommit repository as follows. Replace the information in brackets, using the repository name value from the `ddk.json` configuration file. The template is launched in the {default_deployment_region} Region by default; change this Region if necessary in the following command.
+. Create a new CodeCommit repository as follows. Replace the information in angle brackets, using the repository name value from the `ddk.json` configuration file. The template is launched in the {default_deployment_region} Region by default; change this Region if necessary in the following command.
 +
 [*Local*]:
 +
@@ -163,7 +163,7 @@ $ ddk create-repository <AMC_REPO_NAME> --region <AWS_REGION>
 ```
 +
 
-. Add and push the initial commit to the repository as follows, replacing the information in brackets.
+. Add and push the initial commit to the repository as follows, replacing the information in angle brackets.
 +
 [*Local*]:
 +
@@ -188,7 +188,7 @@ $ git push --set-upstream origin main
 
 Deploying this solution takes about {deployment_time} to complete.
 
-. Run the `deploy` command as follows, replacing the information in brackets.
+. Run the `deploy` command as follows, replacing the information in angle brackets.
 +
 [*Local*]:
 +
