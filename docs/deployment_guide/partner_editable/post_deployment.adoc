@@ -6,6 +6,10 @@ Follow these steps to enable AWS Lake Formation to control your AWS Glue Data Ca
 
 . Sign in to the AWS Management Console, and open the AWS Lake Formation console.
 
+. Grant Lake Formation administrative permissions to your IAM role.
+.. In the navigation pane, under *Permissions*, choose *Administrative roles and tasks*
+.. Click on *Choose administrators* and enter your current IAM role
+
 . Enable Lake Formation to control your Data Catalog resources.
 .. In the navigation pane, under *Data catalog*, choose *Settings*.
 .. Clear both check boxes and choose *Save*.
@@ -13,7 +17,7 @@ Follow these steps to enable AWS Lake Formation to control your AWS Glue Data Ca
 . Give your IAM role permission to access the tables in the Data Catalog.
 .. In the navigation pane, under *Permissions*, choose *Data Lake Permissions*.
 .. Choose *Grant* in the upper right, and do the following:
-* For *IAM users and roles*, enter your current IAM role.
+* For *IAM users and roles*, enter enter your current IAM role.
 * For *LF-Tags or catalog resources*, choose *Named data catalog resources*.
 * For *Databases*, choose your database: `aws_datalake_<environment>_<team>_<name>_db"` (default `aws_datalake_dev_demoteam_amcdataset_db`).
 * For *Tables*, choose *All Tables*.
@@ -21,31 +25,8 @@ Follow these steps to enable AWS Lake Formation to control your AWS Glue Data Ca
 * For *Table Permissions*, choose *Super*.
 .. Choose *Grant* at the bottom.
 
-=== Delete deployed resources when finished
+. Repeat the previous step for any other users who need permission to access the tables in the Data Catalog.
 
-When you're finished with the architecture deployed by this solution, delete the resources from your AWS account so that you're no longer charged for them. These resources include S3 buckets, AWS CloudFormation stacks, DDK bootstrap, CodeCommit repos, AWS Key Management Service (AWS KMS) keys, Lambda layers, and Amazon Simple Queue Service (Amazon SQS) queues and rules. To delete all these resources, follow these steps.
+=== View the operational guide
 
-. Look into `Makefile`.
-+
-```
-$ cd quickstart-amazon-marketing-cloud
-$ cat MakeFile
-```
-
-. Verify that the following functions are passing the correct stack names.
-
-* The `delete_repositories` function is passing `-d <AMC_REPO_NAME>` (default: `ddk-amc-quickstart`).
-+
-* The `delete_bootstrap` function is passing `--stack-name <BOOTSTRAP_STACK_NAME>` (default: `DdkDevBootstrap`).
-
-. Enter the following command:
-+
-```
-$ make delete_all
-```
-
-Some CloudWatch general log groups may remain in your account with logs specific to {partner-product-name} solution resources. Examples:
-
-* `/aws/sagemaker/NotebookInstances`
-* `/aws-glue/jobs/error`
-* `/aws-glue/jobs/output`
+For help getting started using the solution, refer to the https://fwd.aws/nAmW7?[Amazon Marketing Cloud Insights on AWS Partner Solution Operational Guide^].

@@ -6,9 +6,12 @@ To confirm that you have an AMC instance provisioned and active, go to https://a
 
 === Set up your environment
 
-You need to set up an environment with programmatic access to your AWS account and with various tools at appropriate versions. You can set up your environment locally or in AWS Cloud9, as detailed in the following sections.
+You must set up an environment with programmatic access to your AWS account and with various tools at appropriate versions. 
+You can set up your environment locally (option A) or in AWS Cloud9 (option B), as detailed in the following sections. 
 
-==== Set up a local environment
+NOTE: Deploy this architecture into the same account as your AMC instance. You can find the account ID on the AMC instance under *Additional Info* in the *Connected AWS Account ID* box.
+
+==== Option A: Set up a local environment
 
 . Confirm that your local environment has Python version 3.7 or later and its package manager, pip, version 9.0.3 or later.
 +
@@ -48,13 +51,12 @@ $ git config --global user.email <YOU@EMAIL.COM>
 $ git config --list
 ```
 
-==== Set up an AWS Cloud9 environment
+==== Option B: Set up an AWS Cloud9 environment
 
-. Sign in to the AWS Management Console using the *Admin* role, and choose an AWS Region. Choose a mature Region where most services are available, such as eu-west-1 or us-east-1.
+. Sign in to the AWS Management Console in the correct account you are deploying into using the *Admin* role, and choose an AWS Region. Choose a mature Region where most services are available, such as eu-west-1 or us-east-1.
 
 . Open the AWS Cloud9 console, and create an EC2 environment in your chosen AWS Region. Choose instance type t3.small or larger, Amazon Linux 2. For details refer to https://docs.aws.amazon.com/cloud9/latest/user-guide/create-environment-main.html[Creating an EC2 Environment^].
 
-. In your integrated development environment (IDE), download the https://fwd.aws/Rp8mK?[{partner-product-name} repository^], upload it to your AWS Cloud9 instance, and unzip it.
 +
 By default, Python, pip, AWS CLI, AWS CDK, and Git are installed and configured for you in your AWS Cloud9 environment.
 
@@ -75,7 +77,8 @@ $ git --version
 
 === Clone the repo
 
-Clone the https://fwd.aws/Rp8mK?[{partner-product-name} repository^] as follows, replacing the information in brackets.
+After your environment is set up, clone the https://fwd.aws/Rp8mK?[{partner-product-name} repository^] as follows, replacing the information in brackets.
+
 
 ```
 $ git clone <GITHUB-PATH>
@@ -85,6 +88,8 @@ $ rm -rf .git
 ```
 
 === Install and set up the DDK
+
+Through the rest of this document, some of the steps differ depending on whether you chose local or Cloud9 deployment. For those steps, use the commands indicated by the [*Local*] or [*Cloud9*] notations. Do all the other steps for both environment types.
 
 . Install the DataOps Development Kit.
 +
@@ -112,16 +117,25 @@ $ pip install -r requirements.txt --no-cache-dir
 +
 The https://pypi.org/project/aws-ddk-core/[DataOps Development Kit (DDK) Core^], a library of AWS CDK constructs, is installed.
 
-. If your AWS account hasn't been used to deploy DDK apps before, bootstrap your environment as follows, replacing the information in brackets. .
+.  If your AWS account hasn't been used to deploy DDK apps before, bootstrap your environment as follows, replacing the information in angle brackets.
++
+[*Local*]:
 +
 ```
-$ ddk bootstrap --help
 $ ddk bootstrap --profile <AWS_PROFILE> --trusted-accounts <AWS_ACCOUNT_ID>
 ```
 +
+[*Cloud9*]:
++
+```
+$ ddk bootstrap
+```
++
+
 You might recognize a number of files typically found in an AWS CDK Python application, such as `app.py` and `cdk.json`. In addition, `ddk.json` holds configuration information about DDK constructs.
 
-. Edit the required parameters in `ddk.json`. Enter your account ID, the name of the AWS CodeCommit repository to reference (you'll create this repository in a later step), and names of data lake parameters such as `app`, `org`, `team`, `dataset`, and `pipeline`.
+. Edit the required parameters in `ddk.json`. Enter your account ID, the name of the AWS CodeCommit repository to reference (you'll create this repository in a later step), and names of data pipeline parameters such as `app`, `org`, `team`, `dataset`, and `pipeline`.
+
 +
 ```
 $ vi ddk.json
@@ -134,13 +148,24 @@ $ vi ddk.json
 $ git init --initial-branch main
 ```
 
-. Create a new CodeCommit repository as follows. Replace the information in brackets, using the repository name value from the `ddk.json` configuration file. The template is launched in the {default_deployment_region} Region by default; change this Region if necessary in the following command.
+. Create a new CodeCommit repository as follows. Replace the information in angle brackets, using the repository name value from the `ddk.json` configuration file. The template is launched in the {default_deployment_region} Region by default; change this Region if necessary in the following command.
++
+[*Local*]:
 +
 ```
 $ ddk create-repository <AMC_REPO_NAME> --profile <AWS_PROFILE> --region <AWS_REGION>
 ```
++
+[*Cloud9*]:
++
+```
+$ ddk create-repository <AMC_REPO_NAME> --region <AWS_REGION>
+```
++
 
-. Add and push the initial commit to the repository as follows, replacing the information in brackets.
+. Add and push the initial commit to the repository as follows, replacing the information in angle brackets.
++
+[*Local*]:
 +
 
 ```
@@ -150,15 +175,32 @@ $ git add .
 $ git commit -m "Configure AMC Insights on AWS"
 $ git push --set-upstream origin main
 ```
++
+[*Cloud9*]:
++
+```
+$ git add .
+$ git commit -m "Configure AMC Insights on AWS"
+$ git push --set-upstream origin main
+```
 
 == Deployment steps
 
 Deploying this solution takes about {deployment_time} to complete.
 
-. Run the `deploy` command as follows, replacing the information in brackets.
+. Run the `deploy` command as follows, replacing the information in angle brackets.
++
+[*Local*]:
 +
 ```
 $ ddk deploy --profile <AWS_PROFILE>
 ```
++
+[*Cloud9*]:
++
+```
+$ ddk deploy
+```
++
 
 . If the status is FAILED in the assets stage of deploying AWS CodePipeline (due to the limited number of file assets that AWS CodeBuild can publish concurrently), choose the *Retry* button. This prompts CodePipeline to continue building the file assets.

@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
-<meta name="description" content="{partner-product-name} Operational Guide on AWS">
-<meta name="keywords" content="Quick Start, AWS, {partner-product-name}">
-<title>{partner-product-name} on the AWS Cloud—Operational Guide</title>
+<meta name="description" content="Amazon Marketing Cloud Insights Operational Guide on AWS">
+<meta name="keywords" content="Partner Solution, AWS, Amazon Marketing Cloud Insights">
+<title>Amazon Marketing Cloud Insights on AWS—Operational Guide</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
 /* Uncomment @import statement to use as custom stylesheet */
@@ -750,8 +750,7 @@ p {
 
 /* image layout */
 #toc.toc2 #toctitle {
-  /* Do not change! This link is intended to be broken for non-production builds. */
-  background-image: url("images/AWS-Logo.svg");
+  background-image: url("docs/boilerplate/.images/AWS-Logo.svg");
   background-repeat: no-repeat;
   background-size: 50%;
   background-position: center;
@@ -816,6 +815,26 @@ a img {
   background:#ffffb3;
 }
 
+.watermark {
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  color:#00f;
+  cursor: default;
+  display: block;
+  font-size: 400px;
+  font-weight: 1000;
+  margin: 0;
+  opacity:0.05;
+  top: 30%;
+  position: fixed;
+  text-align: center;
+  transform: rotate(-30deg);
+  user-select: none;
+  z-index: -1;
+}
+
 .footer-text{color:rgba(255,255,255,.8);line-height:1.44;background:#1c222a;padding:1.25em;max-width:100%;margin-bottom:unset}
 p.footer-text a{color:#d7d8d8}
 
@@ -824,7 +843,7 @@ p.footer-text a{color:#d7d8d8}
 .image-container img {
   width: 1px;
   height: 1px;
-  } 
+  }
 /* END dummy image */
 
 </style>
@@ -835,15 +854,18 @@ p.footer-text a{color:#d7d8d8}
 <div id="toc" class="toc2">
 <div id="toctitle"></div>
 <ul class="sectlevel1">
-<li><a href="#_overview">Overview</a>
-<ul class="sectlevel3">
-<li><a href="#_codepipeline_steps">CodePipeline steps</a></li>
-<li><a href="#_hydrate_your_data_lake_with_jupyter_notebooks">Hydrate your data lake with Jupyter notebooks</a></li>
-<li><a href="#_optional_build_a_quicksight_dashboard_for_visualizing_amc_data">(Optional) Build a QuickSight dashboard for visualizing AMC data</a></li>
-<li><a href="#_create_schedule_and_manage_your_amc_workflow_queries">Create, schedule, and manage your AMC workflow queries</a></li>
-<li><a href="#_optional_build_custom_analytics">(Optional) Build custom analytics</a></li>
+<li><a href="#_overview">Overview</a></li>
+<li><a href="#_about_the_deployed_microservices">About the deployed microservices</a></li>
+<li><a href="#_hydrate_your_data_lake">Hydrate your data lake</a></li>
+<li><a href="#_query_your_data_with_athena">Query your data with Athena</a></li>
+<li><a href="#_build_a_quicksight_dashboard">Build a QuickSight dashboard</a>
+<ul class="sectlevel2">
+<li><a href="#_create_a_quicksight_account">Create a QuickSight account</a></li>
+<li><a href="#_authorize_quicksight_to_access_aws_services">Authorize QuickSight to access AWS services</a></li>
+<li><a href="#_create_a_dataset_in_quicksight">Create a dataset in QuickSight</a></li>
 </ul>
 </li>
+<li><a href="#_delete_deployed_resources">Delete deployed resources</a></li>
 <li><a href="#_feedback">Feedback</a></li>
 <li><a href="#_notices">Notices</a></li>
 </ul>
@@ -852,35 +874,38 @@ p.footer-text a{color:#d7d8d8}
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<h2 id="_partner_product_name_on_the_aws_cloud" class="discrete text-center">{partner-product-name} on the AWS Cloud</h2>
-<h2 id="_quick_start_operational_guide" class="discrete text-left text-center">Quick Start Operational Guide</h2>
+<h2 id="_amazon_marketing_cloud_insights_on_aws" class="discrete text-center">Amazon Marketing Cloud Insights on AWS</h2>
+<h2 id="_partner_solution_operational_guide" class="discrete text-left text-center">Partner Solution Operational Guide</h2>
 <div class="imageblock text-center">
 <div class="content">
 <img src="https://aws-quickstart.s3.amazonaws.com/docs/operational-guide/aws-quickstart-operational-graphic.png" alt="QS" width="80" height="80">
 </div>
 </div>
-<div class="imageblock image-container">
-<div class="content">
-<img src="https://aws-quickstart.s3.amazonaws.com/{quickstart-project-name}/docs/boilerplate/.images/aws-quickstart-operational-graphic.png" alt="">
-</div>
-</div>
 <div class="paragraph text-center">
-<p><strong>{doc-month} {doc-year}</strong><br></p>
+<p><strong>November 2022</strong><br>
+<em>Arpan Shah, Ronak Parikh, and Chaitra Nayak, Amazon Ad Tech Solutions</em><br>
+<em>Ramesh Jetty, Brian Maguire, and Gerry Louw, AWS Solutions Architecture | Bret Pontillo, Noah Paige, Naomi Joshi and Anmol Gandhi, AWS Professional Services | Eric Beard, AWS Partner Core | Chip Reno and Clark Fredricksen, AWS Advertising &amp; Marketing Industry</em><br>
+<em>Troy Ameigh, AWS Integration &amp; Automation</em><br></p>
 </div>
-<div class="admonitionblock tip text-left">
+<div class="imageblock text-left image-container">
+<div class="content">
+<img src="https://aws-quickstart.s3.amazonaws.com/quickstart-amazon-marketing-cloud/docs/boilerplate/.images/aws-quickstart-operational-graphic.png" alt="">
+</div>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Visit our <a href="https://github.com/{quickstart-github-org}/{quickstart-project-name}" target="_blank" rel="noopener">GitHub repository</a> to view source files, report bugs, submit feature ideas, and post feedback about this Quick Start. To comment on the documentation, refer to <a href="#_feedback">Feedback</a>.
+Visit our <a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud" target="_blank" rel="noopener">GitHub repository</a> to view source files, report bugs, submit feature ideas, and post feedback about this Partner Solution. To comment on the documentation, refer to <a href="#_feedback">Feedback</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph text-left">
-<p>This Quick Start was created by Amazon Web Services (AWS). <a href="http://aws.amazon.com/quickstart/" target="_blank" rel="noopener">Quick Starts</a> are automated reference deployments that help people deploy popular technologies on AWS according to AWS best practices.</p>
+<p>This Partner Solution was created by the Amazon Ad Tech Solutions team in collaboration with Amazon Web Services (AWS). <a href="https://aws.amazon.com/solutions/partners/" target="_blank" rel="noopener">Partner Solutions</a> are automated reference deployments that help people deploy popular technologies on AWS according to AWS best practices. If you&#8217;re unfamiliar with AWS Partner Solutions, refer to the <a href="https://fwd.aws/rA69w?" target="_blank" rel="noopener">AWS Partner Solution General Information Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -888,99 +913,64 @@ Visit our <a href="https://github.com/{quickstart-github-org}/{quickstart-projec
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide provides instructions for using the architecture deployed by the{partner-product-name} Quick Start. It&#8217;s for Amazon Marketing Cloud (AMC) users who want to build custom analytics using the data lake, multi-tenant, and workflow-management features.</p>
+<p>This guide covers the information you need to use your deployed <a href="https://advertising.amazon.com/solutions/products/amazon-marketing-cloud" target="_blank" rel="noopener">Amazon Marketing Cloud</a> (AMC) Insights on AWS solution to do such things as build custom analytics for your data lake and use the multitenant and workflow-management features.</p>
 </div>
 <div class="paragraph">
-<p>For information on deploying this Quick Start, refer to the <a href="https://fwd.aws/&lt;permalink&gt;?" target="_blank" rel="noopener">{partner-product-name} Quick Start Deployment Guide</a>.</p>
+<p>For deployment instructions, refer to the <a href="https://fwd.aws/nAmW7?" target="_blank" rel="noopener">Amazon Marketing Cloud Insights on AWS Partner Solution Deployment Guide</a>.</p>
 </div>
-<div class="sect3">
-<h4 id="_codepipeline_steps">CodePipeline steps</h4>
-<div id="AMCQuickstartCodePipelineSteps1" class="imageblock">
-<div class="content">
-<img src="docs/operational_guide/images/AMC-Quickstart-CodePipeline-Steps.png" alt="AMC Quickstart CodePipeline Steps">
 </div>
-<div class="title">Figure 1. AMC Quickstart CodePipeline Steps</div>
 </div>
+<div class="sect1">
+<h2 id="_about_the_deployed_microservices">About the deployed microservices</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The Code Pipeline steps are:</p>
+<p>This solution deploys three microservices, which you can access from the platform manager in the deployed Amazon SageMaker instance.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Source → Pull code from the source CodeCommit Repository</p>
+<p>Platform Management Service (PMS)</p>
 </li>
 <li>
-<p>Build → Runs <code>cdk synth</code> to translate CDK definitons into CloudFormation Template Definitions</p>
+<p>Tenant Provisioning Service (TPS)</p>
 </li>
 <li>
-<p>UpdatePipeline → Automatically update if new CDK applications or stages are added in the source code</p>
-</li>
-<li>
-<p>Assets → Publish CDK Assets</p>
-</li>
-<li>
-<p>AMCQuickstart → Prepares and Deploys all of the Resources in CloudFormation Stacks, including:</p>
-</li>
-<li>
-<p>Foundational Resources</p>
-</li>
-<li>
-<p>Data Lake Resources</p>
-</li>
-<li>
-<p>Microservice Resources</p>
+<p>Workflow Management Service (WFM)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>As shown in <a href="#DeploymentSteps1">CI/CD pipeline and CloudFormation stacks deployed with the {partner-product-short-name} Quick Start</a>, the architecture that you deploy with this Quick Start includes a CI/CD pipeline along with AWS CloudFormation stacks. The last stage of each pipeline delivers the {partner-product-short-name} infrastructure in the child (default development) environment through CloudFormation.</p>
-</div>
-<div id="DeploymentSteps1" class="imageblock">
-<div class="content">
-<img src="docs/deployment_guide/images/AMC-QuickStart-Deploy.png" alt="CFN stacks">
-</div>
-<div class="title">Figure 2. CI/CD pipeline and CloudFormation stacks deployed with the {partner-product-short-name} Quick Start</div>
+<p>The PMS microservice uses the platform management library to interact with the other two microservices: Tenant Provisioning Service and Workflow Management Service.</p>
 </div>
 <div class="paragraph">
-<p>In addition to the foundational stack, these are the main stacks, or modules, that this Quick Start deploys:</p>
+<p>The TPS microservice is an Amazon Ad Tech solution that adds functionality for managing multiple AMC customers. It provides a centralized location to manage customers, supporting multitenancy and an ability to onboard customers without the need for custom solutions. Customers are mapped one-to-one with AMC instances. When a customer is onboarded, if an Amazon Simple Storage Service (Amazon S3) bucket doesn&#8217;t already exist for the associated AMC instance, one is deployed.</p>
+</div>
+<div class="paragraph">
+<p>With the WFM microservice, you can do the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Serverless Data Lake Framework (SDLF):</strong> This module processes advertising-related datasets in AMC. It&#8217;s based on the AWS Professional Services open-source <a href="https://github.com/awslabs/aws-serverless-data-lake-framework" target="_blank" rel="noopener">Serverless Data Lake Framework (SDLF)</a>. For details, refer to <a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud/blob/main/amc_quickstart/data_lake/README.md" target="_blank" rel="noopener">AMC Quick Start Data Lake</a>.</p>
+<p>Synchronize workflows and their schedules in the Workflow Library service with multiple AMC instances.</p>
 </li>
 <li>
-<p><strong>Tenant Provisioning Service (TPS):</strong> This module manages AMC tenants. For details, refer to <a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud/blob/main/amc_quickstart/microservices/customer_management_service/README.md" target="_blank" rel="noopener">Tenant Provisioning Service (Client Manager Microservice)</a>.</p>
+<p>Send workflow requests to an Amazon Simple Queue Service (Amazon SQS) queue rather than directly to the AMC endpoint to prevent timeout failures when there are many requests in a short time.</p>
 </li>
 <li>
-<p><strong>Workflow Management Service (WFM):</strong> This module manages AMC workflows. For details, refer to <a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud/blob/main/amc_quickstart/microservices/data_lake_hydration_service/README.md" target="_blank" rel="noopener">Workflow Management Service</a>.</p>
+<p>Schedule with dynamic, relative time windows rather than using AMC&#8217;s scheduling feature, which allows only predefined scheduled reporting, such as daily or weekly.</p>
 </li>
 <li>
-<p><strong>Platform Management Notebook (PMN):</strong> This module contains sample Jupyter notebooks for the TPS and WFM modules. For details, refer to <a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud/blob/main/amc_quickstart/microservices/platform_management_notebooks/README.md" target="_blank" rel="noopener">Platform Notebook Manager</a>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>When you deploy this Quick Start, resources are created by three applications as follows:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Foundations:</strong> This application creates the foundational resources for the Quick Start. These resources include Lambda layers, AWS Glue jobs, S3 buckets, routing Amazon SQS queues, and Amazon DynamoDB tables for data and metadata storage.</p>
-</li>
-<li>
-<p><strong>Data Lake:</strong> This application creates the resources for the data lake. All the resources needed for orchestration between services and data-processing code are provisioned here.</p>
-</li>
-<li>
-<p><strong>Microservices:</strong> This application creates the resources for the supporting microservices. All the resources needed for orchestration between the microservices, data-processing code, and data and metadata storage for the microservices are provisioned here.</p>
+<p>Track the status of all workflow runs for customer AMC instances, whether they&#8217;re submitted through WFM or other means, such as Postman. You can also track historical runs for troubleshooting or performance monitoring.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_hydrate_your_data_lake_with_jupyter_notebooks">Hydrate your data lake with Jupyter notebooks</h3>
+</div>
+<div class="sect1">
+<h2 id="_hydrate_your_data_lake">Hydrate your data lake</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>To hydrate the data lake and begin populating it with data from your AMC instance, follow these steps. When you&#8217;re finished, business stakeholders can use Amazon Athena to access the data returned from the workflow execution.</p>
+<p>Hydrate the data lake by populating it with data from your AMC instance. When you&#8217;re finished, business stakeholders can use Amazon Athena to access the data returned by the workflow run.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -988,322 +978,203 @@ Visit our <a href="https://github.com/{quickstart-github-org}/{quickstart-projec
 <p>Sign in to the AWS Management Console, and open the Amazon SageMaker console.</p>
 </li>
 <li>
-<p>On the left side of your screen, choose <strong>Notebook</strong>, <strong>Notebook Instances</strong>. (You should see one notebook named <code>saw-platform-manager</code> with status <strong>In Service</strong>.)</p>
+<p>In the navigation pane, under <strong>Notebook</strong>, choose <strong>Notebook Instances</strong>.</p>
 </li>
 <li>
-<p>Click "Open JupyterLab" to open the Notebook Instance in a new tab</p>
+<p>Choose <strong>Open JupyterLab</strong> next to the deployed instance named <code>aws-quickstart-platform-manager-notebooks</code>. (The prefix, <code>aws-</code>, may differ depending on the value set in <code>ddk.json</code>.) This notebook instance opens in a new tab.</p>
 </li>
 <li>
-<p>Right click the <code>Getting_Started_With_AMC_Quickstart.ipynb</code> Notebook in the <code>platform_manager</code> folder</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Duplicate the Notebook</p>
-</li>
-<li>
-<p>Follow the steps in the notebook to hydrate the data lake.</p>
+<p>Open <code>-Getting_Started-.ipynb</code>, and walk through using the TPS and WFM microservices.</p>
 </li>
 </ol>
 </div>
-</li>
-</ol>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If your AMC S3 bucket contained data before deployment of this solution, the data lake does not pick up that data automatically. You must run workflows after deployment to start this process.
+</td>
+</tr>
+</table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_query_your_data_with_athena">Query your data with Athena</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>This notebook covers the following:</p>
-</div>
-<div class="paragraph">
-<p><em>Insert TPS Records:</em> To initialize the process of onboarding your AMC instance on the Amazon AD Tech platform, this notebook will walk through the steps to adds client configurations to a TPS Customer Configuration table in Amazon DynamoDB. The configuration includes your AMC Endpoint URL, AMC Bucket Name and other related information on your AMC Instance. The Tenant Provisioning Service (TPS) will then automatically:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Onboard clients using configuration which is persisted in a DynamoDB Table. It helps to reduce time to onboard new customers</p>
-</li>
-<li>
-<p>Provide a centralized location to manage various clients and modules and supports multi-tenancy</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><em>Create Workflows:</em> To initialize the creation, scheduling and execution of AMC workflows, this notebook will walk through the steps to add a workflow to an AMC Workflows table in Amazon DynamoDB. From there you will also invoke this workflow to execute and populate data from your AMC Instance to your AMC S3 Bucket. WFM also allows you to:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Automatically trigger the deployment of the SQS queues, IAM policies, workflows and workflow schedules in WFM for the customer&#8217;s AMC instance upon adding or updating a customer record to the Tenant Provisioning Service (TPS)</p>
-</li>
-<li>
-<p>Synchronize workflows and workflow schedules in the Workflow Library service with multiple AMC Instances</p>
-</li>
-<li>
-<p>Send execution requests to an SQS queue rather than directly to the AMC endpoint to prevents timeout failures when there are large number of requests in a short period of time</p>
-</li>
-<li>
-<p>Scheduled with dynamic relative time windows rather than using AMC&#8217;s scheduling feature which only allows predefined scheduled reporting such as Daily or Weekly</p>
-</li>
-<li>
-<p>Track the status of all workflow executions for customer AMC instances whether they are submitted through WFM or other means (postman, etc.). Having the status synced to DynamoDB allows events to be triggered or notifications to be sent when executions change state. This table can also be used to track historical executions for troubleshooting or performance monitoring.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_optional_build_a_quicksight_dashboard_for_visualizing_amc_data">(Optional) Build a QuickSight dashboard for visualizing AMC data</h3>
-<div class="paragraph">
-<p>This section walks you through how to build a QuickSight dashboard with an AMC report. With AMC enabling advertisers to query event-level data within a privacy friendly environment and Amazon QuickSight offering users a cloud-powered business analytics service to build visualizations, perform ad-hoc analysis, and quickly get business insights from their data, you can build out a business intelligence strategy.</p>
-</div>
-<div class="paragraph">
-<p>Advertisers can use QuickSight to analyze reports from AMC to identify valuable insights and then scheduling, publishing dashboards to provide marketing insights in one central location. Custom-built dashboards can pull from a series of custom workflows built on a scheduled cadence.</p>
-</div>
-<div class="paragraph">
-<p>Prerequisite: Have executed at least one time-to-conversion query against AMC so that you have results to populate the QuickSight visualization.</p>
-</div>
-<div class="sect3">
-<h4 id="_set_up_quicksight">Set up QuickSight</h4>
-<div class="paragraph">
-<p>You need author access to a QuickSight account to get started with building your first dashboard. If you don&#8217;t have a QuickSight account already, create one by following these steps.</p>
+<p>If this is your first time using Athena on this AWS account, set the query result location in Amazon S3 as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Launch the <a href="https://console.aws.amazon.com" target="_blank" rel="noopener">AWS Console</a> in a new browser tab, search for <strong>QuickSight</strong> and launch it.</p>
+<p>Open the Athena console.</p>
 </li>
 <li>
-<p>On the <strong>QuickSight</strong> page, click <strong>Sign up for QuickSight</strong> button.</p>
+<p>From the sidebar, choose <strong>Query editor</strong></p>
 </li>
 <li>
-<p>Keep the default <strong>Enterprise</strong> edition, scroll down and click the <strong>Continue</strong> button.</p>
+<p>From the top menu, choose <strong>Settings</strong>.</p>
 </li>
 <li>
-<p>Enter a <strong>QuickSight account name</strong> &amp; <strong>Notification email address</strong>. Enter your official email as the notification email.</p>
+<p>Choose <strong>Manage</strong>.</p>
 </li>
 <li>
-<p>Scroll down and click the <strong>Finish</strong> button. (It can take 15-30 Secs to set up the account)</p>
+<p>Choose <strong>Browse S3</strong> next to the first open field.</p>
 </li>
 <li>
-<p>Click the <strong>Go to Amazon QuickSight</strong> button. You will now be taken to QuickSight console.</p>
+<p>Choose the deployed S3 bucket with the suffix <code>-athena</code>.</p>
+<div class="paragraph">
+<p>This bucket name follows the same convention as the others deployed. You can designate any custom bucket for this purpose; this bucket was deployed as part of the solution for convenience.</p>
+</div>
+</li>
+<li>
+<p>Save the setting.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You are now ready to query your tables with Athena.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_build_a_quicksight_dashboard">Build a QuickSight dashboard</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section walks through how to build an Amazon QuickSight dashboard with AMC data from your data lake. For more information on using QuickSight features, refer to <a href="https://docs.aws.amazon.com/quicksight/latest/user/welcome.html" target="_blank" rel="noopener">What is Amazon QuickSight?</a></p>
+</div>
+<div class="sect2">
+<h3 id="_create_a_quicksight_account">Create a QuickSight account</h3>
+<div class="paragraph">
+<p>To build your first dashboard, you must create a QuickSight account. If you do not have a QuickSight account already, create one by following these steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From the AWS Management Console, search for and choose QuickSight.</p>
+</li>
+<li>
+<p>On the QuickSight page, choose <strong>Sign up for QuickSight</strong>.</p>
+</li>
+<li>
+<p>Keeping the default Enterprise edition, scroll down and choose <strong>Continue</strong>.</p>
+</li>
+<li>
+<p>Enter a QuickSight account name and a notification email address.</p>
+</li>
+<li>
+<p>Scroll down and choose <strong>Finish</strong>. The QuickSight console opens.</p>
 </li>
 </ol>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_authorize_quicksight_to_access_aws_services">Authorize QuickSight to access AWS services</h3>
+<div class="paragraph">
+<p>For QuickSight to access Athena, Amazon S3, and AWS Lake Formation, a QuickSight administrator must configure the AWS resource permissions. These permissions apply to all QuickSight users. If you&#8217;re a QuickSight administrator (in which case you see the <strong>Manage QuickSight</strong> option when you open the menu from your profile at the upper right), you can authorize QuickSight access to AWS services by doing the following two procedures.</p>
+</div>
 <div class="sect3">
-<h4 id="_authorize_your_quicksight_connection">Authorize your QuickSight connection</h4>
-<div class="paragraph">
-<p>To work with Lake Formation and Athena, ensure that you have AWS resource permissions configured in Amazon QuickSight:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Enable access to Amazon Athena.</p>
-</li>
-<li>
-<p>Enable access to the correct buckets in Amazon S3 Usually S3 access is enabled when you enable Athena. However, because you can change S3 permissions outside of that process, it&#8217;s a good idea to verify them separately</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Use the following procedure to make sure that you successfully authorized Amazon QuickSight to use Athena. Permissions to AWS resources apply to all Amazon QuickSight users.</p>
-</div>
-<div class="paragraph">
-<p>To perform this action, you must be an Amazon QuickSight administrator. To check if you have access, verify that you see the Manage QuickSight option when you open the menu from your profile at upper right.</p>
-</div>
-<div class="paragraph">
-<p>For more information, review: <a href="https://docs.aws.amazon.com/quicksight/latest/user/lake-formation.html" class="bare">https://docs.aws.amazon.com/quicksight/latest/user/lake-formation.html</a></p>
-</div>
-<div class="paragraph">
-<p><strong>To authorize Amazon QuickSight to access Athena and Amazon S3:</strong></p>
-</div>
+<h4 id="_authorize_quicksight_to_access_athena_and_amazon_s3">Authorize QuickSight to access Athena and Amazon S3</h4>
 <div class="olist arabic">
-<ol class="arabic" start="1">
+<ol class="arabic">
 <li>
-<p>Choose your profile name (upper right). Choose <strong>Manage QuickSight</strong>, and then choose <strong>Security &amp; permissions</strong>.</p>
+<p>In the QuickSight console, choose your profile name (upper right) and choose <strong>Manage QuickSight</strong>.</p>
+</li>
+<li>
+<p>Navigate to <strong>Security &amp; Permissions</strong>.</p>
 </li>
 <li>
 <p>Under <strong>QuickSight access to AWS services</strong>, choose <strong>Manage</strong>.</p>
 </li>
 <li>
-<p>Find <strong>Athena</strong> in the list. Clear the box by Athena, then select it again to enable Athena. Then choose <strong>Next</strong>.</p>
+<p>Find <strong>Athena</strong> in the list. Clear the box by Athena, and then select it again to enable Athena. Then choose <strong>Next</strong>.</p>
 </li>
 <li>
-<p>Under <strong>S3 Bucket</strong>, choose the S3 buckets that you want to access from Amazon QuickSight.</p>
+<p>Under <strong>S3 Bucket</strong>, choose the S3 buckets to which you want to grant QuickSight read access.</p>
+</li>
+<li>
+<p>From the right column, <strong>Write permissions for Athena Workgroup</strong>, choose the S3 buckets to which you want to grant QuickSight query-result write access.</p>
+</li>
+<li>
+<p>Choose <strong>Finish</strong>, and save your settings.</p>
 </li>
 </ol>
 </div>
-<div id="QuickSightBucketPermission1" class="imageblock">
-<div class="content">
-<img src="docs/operational_guide/images/quicksight-bucket-selection.png" alt="QuickSightBucketPermission">
 </div>
-<div class="title">Figure 3. QuickSight Bucket Permission</div>
-</div>
+<div class="sect3">
+<h4 id="_authorize_quicksight_to_access_lake_formation_database_and_tables">Authorize QuickSight to access Lake Formation database and tables</h4>
 <div class="olist arabic">
-<ol class="arabic" start="5">
+<ol class="arabic">
 <li>
-<p>From the right column, <strong>Write permission for Athena Workgroup</strong>, choose the S3 buckets you could write your Athena results too.</p>
-</li>
+<p>Find the Amazon Resource Names (ARNs) of the QuickSight users and groups that need access to Lake Formation data. Collect these ARNs, ensuring that the users are QuickSight authors or administrators.</p>
+<div class="ulist">
+<ul>
 <li>
-<p>Choose <strong>Finish</strong> to confirm your selection or choose <strong>Cancel</strong> to exit without saving.</p>
-</li>
-<li>
-<p>Click <strong>Save</strong>, to update your new settings for Amazon QuickSight access to AWS services or choose <strong>Cancel</strong> to exit without making any changes.</p>
-</li>
-</ol>
-</div>
+<p>To construct ARNs manually, use this string, replacing the bracketed items:</p>
 <div class="paragraph">
-<p><strong>To authorize Amazon QuickSight through AWS Lake Formation:</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic" start="1">
-<li>
-<p>Collect the Amazon Resource Names (ARNs) of the Amazon QuickSight users and groups that need to access the data in Lake Formation. These users should be Amazon QuickSight authors or administrators.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Use the AWS CLI to find user ARNs or you can construct the ARNs for each user manually.</p>
-</li>
-<li>
-<p>To construct manually, replace <strong>REGION_NAME</strong>, <strong>ACCOUNT_ID</strong>, and <strong>QUICKSIGHT_USERNAME</strong>:
-<code>arn:aws:quicksight:&lt;REGION_NAME&gt;:&lt;ACCOUNT_ID&gt;:user/default/&lt;QUICKSIGHT_USERNAME&gt;</code></p>
-</li>
-<li>
-<p>To collect user ARNs programmatically, run the following list-users command in your terminal (Linux or Mac) or at your command prompt (Windows): <code>aws quicksight list-users --aws-account-id 111122223333 --namespace default --region us-east-1</code></p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>Note: to find your QuickSight username, click the menu in the top right portion of the page.</p>
-</li>
-</ol>
+<p><code>arn:aws:quicksight:&lt;REGION_NAME&gt;:&lt;ACCOUNT_ID&gt;:user/default/&lt;QUICKSIGHT_USERNAME&gt;</code></p>
 </div>
 </li>
-</ol>
+<li>
+<p>To collect ARNS programmatically, run the following command in your terminal (Linux or macOS) or at your command prompt (Windows):</p>
+<div class="paragraph">
+<p><code>aws quicksight list-users --aws-account-id 111122223333 --namespace default --region us-east-1</code></p>
 </div>
 </li>
-</ol>
+</ul>
 </div>
-<div id="QuickSightUsernameView2" class="imageblock">
-<div class="content">
-<img src="docs/operational_guide/images/quicksight-username.png" alt="QuickSightUsernameView">
-</div>
-<div class="title">Figure 4. QuickSight Username View</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic" start="2">
-<li>
-<p>Sign in to the AWS Console, and open the AWS Lake Formation console as the data lake administrator. A data lake administrator can grant any principal (IAM, QuickSight, or Active Directory) permissions to Data Catalog resources (databases and tables) or data lake locations in Amazon S3.</p>
 </li>
 <li>
-<p>Choose <strong>Databases</strong>.</p>
+<p>Open the Lake Formation console as the data-lake administrator.</p>
 </li>
 <li>
-<p>Select the circle next to the database you want to grant access to your QuickSight user.</p>
+<p>Choose <strong>Databases</strong>, and select the database to which you want to grant your QuickSight user access. Then, for <strong>Actions</strong>, choose <strong>Grant</strong>.</p>
 </li>
 <li>
-<p>From the <strong>Actions</strong> drop-down menu, choose <strong>Grant</strong>.</p>
-</li>
-<li>
-<p>Select <strong>SAML users and groups</strong> and enter the QuickSight user ARN.</p>
+<p>Select <strong>SAML users and groups</strong>, and enter the QuickSight user ARN.</p>
 </li>
 <li>
 <p>Choose <strong>Named data catalog resources</strong>.</p>
 </li>
-</ol>
-</div>
-<div id="LakeFormationDBGrant3" class="imageblock">
-<div class="content">
-<img src="docs/operational_guide/images/lf-database-grant.png" alt="LakeFormationDBGrant">
-</div>
-<div class="title">Figure 5. Lake Formation DB Grant</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic" start="8">
 <li>
-<p>Under Tables, open the drop-down menu and select All tables or selectively choose individual tables to permission access to.</p>
+<p>For <strong>Tables</strong>, select <strong>All tables</strong>, or select individual tables to which you want to grant your user access. Then for <strong>Table permissions</strong>, choose <strong>Select</strong> and <strong>Describe</strong>. Then choose <strong>Grant</strong>.</p>
 </li>
 <li>
-<p>For <strong>Table permissions</strong>, choose <strong>Select</strong> and <strong>Describe</strong>.</p>
-</li>
-<li>
-<p>Then click <strong>Grant</strong>.</p>
-</li>
-<li>
-<p>Repeat the preceding steps to grant multiple database permissions to your QuickSight user ARN or other users and groups.</p>
+<p>Repeat the preceding steps to grant permissions to other users or groups.</p>
 </li>
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_query_and_visualize_an_amc_use_case">Query and visualize an AMC use case</h4>
+</div>
+<div class="sect2">
+<h3 id="_create_a_dataset_in_quicksight">Create a dataset in QuickSight</h3>
 <div class="paragraph">
-<p>This section walks through how to build and analyze a visualization for the time-to-conversion use case.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_overview_2">Overview</h4>
-<div class="paragraph">
-<p>Advertisers may typically ask - how long does it takes for our customers to convert after last seeing our ad? This use case will enable you with the dimensions and metrics to answer that question.</p>
-</div>
-<div class="paragraph">
-<p>It is important to understand how long it takes customers who see your ad to complete the conversion, and how that impacts the data you see in your conversion report. Sometimes the conversions happen rapidly, within a few minutes and other times, it might take days for your customers to complete the purchase. You can use this information to adjust the duration of your campaign and promotion to maximize sales.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Key Performance Indicators (KPIs)</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">KPI</th>
-<th class="tableblock halign-left valign-top">Definition</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Time to Conversion</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The amount of time customers take from last seeing your ad to purchase. The time has been converted to minutes, hours and days from seconds in the query template. You may adjust it based on your use case.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Purchases</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of times any amount of a promoted product or products are included in a purchase event. Purchase events include video rentals and new Subscribe &amp; Save subscriptions. Sum of purchases from users_that_purchased.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Brand Purchases</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of times any number of products are included in a single purchase event. Purchase events include Subscribe &amp; Save subscriptions and video rentals. This counts purchases for promoted products as well as products from the same brands as the products tracked in the order. (Total purchases = Purchases + Purchases Brand Halo)</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_creating_the_visualization">Creating the Visualization:</h4>
-<div class="paragraph">
-<p>This section provides details on how to create a visualization for the Time to Conversion use case in Amazon QuickSight.</p>
+<p>After you&#8217;ve authorized QuickSight to access AWS services, as described earlier, you can create custom datasets in QuickSight using Athena as follows:</p>
 </div>
 <div class="olist arabic">
-<ol class="arabic" start="1">
+<ol class="arabic">
 <li>
-<p>Begin by creating a new dataset. Choose <strong>Datasets</strong> from the navigation pane at left, then choose <strong>New dataset</strong>.</p>
+<p>In the QuickSight console, in the navigation pane, choose <strong>Datasets</strong>, and then choose <strong>New dataset</strong>.</p>
 </li>
 <li>
-<p>Next, connect to an Athena Data Source with either a using an existing connection profile (more common) or by creating a new one.</p>
+<p>Create an Athena connection profile.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>To use an existing Athena connection profile, scroll down to the <strong>FROM EXISTING DATA SOURCES</strong> section, and choose the card for the existing data source that you want to use. Choose <strong>Create dataset</strong>. Cards are labeled with the Athena data source icon and the name provided by the person who created the connection.</p>
+<p>Under <strong>FROM NEW DATA SOURCES</strong>, choose the <strong>Athena</strong> data source card.</p>
 </li>
 <li>
-<p>Next, create a new Athena connection profile, use the following steps:</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>In the <strong>FROM NEW DATA SOURCES</strong> section, choose the <strong>Athena</strong> data source card.</p>
+<p>For <strong>Data source name</strong>, enter a descriptive name.</p>
 </li>
 <li>
-<p>For <strong>Data source name</strong>, enter a descriptive name</p>
+<p>For <strong>Athena Workgroup</strong>, choose your workgroup.</p>
 </li>
 <li>
-<p>For <strong>Athena workgroup</strong>, choose your workgroup</p>
-</li>
-<li>
-<p>Choose <strong>Validate connection</strong> to test the connection</p>
+<p>Choose <strong>Validate connection</strong> to test the connection.</p>
 </li>
 <li>
 <p>Choose <strong>Create data source</strong>.</p>
@@ -1311,214 +1182,101 @@ Visit our <a href="https://github.com/{quickstart-github-org}/{quickstart-projec
 </ol>
 </div>
 </li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-<div id="QuickiSightAthenaWorkgroup1" class="imageblock">
-<div class="content">
-<img src="docs/operational_guide/images/quicksight-athena-workgroup.png" alt="QuickiSightAthenaWorkgroup">
-</div>
-<div class="title">Figure 6. QuickSights Athena WorkGroup</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic" start="3">
 <li>
-<p>On the <strong>Choose your table screen</strong>, do the following:</p>
+<p>Choose your table.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Under <strong>Catalog</strong>, choose <strong>AwsDataCatalog</strong>.</p>
+<p>On the <strong>Choose your table</strong> screen, under <strong>Catalog</strong>, choose <strong>AwsDataCatalog</strong>.</p>
 </li>
 <li>
-<p>Choose one of the following:</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
+<p>Do one of the following:</p>
+<div class="ulist">
+<ul>
 <li>
-<p>To choose the database and table created for the Time to Conversion use case, choose your database from the dropdown under <strong>Database</strong> and choose the Time to Conversion table from the <strong>Tables</strong> list that appears for your database.</p>
+<p>Select the database and table manually from the dropdown.</p>
 </li>
 <li>
-<p>You can optionally pull the data in with a SQL query, by choosing <strong>Use custom SQL</strong>.</p>
+<p>Choose <strong>Use custom SQL</strong> to pull data in with a Structured Query Language (SQL) query.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Choose <strong>Select</strong> or <strong>Confirm Query</strong>, depending on the option chosen earlier.</p>
+</li>
+<li>
+<p>Choose <strong>Visualize</strong>.</p>
 </li>
 </ol>
 </div>
 </li>
 </ol>
-</div>
-</li>
-</ol>
-</div>
-<div id="QuickSightTableSelection2" class="imageblock">
-<div class="content">
-<img src="docs/operational_guide/images/quicksight-table-selection.png" alt="QuickSightTableSelection">
-</div>
-<div class="title">Figure 7. QuickSights Table Selection</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic" start="4">
-<li>
-<p>Choose <strong>Select</strong></p>
-</li>
-<li>
-<p>Create a dataset and analyze the data using the table by choosing <strong>Visualize</strong>.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>In the <strong>Fields list</strong> pane, choose <strong>purchases</strong>, <strong>time_to_conversion</strong>, and <strong>total_brand_purchases</strong>.</p>
-</li>
-<li>
-<p>Amazon QuickSight uses AutoGraph to create the visual, selecting the visual type that it determines is most compatible with those fields. In this case, it selects a horizontal bar chart that shows the purchases and total_brand_purchases by time_to_conversion.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-<div id="QuickSightsTimeCOnvAuto3" class="imageblock">
-<div class="content">
-<img src="docs/operational_guide/images/quicksight-time-to-conversion-autograph.png" alt="QuickSightTimeToConversionAutoGraph">
-</div>
-<div class="title">Figure 8. QuickSights Time to Conversion AutoGraph</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic" start="6">
-<li>
-<p>Modify the Auto Graphed visual</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>In the <strong>Visual types</strong> pane, select <strong>Vertical bar chart</strong> to rotate the chart.</p>
-</li>
-<li>
-<p>Expand the <strong>Field wells</strong> pane by choosing the expand icon.</p>
-</li>
-<li>
-<p>Choose the <strong>X axis</strong> field well, choose <strong>Sort by</strong>, and then choose <strong>time_to_conversion</strong>.</p>
-</li>
-<li>
-<p>Again from the <strong>X axis</strong> field well, select the <strong>ascending</strong> icon.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Add a Title to the visual</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>On the visual&#8217;s right, choose the <strong>Format visual</strong> icon.</p>
-</li>
-<li>
-<p>In the <strong>Format Visual</strong> pane that opens on the left, choose the <strong>Title</strong> tab.</p>
-</li>
-<li>
-<p>Choose <strong>Edit title</strong></p>
-</li>
-<li>
-<p>In the <strong>Edit title</strong> page that opens, type <strong>Purchases by Time to Conversion</strong></p>
-</li>
-<li>
-<p>When you&#8217;re finished editing, choose <strong>Save</strong>.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Change the x-axis label</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Again, in the <strong>Format Visual</strong> pane open on the left, choose the <strong>X-axis</strong> tab.</p>
-</li>
-<li>
-<p>In the text box below <strong>time_to_conversion</strong>, enter in <strong>Time to Conversion</strong>.</p>
-</li>
-<li>
-<p>Close the <strong>Format Visual</strong> pane by choosing the X icon in the upper-right corner of the pane.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Add data labels to your chart</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Next, in the <strong>Format Visual</strong> pane open on the left, choose the <strong>Data Labels</strong> tab.</p>
-</li>
-<li>
-<p>Check the box to the left of <strong>Show data labels</strong> to show and customize labels.</p>
-</li>
-<li>
-<p>Close the <strong>Format Visual</strong> pane by choosing the X icon in the upper-right corner of the pane.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Add Filters</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>On the far left pane, choose <strong>Filter</strong></p>
-</li>
-<li>
-<p>Then in the Filters pane, choose the <strong>+</strong> in the top right corner.</p>
-</li>
-<li>
-<p>Select <strong>advertiser</strong>, then repeat for <strong>campaign</strong> and <strong>file_last_modified</strong></p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Use a combination of the filters to analyze the performance by time period, to identify windows with the highest conversion rates.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>For further information on customizing visualizations checkout: <a href="https://docs.aws.amazon.com/quicksight/latest/user/working-with-visuals.html" class="bare">https://docs.aws.amazon.com/quicksight/latest/user/working-with-visuals.html</a></p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-<div id="QuickSightTimeToConversion4" class="imageblock">
-<div class="content">
-<img src="docs/operational_guide/images/quicksight-time-to-conversion.png" alt="QuickSightTimeToConversion">
-</div>
-<div class="title">Figure 9. QuickSight Time to Conversion</div>
 </div>
 <div class="paragraph">
-<p>Vertical Bar Chart visual in Amazon QuickSight for the Purchases by Time to Conversion AMC use case</p>
+<p>Now you can create, publish, and share your custom dashboard.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_delete_deployed_resources">Delete deployed resources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you no longer need the architecture that was deployed by this solution, delete the resources from your AWS account so that you&#8217;re no longer charged for them. These resources include S3 buckets, AWS CloudFormation stacks, DataOps Development Kit (DDK) bootstrap, AWS CodeCommit repos, AWS Key Management Service (AWS KMS) keys, AWS Lambda layers, and SQS queues and rules.</p>
+</div>
+<div class="paragraph">
+<p>To delete all these resources, follow these steps:</p>
 </div>
 <div class="olist arabic">
-<ol class="arabic" start="13">
+<ol class="arabic">
 <li>
-<p>To then publish and optionally share a dashboard, choose <strong>Share</strong> on the application bar, and then choose <strong>Publish dashboard</strong>.</p>
+<p>Look into <code>Makefile</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ cd quickstart-amazon-marketing-cloud
+$ cat MakeFile</code></pre>
+</div>
+</div>
 </li>
 <li>
-<p>Then, to create a new dashboard, choose <strong>Publish new dashboard as</strong>, and then type a dashboard name.</p>
+<p>Verify that the following functions are passing the correct stack names. Replace the information in brackets.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>delete_repositories</code> function is passing <code>-d &lt;AMC_REPO_NAME&gt;</code> (default: <code>ddk-amc-quickstart</code>).</p>
 </li>
 <li>
-<p>Choose <strong>Publish dashboard</strong>.// Add steps as necessary for accessing the software, post-configuration, and testing. Don’t include full usage instructions for your software, but add links to your product documentation for that information.</p>
+<p>The <code>delete_bootstrap</code> function is passing <code>--stack-name &lt;BOOTSTRAP_STACK_NAME&gt;</code> (default: <code>DdkDevBootstrap</code>).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enter the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ make delete_all</code></pre>
+</div>
+</div>
 </li>
 </ol>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_create_schedule_and_manage_your_amc_workflow_queries">Create, schedule, and manage your AMC workflow queries</h3>
 <div class="paragraph">
-<p>On the AMC UI, you can view the Interactive Query Library (IQL) for a list of available queries for a set of use cases. You can also create custom queries. To learn how to create, schedule, and manage your workflow queries, refer to the Platform Manager WFM Notebooks in Amazon SageMaker.</p>
+<p>Some CloudWatch general log groups may remain in your account with logs specific to this solution&#8217;s resources. Examples:</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_optional_build_custom_analytics">(Optional) Build custom analytics</h3>
-<div class="paragraph">
-<p>To build custom, self-service analytics for Amazon Advertising customers, you use the SDLF, TPS, WFM, and PMN modules &#8230;&#8203; [?]</p>
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/aws/sagemaker/NotebookInstances</code></p>
+</li>
+<li>
+<p><code>/aws-glue/jobs/error</code></p>
+</li>
+<li>
+<p><code>/aws-glue/jobs/output</code></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1526,21 +1284,21 @@ Visit our <a href="https://github.com/{quickstart-github-org}/{quickstart-projec
 <h2 id="_feedback">Feedback</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To submit feature ideas and report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/{quickstart-github-org}/{quickstart-project-name}" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. To submit code, refer to the <a href="https://fwd.aws/NwqYA?" target="_blank" rel="noopener">Quick Start Contributor&#8217;s Guide</a>. To submit feedback on this deployment guide, use the following GitHub links:</p>
+<p>To submit feature ideas and report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud" target="_blank" rel="noopener">GitHub repository</a> for this Partner Solution. To submit code, refer to the <a href="https://fwd.aws/NwqYA?" target="_blank" rel="noopener">Partner Solution Contributor&#8217;s Guide</a>. To submit feedback on this deployment guide, use the following GitHub links:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/{quickstart-github-org}/{quickstart-project-name}/issues/new?labels=documentation,grammar+or+spelling&amp;title=Deployment+guide+feedback&amp;body=Section+heading:%0ADocumentation+issue+description:%0A" target="_blank" rel="noopener">Grammar or spelling</a></p>
+<p><a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud/issues/new?labels=documentation,grammar+or+spelling&amp;title=Deployment+guide+feedback&amp;body=Section+heading:%0ADocumentation+issue+description:%0A" target="_blank" rel="noopener">Grammar or spelling</a></p>
 </li>
 <li>
-<p><a href="https://github.com/{quickstart-github-org}/{quickstart-project-name}/issues/new?labels=documentation,broken+link&amp;title=Deployment+guide+feedback&amp;body=Section+heading:%0ADocumentation+issue+description:%0A" target="_blank" rel="noopener">Broken link</a></p>
+<p><a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud/issues/new?labels=documentation,broken+link&amp;title=Deployment+guide+feedback&amp;body=Section+heading:%0ADocumentation+issue+description:%0A" target="_blank" rel="noopener">Broken link</a></p>
 </li>
 <li>
-<p><a href="https://github.com/{quickstart-github-org}/{quickstart-project-name}/issues/new?labels=documentation,inaccurate+content&amp;title=Deployment+guide+feedback&amp;body=Section+heading:%0ADocumentation+issue+description:%0A" target="_blank" rel="noopener">Inaccurate content</a></p>
+<p><a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud/issues/new?labels=documentation,inaccurate+content&amp;title=Deployment+guide+feedback&amp;body=Section+heading:%0ADocumentation+issue+description:%0A" target="_blank" rel="noopener">Inaccurate content</a></p>
 </li>
 <li>
-<p><a href="https://github.com/{quickstart-github-org}/{quickstart-project-name}/issues/new?labels=documentation,display+and+design&amp;title=Deployment+guide+feedback&amp;body=Section+heading:%0ADocumentation+issue+description:%0A" target="_blank" rel="noopener">Display or design</a></p>
+<p><a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud/issues/new?labels=documentation,display+and+design&amp;title=Deployment+guide+feedback&amp;body=Section+heading:%0ADocumentation+issue+description:%0A" target="_blank" rel="noopener">Display or design</a></p>
 </li>
 </ul>
 </div>
@@ -1553,7 +1311,7 @@ Visit our <a href="https://github.com/{quickstart-github-org}/{quickstart-projec
 <p>This document is provided for informational purposes only. It represents current AWS product offerings and practices as of the date of issue of this document, which are subject to change without notice. Customers are responsible for making their own independent assessment of the information in this document and any use of AWS products or services, each of which is provided "as is" without warranty of any kind, whether expressed or implied. This document does not create any warranties, representations, contractual commitments, conditions, or assurances from AWS, its affiliates, suppliers, or licensors. The responsibilities and liabilities of AWS to its customers are controlled by AWS agreements, and this document is not part of, nor does it modify, any agreement between AWS and its customers.</p>
 </div>
 <div class="paragraph">
-<p>The software included with this paper is licensed under the Apache License, version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at <a href="http://aws.amazon.com/apache2.0/" target="_blank" rel="noopener">http://aws.amazon.com/apache2.0/</a> or in the accompanying "license" file. This code is distributed on an "as is" basis, without warranties or conditions of any kind, either expressed or implied. Refer to the License for specific language governing permissions and limitations.</p>
+<p>The software included with this paper is licensed under the Apache License, version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at <a href="https://aws.amazon.com/apache2.0/" target="_blank" rel="noopener">https://aws.amazon.com/apache2.0/</a> or in the accompanying "license" file. This code is distributed on an "as is" basis, without warranties or conditions of any kind, either expressed or implied. Refer to the License for specific language governing permissions and limitations.</p>
 </div>
 </div>
 </div>
@@ -1563,7 +1321,7 @@ Visit our <a href="https://github.com/{quickstart-github-org}/{quickstart-projec
         <!-- We can use document attributes: -->
         <!-- Generated with Asciidoctor v2.0.17. -->
         <a href="https://aws.amazon.com/privacy/">Privacy</a> | <a href="https://aws.amazon.com/terms/">Site terms</a> |
-        &copy; 2022, Amazon Web Services, Inc. or its affiliates. All rights reserved.
+        &copy; 2022, Amazon Web Services, Inc. or its affiliates and the Amazon Ad Tech Solutions team. All rights reserved.
     </p>
 </footer>
 </body>

@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
 <meta name="description" content="Amazon Marketing Cloud Insights Deployment Guide on AWS">
-<meta name="keywords" content="Quick Start, AWS, Amazon Marketing Cloud Insights">
-<title>Amazon Marketing Cloud Insights on the AWS Cloud</title>
+<meta name="keywords" content="Partner Solution, AWS, Amazon Marketing Cloud Insights">
+<title>Amazon Marketing Cloud Insights on AWS</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
 /* Uncomment @import statement to use as custom stylesheet */
@@ -750,8 +750,7 @@ p {
 
 /* image layout */
 #toc.toc2 #toctitle {
-  /* Do not change! This link is intended to be broken for non-production builds. */
-  background-image: url("images/AWS-Logo.svg");
+  background-image: url("docs/boilerplate/.images/AWS-Logo.svg");
   background-repeat: no-repeat;
   background-size: 50%;
   background-position: center;
@@ -816,6 +815,26 @@ a img {
   background:#ffffb3;
 }
 
+.watermark {
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  color:#00f;
+  cursor: default;
+  display: block;
+  font-size: 400px;
+  font-weight: 1000;
+  margin: 0;
+  opacity:0.05;
+  top: 30%;
+  position: fixed;
+  text-align: center;
+  transform: rotate(-30deg);
+  user-select: none;
+  z-index: -1;
+}
+
 .footer-text{color:rgba(255,255,255,.8);line-height:1.44;background:#1c222a;padding:1.25em;max-width:100%;margin-bottom:unset}
 p.footer-text a{color:#d7d8d8}
 
@@ -824,7 +843,7 @@ p.footer-text a{color:#d7d8d8}
 .image-container img {
   width: 1px;
   height: 1px;
-  } 
+  }
 /* END dummy image */
 
 </style>
@@ -850,10 +869,11 @@ p.footer-text a{color:#d7d8d8}
 <li><a href="#_postdeployment_steps">Postdeployment steps</a>
 <ul class="sectlevel2">
 <li><a href="#_set_aws_lake_formation_permissions">Set AWS Lake Formation permissions</a></li>
-<li><a href="#_delete_deployed_resources_when_finished">Delete deployed resources when finished</a></li>
+<li><a href="#_view_the_operational_guide">View the operational guide</a></li>
 </ul>
 </li>
 <li><a href="#_troubleshooting">Troubleshooting</a></li>
+<li><a href="#_customer_responsibility">Customer responsibility</a></li>
 <li><a href="#_feedback">Feedback</a></li>
 <li><a href="#_notices">Notices</a></li>
 </ul>
@@ -862,38 +882,38 @@ p.footer-text a{color:#d7d8d8}
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<h2 id="_amazon_marketing_cloud_insights_on_the_aws_cloud" class="discrete text-center">Amazon Marketing Cloud Insights on the AWS Cloud</h2>
-<h2 id="_quick_start_deployment_guide" class="discrete text-left text-center">Quick Start Deployment Guide</h2>
+<h2 id="_amazon_marketing_cloud_insights_on_aws" class="discrete text-center">Amazon Marketing Cloud Insights on AWS</h2>
+<h2 id="_partner_solution_deployment_guide" class="discrete text-left text-center">Partner Solution Deployment Guide</h2>
 <div class="imageblock text-center">
 <div class="content">
 <img src="https://aws-quickstart.s3.amazonaws.com/docs/deployment-guide/aws-quickstart-deployment-graphic.png" alt="QS" width="80" height="80">
 </div>
 </div>
-<div class="imageblock image-container">
-<div class="content">
-<img src="https://aws-quickstart.s3.amazonaws.com/quickstart-amazon-marketing-cloud/docs/boilerplate/.images/aws-quickstart-graphic.png" alt="">
-</div>
-</div>
 <div class="paragraph text-center">
-<p><strong>June 2022</strong><br>
+<p><strong>November 2022</strong><br>
 <em>Arpan Shah, Ronak Parikh, and Chaitra Nayak, Amazon Ad Tech Solutions</em><br>
 <em>Ramesh Jetty, Brian Maguire, and Gerry Louw, AWS Solutions Architecture | Bret Pontillo, Noah Paige, Naomi Joshi and Anmol Gandhi, AWS Professional Services | Eric Beard, AWS Partner Core | Chip Reno and Clark Fredricksen, AWS Advertising &amp; Marketing Industry</em><br>
 <em>Troy Ameigh, AWS Integration &amp; Automation</em><br></p>
 </div>
-<div class="admonitionblock tip text-left">
+<div class="imageblock text-left image-container">
+<div class="content">
+<img src="https://aws-quickstart.s3.amazonaws.com/quickstart-amazon-marketing-cloud/docs/boilerplate/.images/aws-quickstart-graphic.png" alt="">
+</div>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Refer to the <a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud" target="_blank" rel="noopener">GitHub repository</a> to view source files, report bugs, submit feature ideas, and post feedback about this Quick Start. To comment on the documentation, refer to <a href="#_feedback">Feedback</a>.
+Refer to the <a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud" target="_blank" rel="noopener">GitHub repository</a> to view source files, report bugs, submit feature ideas, and post feedback about this Partner Solution. To comment on the documentation, refer to <a href="#_feedback">Feedback</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph text-left">
-<p>This Quick Start was created by the Amazon Ad Tech Solutions team in collaboration with Amazon Web Services (AWS). <a href="http://aws.amazon.com/quickstart/" target="_blank" rel="noopener">Quick Starts</a> are automated reference deployments that help people deploy popular technologies on AWS according to AWS best practices.</p>
+<p>This Partner Solution was created by the Amazon Ad Tech Solutions team in collaboration with Amazon Web Services (AWS). <a href="https://aws.amazon.com/solutions/partners/" target="_blank" rel="noopener">Partner Solutions</a> are automated reference deployments that help people deploy popular technologies on AWS according to AWS best practices. If you&#8217;re unfamiliar with AWS Partner Solutions, refer to the <a href="https://fwd.aws/rA69w?" target="_blank" rel="noopener">AWS Partner Solution General Information Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -901,23 +921,10 @@ Refer to the <a href="https://github.com/aws-quickstart/quickstart-amazon-market
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide provides instructions for deploying the Amazon Marketing Cloud (AMC) Insights on AWS solution using the AWS Cloud Development Kit (AWS CDK) and DataOps Development Kit (DDK).</p>
+<p>This guide covers the information you need to deploy the <a href="https://advertising.amazon.com/solutions/products/amazon-marketing-cloud" target="_blank" rel="noopener">Amazon Marketing Cloud</a> (AMC) Insights on AWS solution using the <a href="https://docs.aws.amazon.com/cdk/" target="_blank" rel="noopener">AWS Cloud Development Kit (AWS CDK)</a> and <a href="https://github.com/awslabs/aws-ddk/blob/main/README.md" target="_blank" rel="noopener">DataOps Development Kit (DDK)</a>.</p>
 </div>
 <div class="paragraph">
-<p>More information:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://advertising.amazon.com/solutions/products/amazon-marketing-cloud" target="_blank" rel="noopener">What is Amazon Marketing Cloud</a></p>
-</li>
-<li>
-<p><a href="https://docs.aws.amazon.com/cdk/" target="_blank" rel="noopener">AWS Cloud Development Kit (AWS CDK) Documentation</a></p>
-</li>
-<li>
-<p><a href="https://github.com/awslabs/aws-ddk/blob/main/README.md" target="_blank" rel="noopener">DataOps Development Kit (DDK)</a></p>
-</li>
-</ul>
+<p>For information on using this solution after it&#8217;s deployed, refer to the <a href="https://fwd.aws/nAmW7?" target="_blank" rel="noopener">Amazon Marketing Cloud Insights on AWS Partner Solution Operational Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -937,7 +944,7 @@ Refer to the <a href="https://github.com/aws-quickstart/quickstart-amazon-market
 </div>
 <div id="architecture1" class="imageblock">
 <div class="content">
-<img src="docs/deployment_guide/images/AMC-architecture-diagram.png" alt="Architecture">
+<img src="docs/deployment_guide/images/amc-architecture-diagram.png" alt="Architecture">
 </div>
 <div class="title">Figure 1. Architecture for AMC Insights on AWS</div>
 </div>
@@ -986,10 +993,23 @@ Refer to the <a href="https://github.com/aws-quickstart/quickstart-amazon-market
 <div class="sect2">
 <h3 id="_set_up_your_environment">Set up your environment</h3>
 <div class="paragraph">
-<p>You need to set up an environment with programmatic access to your AWS account and with various tools at appropriate versions. You can set up your environment locally or in AWS Cloud9, as detailed in the following sections.</p>
+<p>You must set up an environment with programmatic access to your AWS account and with various tools at appropriate versions.
+You can set up your environment locally (option A) or in AWS Cloud9 (option B), as detailed in the following sections.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Deploy this architecture into the same account as your AMC instance. You can find the account ID on the AMC instance under <strong>Additional Info</strong> in the <strong>Connected AWS Account ID</strong> box.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect3">
-<h4 id="_set_up_a_local_environment">Set up a local environment</h4>
+<h4 id="_option_a_set_up_a_local_environment">Option A: Set up a local environment</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1046,17 +1066,14 @@ $ git config --global user.email &lt;YOU@EMAIL.COM&gt;</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_set_up_an_aws_cloud9_environment">Set up an AWS Cloud9 environment</h4>
+<h4 id="_option_b_set_up_an_aws_cloud9_environment">Option B: Set up an AWS Cloud9 environment</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Sign in to the AWS Management Console using the <strong>Admin</strong> role, and choose an AWS Region. Choose a mature Region where most services are available, such as eu-west-1 or us-east-1.</p>
+<p>Sign in to the AWS Management Console in the correct account you are deploying into using the <strong>Admin</strong> role, and choose an AWS Region. Choose a mature Region where most services are available, such as eu-west-1 or us-east-1.</p>
 </li>
 <li>
 <p>Open the AWS Cloud9 console, and create an EC2 environment in your chosen AWS Region. Choose instance type t3.small or larger, Amazon Linux 2. For details refer to <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide/create-environment-main.html" target="_blank" rel="noopener">Creating an EC2 Environment</a>.</p>
-</li>
-<li>
-<p>In your integrated development environment (IDE), download the <a href="https://fwd.aws/Rp8mK?" target="_blank" rel="noopener">Amazon Marketing Cloud Insights repository</a>, upload it to your AWS Cloud9 instance, and unzip it.</p>
 <div class="paragraph">
 <p>By default, Python, pip, AWS CLI, AWS CDK, and Git are installed and configured for you in your AWS Cloud9 environment.</p>
 </div>
@@ -1096,7 +1113,7 @@ $ git --version</code></pre>
 <div class="sect2">
 <h3 id="_clone_the_repo">Clone the repo</h3>
 <div class="paragraph">
-<p>Clone the <a href="https://fwd.aws/Rp8mK?" target="_blank" rel="noopener">Amazon Marketing Cloud Insights repository</a> as follows, replacing the information in brackets.</p>
+<p>After your environment is set up, clone the <a href="https://fwd.aws/Rp8mK?" target="_blank" rel="noopener">Amazon Marketing Cloud Insights repository</a> as follows, replacing the information in brackets.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1108,6 +1125,9 @@ $ rm -rf .git</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_install_and_set_up_the_ddk">Install and set up the DDK</h3>
+<div class="paragraph">
+<p>Through the rest of this document, some of the steps differ depending on whether you chose local or Cloud9 deployment. For those steps, use the commands indicated by the [<strong>Local</strong>] or [<strong>Cloud9</strong>] notations. Do all the other steps for both environment types.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1146,11 +1166,21 @@ $ rm -rf .git</code></pre>
 </div>
 </li>
 <li>
-<p>If your AWS account hasn&#8217;t been used to deploy DDK apps before, bootstrap your environment as follows, replacing the information in brackets. .</p>
+<p>If your AWS account hasn&#8217;t been used to deploy DDK apps before, bootstrap your environment as follows, replacing the information in angle brackets.</p>
+<div class="paragraph">
+<p>[<strong>Local</strong>]:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ ddk bootstrap --help
-$ ddk bootstrap --profile &lt;AWS_PROFILE&gt; --trusted-accounts &lt;AWS_ACCOUNT_ID&gt;</code></pre>
+<pre class="highlight"><code>$ ddk bootstrap --profile &lt;AWS_PROFILE&gt; --trusted-accounts &lt;AWS_ACCOUNT_ID&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>[<strong>Cloud9</strong>]:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ ddk bootstrap</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1158,7 +1188,7 @@ $ ddk bootstrap --profile &lt;AWS_PROFILE&gt; --trusted-accounts &lt;AWS_ACCOUNT
 </div>
 </li>
 <li>
-<p>Edit the required parameters in <code>ddk.json</code>. Enter your account ID, the name of the AWS CodeCommit repository to reference (you&#8217;ll create this repository in a later step), and names of data lake parameters such as <code>app</code>, <code>org</code>, <code>team</code>, <code>dataset</code>, and <code>pipeline</code>.</p>
+<p>Edit the required parameters in <code>ddk.json</code>. Enter your account ID, the name of the AWS CodeCommit repository to reference (you&#8217;ll create this repository in a later step), and names of data pipeline parameters such as <code>app</code>, <code>org</code>, <code>team</code>, <code>dataset</code>, and <code>pipeline</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code>$ vi ddk.json</code></pre>
@@ -1174,20 +1204,44 @@ $ ddk bootstrap --profile &lt;AWS_PROFILE&gt; --trusted-accounts &lt;AWS_ACCOUNT
 </div>
 </li>
 <li>
-<p>Create a new CodeCommit repository as follows. Replace the information in brackets, using the repository name value from the <code>ddk.json</code> configuration file. The template is launched in the us-east-1 Region by default; change this Region if necessary in the following command.</p>
+<p>Create a new CodeCommit repository as follows. Replace the information in angle brackets, using the repository name value from the <code>ddk.json</code> configuration file. The template is launched in the us-east-1 Region by default; change this Region if necessary in the following command.</p>
+<div class="paragraph">
+<p>[<strong>Local</strong>]:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code>$ ddk create-repository &lt;AMC_REPO_NAME&gt; --profile &lt;AWS_PROFILE&gt; --region &lt;AWS_REGION&gt;</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>[<strong>Cloud9</strong>]:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ ddk create-repository &lt;AMC_REPO_NAME&gt; --region &lt;AWS_REGION&gt;</code></pre>
+</div>
+</div>
 </li>
 <li>
-<p>Add and push the initial commit to the repository as follows, replacing the information in brackets.</p>
+<p>Add and push the initial commit to the repository as follows, replacing the information in angle brackets.</p>
+<div class="paragraph">
+<p>[<strong>Local</strong>]:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code>$ git config --global credential.helper "!aws codecommit --profile &lt;my-profile&gt; credential-helper $@"
 $ git config --global credential.UseHttpPath true
 $ git add .
+$ git commit -m "Configure AMC Insights on AWS"
+$ git push --set-upstream origin main</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>[<strong>Cloud9</strong>]:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ git add .
 $ git commit -m "Configure AMC Insights on AWS"
 $ git push --set-upstream origin main</code></pre>
 </div>
@@ -1207,10 +1261,21 @@ $ git push --set-upstream origin main</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Run the <code>deploy</code> command as follows, replacing the information in brackets.</p>
+<p>Run the <code>deploy</code> command as follows, replacing the information in angle brackets.</p>
+<div class="paragraph">
+<p>[<strong>Local</strong>]:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code>$ ddk deploy --profile &lt;AWS_PROFILE&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>[<strong>Cloud9</strong>]:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ ddk deploy</code></pre>
 </div>
 </div>
 </li>
@@ -1233,6 +1298,19 @@ $ git push --set-upstream origin main</code></pre>
 <ol class="arabic">
 <li>
 <p>Sign in to the AWS Management Console, and open the AWS Lake Formation console.</p>
+</li>
+<li>
+<p>Grant Lake Formation administrative permissions to your IAM role.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>In the navigation pane, under <strong>Permissions</strong>, choose <strong>Administrative roles and tasks</strong></p>
+</li>
+<li>
+<p>Click on <strong>Choose administrators</strong> and enter your current IAM role</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>Enable Lake Formation to control your Data Catalog resources.</p>
@@ -1259,7 +1337,7 @@ $ git push --set-upstream origin main</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>For <strong>IAM users and roles</strong>, enter your current IAM role.</p>
+<p>For <strong>IAM users and roles</strong>, enter enter your current IAM role.</p>
 </li>
 <li>
 <p>For <strong>LF-Tags or catalog resources</strong>, choose <strong>Named data catalog resources</strong>.</p>
@@ -1285,63 +1363,16 @@ $ git push --set-upstream origin main</code></pre>
 </ol>
 </div>
 </li>
+<li>
+<p>Repeat the previous step for any other users who need permission to access the tables in the Data Catalog.</p>
+</li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_delete_deployed_resources_when_finished">Delete deployed resources when finished</h3>
+<h3 id="_view_the_operational_guide">View the operational guide</h3>
 <div class="paragraph">
-<p>When you&#8217;re finished with the architecture deployed by this solution, delete the resources from your AWS account so that you&#8217;re no longer charged for them. These resources include S3 buckets, AWS CloudFormation stacks, DDK bootstrap, CodeCommit repos, AWS Key Management Service (AWS KMS) keys, Lambda layers, and Amazon Simple Queue Service (Amazon SQS) queues and rules. To delete all these resources, follow these steps.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Look into <code>Makefile</code>.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>$ cd quickstart-amazon-marketing-cloud
-$ cat MakeFile</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Verify that the following functions are passing the correct stack names.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>The <code>delete_repositories</code> function is passing <code>-d &lt;AMC_REPO_NAME&gt;</code> (default: <code>ddk-amc-quickstart</code>).</p>
-</li>
-<li>
-<p>The <code>delete_bootstrap</code> function is passing <code>--stack-name &lt;BOOTSTRAP_STACK_NAME&gt;</code> (default: <code>DdkDevBootstrap</code>).</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Enter the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>$ make delete_all</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Some CloudWatch general log groups may remain in your account with logs specific to Amazon Marketing Cloud Insights solution resources. Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>/aws/sagemaker/NotebookInstances</code></p>
-</li>
-<li>
-<p><code>/aws-glue/jobs/error</code></p>
-</li>
-<li>
-<p><code>/aws-glue/jobs/output</code></p>
-</li>
-</ul>
+<p>For help getting started using the solution, refer to the <a href="https://fwd.aws/nAmW7?" target="_blank" rel="noopener">Amazon Marketing Cloud Insights on AWS Partner Solution Operational Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -1375,10 +1406,18 @@ $ cat MakeFile</code></pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_customer_responsibility">Customer responsibility</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After you deploy a Partner Solution, confirm that your resources and services are updated and configured—including any required patches—to meet your security and other needs. For more information, refer to the <a href="https://aws.amazon.com/compliance/shared-responsibility-model/" target="_blank" rel="noopener">Shared Responsibility Model</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_feedback">Feedback</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To submit feature ideas and report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. To submit code, refer to the <a href="https://fwd.aws/NwqYA?" target="_blank" rel="noopener">Quick Start Contributor&#8217;s Guide</a>. To submit feedback on this deployment guide, use the following GitHub links:</p>
+<p>To submit feature ideas and report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-amazon-marketing-cloud" target="_blank" rel="noopener">GitHub repository</a> for this Partner Solution. To submit code, refer to the <a href="https://fwd.aws/NwqYA?" target="_blank" rel="noopener">Partner Solution Contributor&#8217;s Guide</a>. To submit feedback on this deployment guide, use the following GitHub links:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1405,7 +1444,7 @@ $ cat MakeFile</code></pre>
 <p>This document is provided for informational purposes only. It represents current AWS product offerings and practices as of the date of issue of this document, which are subject to change without notice. Customers are responsible for making their own independent assessment of the information in this document and any use of AWS products or services, each of which is provided "as is" without warranty of any kind, whether expressed or implied. This document does not create any warranties, representations, contractual commitments, conditions, or assurances from AWS, its affiliates, suppliers, or licensors. The responsibilities and liabilities of AWS to its customers are controlled by AWS agreements, and this document is not part of, nor does it modify, any agreement between AWS and its customers.</p>
 </div>
 <div class="paragraph">
-<p>The software included with this paper is licensed under the Apache License, version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at <a href="http://aws.amazon.com/apache2.0/" target="_blank" rel="noopener">http://aws.amazon.com/apache2.0/</a> or in the accompanying "license" file. This code is distributed on an "as is" basis, without warranties or conditions of any kind, either expressed or implied. Refer to the License for specific language governing permissions and limitations.</p>
+<p>The software included with this paper is licensed under the Apache License, version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at <a href="https://aws.amazon.com/apache2.0/" target="_blank" rel="noopener">https://aws.amazon.com/apache2.0/</a> or in the accompanying "license" file. This code is distributed on an "as is" basis, without warranties or conditions of any kind, either expressed or implied. Refer to the License for specific language governing permissions and limitations.</p>
 </div>
 </div>
 </div>
