@@ -70,8 +70,8 @@ For QuickSight to access Athena, Amazon S3, and AWS Lake Formation, a QuickSight
 . Navigate to *Security & Permissions*.
 . Under *QuickSight access to AWS services*, choose *Manage*.
 . Find *Athena* in the list. Clear the box by Athena, and then select it again to enable Athena. Then choose *Next*.
-. Under *S3 Bucket*, choose the S3 buckets that you want to grant QuickSight read-access to. 
-. From the right column, *Write permissions for Athena Workgroup*, choose the S3 buckets that you want to grant QuickSight query-result write-access to. 
+. Under *S3 Bucket*, choose the S3 buckets to which you want to grant QuickSight read access. 
+. From the right column, *Write permissions for Athena Workgroup*, choose the S3 buckets to which you want to grant QuickSight query-result write access. 
 . Choose *Finish*, and save your settings.
 
 ==== Authorize QuickSight to access Lake Formation database and tables
@@ -84,10 +84,10 @@ For QuickSight to access Athena, Amazon S3, and AWS Lake Formation, a QuickSight
 `aws quicksight list-users --aws-account-id 111122223333 --namespace default --region us-east-1`
 
 . Open the Lake Formation console as the data-lake administrator.
-. Choose *Databases*, and select the database that you want to grant your QuickSight user access to. Then, for *Actions*, choose *Grant*.
+. Choose *Databases*, and select the database to which you want to grant your QuickSight user access. Then, for *Actions*, choose *Grant*.
 . Select *SAML users and groups*, and enter the QuickSight user ARN.
 . Choose *Named data catalog resources*.
-. For *Tables*, select *All tables*, or select individual tables that you want to grant access to. Then for *Table permissions*, choose *Select* and *Describe*. Then choose *Grant*.
+. For *Tables*, select *All tables*, or select individual tables to which you want to grant your user access. Then for *Table permissions*, choose *Select* and *Describe*. Then choose *Grant*.
 . Repeat the preceding steps to grant permissions to other users or groups. 
 
 === Create a dataset in QuickSight
