@@ -1,6 +1,8 @@
 # Amazon Marketing Cloud Insights on AWS
 
-For architectural details, step-by-step instructions, and customization options, refer to the [deployment guide](https://fwd.aws/nAmW7?).
+For architectural details and step-by-step deployment instructions, refer to the [deployment guide](https://fwd.aws/nAmW7?).
+
+For information on using this solution after it’s deployed, refer to the [operational guide](https://fwd.aws/WeWKX?).
 
 To post feedback, submit feature ideas, or report bugs, use the **Issues** section of this GitHub repo.
 
