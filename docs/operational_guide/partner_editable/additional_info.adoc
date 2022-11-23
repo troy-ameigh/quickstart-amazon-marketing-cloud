@@ -8,8 +8,7 @@ This solution deploys three microservices, which you can access from the platfor
 
 The PMS microservice uses the platform management library to interact with the other two microservices: Tenant Provisioning Service and Workflow Management Service. 
 
-The TPS microservice is an Amazon Ad Tech solution that adds functionality for managing multiple AMC customers. It provides a centralized location to manage customers, supporting multitenancy and an ability to onboard customers without the need for custom solutions. Customers are mapped one-to-one with AMC instances. When a customer is onboarded, if an Amazon Simple Storage Service (Amazon S3) bucket doesn't already exist for the associated AMC instance, one is checked and deployed.
-//TODO Andrew, What does "checked" mean here? Do we need that word? (And do we need to say "associated"? I'd delete it unless it's needed for clarity.)
+The TPS microservice is an Amazon Ad Tech solution that adds functionality for managing multiple AMC customers. It provides a centralized location to manage customers, supporting multitenancy and an ability to onboard customers without the need for custom solutions. Customers are mapped one-to-one with AMC instances. When a customer is onboarded, if an Amazon Simple Storage Service (Amazon S3) bucket doesn't already exist for the associated AMC instance, it is deployed.
 												
 With the WFM microservice, you can do the following:
 
@@ -29,10 +28,7 @@ Hydrate the data lake by populating it with data from your AMC instance. When yo
 
 . In the navigation pane, under *Notebook*, choose *Notebook Instances*. 
 
-. Open the file named `aws-quickstart-platform-manager-notebooks` with status *In Service*. (The prefix, `aws-`, may differ depending on the value set in `ddk.json`.)
-//TODO Andrew, Is the previous step correct as I've edited it; do people open that file? Or do they simply verify that it's there and that its status is "In Service"? In that case, why are we asking them to do this? And what should they do if they don't see what they're supposed to see? (Alternatively, can we delete that step?)
-
-. Choose *Open JupyterLab*. This notebook instance opens in a new tab.
+. Choose *Open JupyterLab* next to the deployed instance named `aws-quickstart-platform-manager-notebooks` (the prefix, `aws-`, may differ depending on the value set in `ddk.json`). This notebook instance opens in a new tab.
 
 . Open `-Getting_Started-.ipynb`, and walk through using the TPS and WFM microservices.
 
@@ -42,8 +38,8 @@ NOTE: If your AMC S3 bucket contained data before deployment of this solution, t
 If this is your first time using Athena on this AWS account, set the query result location in Amazon S3 as follows:
 
 . Open the Athena console.
+. From the sidebar, choose *Query editor*
 . From the top menu, choose *Settings*.
-//TODO Andrew, I'm not sure what "top menu" refers to. When I open the Athena console, I can click Query editor, and then I see a Settings tab. Is that what we mean? Or maybe things look different in here after people have deployed the solution?
 . Choose *Manage*.
 . Choose *Browse S3* next to the first open field.
 . Choose the deployed S3 bucket with the suffix `-athena`. 
@@ -57,10 +53,8 @@ You are now ready to query your tables with Athena.
 == Build a QuickSight dashboard
 This section walks through how to build an Amazon QuickSight dashboard with AMC data from your data lake. For more information on using QuickSight features, refer to https://docs.aws.amazon.com/quicksight/latest/user/welcome.html[What is Amazon QuickSight?^]
 
-=== Set up QuickSight
-To build your first dashboard, you must author access to a QuickSight account. If you do not have a QuickSight account already, create one by following these steps:
-//TODO Andrew, What does "author access" mean?
-//TODO Andrew, What task are we accomplishing in this section: Setting up? Granting access? Creating an account? Do we need to break it into multiple sections? Clarify this in both the section heading and in the lead-in paragraph (using the same terms in both). 
+=== Create a QuickSight account
+To build your first dashboard, you must create a QuickSight account. If you do not have a QuickSight account already, create one by following these steps:
 
 . From the AWS Management Console, search for and choose QuickSight.
 . On the QuickSight page, choose *Sign up for QuickSight*.
@@ -81,7 +75,7 @@ For QuickSight to access Athena, Amazon S3, and AWS Lake Formation, a QuickSight
 . Choose *Finish*, and save your settings.
 
 ==== Authorize QuickSight to access Lake Formation database and tables
-. Use AWS Command Line Interface (AWS CLI) to find Amazon Resource Names (ARNs) of the QuickSight users and groups that need access to Lake Formation data. Collect these ARNs, ensuring that the users are QuickSight authors or administrators.  
+. Find the Amazon Resource Names (ARNs) of the QuickSight users and groups that need access to Lake Formation data. Collect these ARNs, ensuring that the users are QuickSight authors or administrators. 
 * To construct ARNs manually, use this string, replacing the bracketed items:
 +
 `arn:aws:quicksight:<REGION_NAME>:<ACCOUNT_ID>:user/default/<QUICKSIGHT_USERNAME>`
@@ -90,16 +84,11 @@ For QuickSight to access Athena, Amazon S3, and AWS Lake Formation, a QuickSight
 `aws quicksight list-users --aws-account-id 111122223333 --namespace default --region us-east-1`
 
 . Open the Lake Formation console as the data-lake administrator.
-+
-A data-lake administrator can grant any principal—AWS Identity and Access Management (IAM), QuickSight, or AWS Directory Service for Microsoft Active Directory—permissions to access AWS Glue Data Catalog resources (databases and tables) or data-lake locations in Amazon S3.
-//TODO Andrew, I spelled out "AWS Directory Service for Microsoft Active Directory" as the official service name. Is that what you're talking about?
-//TODO Andrew, I changed "data catalog" to "AWS Glue Data Catalog" assuming that we're talking about that service; that's a proper noun. Is that what you're talking about?
 . Choose *Databases*, and select the database that you want to grant your QuickSight user access to. Then, for *Actions*, choose *Grant*.
 . Select *SAML users and groups*, and enter the QuickSight user ARN.
 . Choose *Named data catalog resources*.
 . For *Tables*, select *All tables*, or select individual tables to grant access to. Then for *Table permissions*, choose *Select* and *Describe*. Then choose *Grant*.
 . Repeat the preceding steps to grant permissions to other users or groups. 
-//TODO Andrew, I've reorganized some of these steps to keep the procedure to the recommended maximum of seven steps, per AWS style guidelines. Feel free to recombine the steps differently if you see a more logical way to do it based on your familiarity with the UI (for example, creating a few high-level steps with substeps).
 
 === Create a dataset in QuickSight
 
