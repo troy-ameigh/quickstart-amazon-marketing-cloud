@@ -29,4 +29,4 @@ Follow these steps to enable AWS Lake Formation to control your AWS Glue Data Ca
 
 === View the operational guide
 
-For help getting started using the solution, refer to the https://fwd.aws/nAmW7?[Amazon Marketing Cloud Insights on AWS Partner Solution Operational Guide^].
+For help getting started using the solution, refer to the https://fwd.aws/WeWKX?[Amazon Marketing Cloud Insights on AWS Partner Solution Operational Guide^].
