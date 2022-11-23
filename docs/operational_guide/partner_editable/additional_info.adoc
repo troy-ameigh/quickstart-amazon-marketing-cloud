@@ -1,118 +1,132 @@
 == About the deployed microservices
 
-This solution includes three microservices, which you access from the platform manager in the deployed Amazon SageMaker instance.
+This solution deploys three microservices, which you can access from the platform manager in the deployed Amazon SageMaker instance.
 
-* **Platform Management Service (PMS).** This microservice uses the platform management library to interact with the other two microservices: Tenant Provisioning Service and Workflow Management Service. 
+* Platform Management Service (PMS)
+* Tenant Provisioning Service (TPS)										
+* Workflow Management Service (WFM)
 
- * **Tenant Provisioning Service (TPS).** This microservice is an Amazon Ad Tech solution that adds functionality for managing multiple AMC customers. It provides a centralized location to manage customers, supporting multitenancy and an ability to onboard customers without the need for custom solutions. Customers are mapped one-to-one with AMC instances. When a customer is onboarded, if an associated AMC-instance S3 bucket does not already exist, one is checked and deployed.
+The PMS microservice uses the platform management library to interact with the other two microservices: Tenant Provisioning Service and Workflow Management Service. 
+
+The TPS microservice is an Amazon Ad Tech solution that adds functionality for managing multiple AMC customers. It provides a centralized location to manage customers, supporting multitenancy and an ability to onboard customers without the need for custom solutions. Customers are mapped one-to-one with AMC instances. When a customer is onboarded, if an Amazon Simple Storage Service (Amazon S3) bucket doesn't already exist for the associated AMC instance, one is checked and deployed.
+//TODO Andrew, What does "checked" mean here? Do we need that word? (And do we need to say "associated"? I'd delete it unless it's needed for clarity.)
 												
-* **Workflow Management (WFM) Service.** With this microservice, you can do the following:
+With the WFM microservice, you can do the following:
 
-** Synchronize workflows and their schedules in the Workflow Library service with multiple AMC instances.
+* Synchronize workflows and their schedules in the Workflow Library service with multiple AMC instances.
 
-** Send workflow requests to an SQS queue rather than directly to the AMC endpoint to prevent timeout failures when there are many requests in a short time.
+* Send workflow requests to an Amazon Simple Queue Service (Amazon SQS) queue rather than directly to the AMC endpoint to prevent timeout failures when there are many requests in a short time.
 
-** Schedule with dynamic, relative time windows rather than using AMC's scheduling feature, which allows only predefined scheduled reporting, such as daily or weekly. 
+* Schedule with dynamic, relative time windows rather than using AMC's scheduling feature, which allows only predefined scheduled reporting, such as daily or weekly. 
 
-** Track the status of all workflow runs for customer AMC instances, whether they're submitted through WFM or other means, such as Postman. You can also track historical runs for troubleshooting or performance monitoring.
+* Track the status of all workflow runs for customer AMC instances, whether they're submitted through WFM or other means, such as Postman. You can also track historical runs for troubleshooting or performance monitoring.
 
 == Hydrate your data lake
 
-If your AMC S3 bucket already contained data before deployment of this solution, it will not be picked up automatically by the data lake. Only workflows run after deployment will start this process. When you're finished, business stakeholders can use Amazon Athena to access the data returned from the workflow run.
-
-To hydrate the data lake and begin populating it with data from your AMC instance, follow these steps.
+Hydrate the data lake by populating it with data from your AMC instance. When you're finished, business stakeholders can use Amazon Athena to access the data returned by the workflow run.
 
 . Sign in to the AWS Management Console, and open the Amazon SageMaker console.
 
-. On the left side of your screen, choose *Notebook* -> *Notebook Instances*. 
-+ 
-The Amazon SageMaker instance was deployed with Jupyter notebook files. You should see one named `aws-quickstart-platform-manager-notebooks` with status *In Service*. The prefix `aws`` may differ depending on the value set in the ddk.json file.
+. In the navigation pane, under *Notebook*, choose *Notebook Instances*. 
 
-. Choose *Open JupyterLab* to open the Notebook Instance in a new tab.
+. Open the file named `aws-quickstart-platform-manager-notebooks` with status *In Service*. (The prefix, `aws-`, may differ depending on the value set in `ddk.json`.)
+//TODO Andrew, Is the previous step correct as I've edited it; do people open that file? Or do they simply verify that it's there and that its status is "In Service"? In that case, why are we asking them to do this? And what should they do if they don't see what they're supposed to see? (Alternatively, can we delete that step?)
 
-. Open `-Getting_Started-.ipynb`` for a walkthrough of using the TPS and WFM microservices.
+. Choose *Open JupyterLab*. This notebook instance opens in a new tab.
+
+. Open `-Getting_Started-.ipynb`, and walk through using the TPS and WFM microservices.
+
+NOTE: If your AMC S3 bucket contained data before deployment of this solution, the data lake does not pick up that data automatically. You must run workflows after deployment to start this process. 
 
 == Query your data with Athena
-If this is your first time using Athena on this AWS account then you must set the query result location in S3 by following the below steps.
+If this is your first time using Athena on this AWS account, set the query result location in Amazon S3 as follows:
 
-1. Navigate to the Athena console.
-2. From the top menu choose *Settings*.
-3. Choose *Manage*.
-4. Choose *Browse S3* next to the first open field.
-5. Find the deployed S3 bucket with the suffix '-athena' (Bucket name follows the same convention as the others deployed. Any custom bucket can be designated for this purpose, this one is simply deployed as part of the solution for ease).
-6. Select the bucket and *Choose*.
-7. *Save* the new settings.
+. Open the Athena console.
+. From the top menu, choose *Settings*.
+//TODO Andrew, I'm not sure what "top menu" refers to. When I open the Athena console, I can click Query editor, and then I see a Settings tab. Is that what we mean? Or maybe things look different in here after people have deployed the solution?
+. Choose *Manage*.
+. Choose *Browse S3* next to the first open field.
+. Choose the deployed S3 bucket with the suffix `-athena`. 
++
+This bucket name follows the same convention as the others deployed. You can designate any custom bucket for this purpose; this bucket was deployed as part of the solution for convenience.
 
-You are now ready to start querying your tables with Athena.
+. Save the setting.
 
-== (Optional) Build a QuickSight dashboard
-This section walks through how to build a QuickSight dashboard with AMC data from your data lake. 
+You are now ready to query your tables with Athena.
+
+== Build a QuickSight dashboard
+This section walks through how to build an Amazon QuickSight dashboard with AMC data from your data lake. For more information on using QuickSight features, refer to https://docs.aws.amazon.com/quicksight/latest/user/welcome.html[What is Amazon QuickSight?^]
 
 === Set up QuickSight
-You must author access to a QuickSight account to get started with building your first dashboard. If you do not have a QuickSight account already, create one by following these steps:
+To build your first dashboard, you must author access to a QuickSight account. If you do not have a QuickSight account already, create one by following these steps:
+//TODO Andrew, What does "author access" mean?
+//TODO Andrew, What task are we accomplishing in this section: Setting up? Granting access? Creating an account? Do we need to break it into multiple sections? Clarify this in both the section heading and in the lead-in paragraph (using the same terms in both). 
 
-1. Open the AWS Console and search for QuickSight to launch it.
-2. On the QuickSight page, choose *Sign up for QuickSight*.
-3. Keep the default *Enterprise* edition, scroll down and choose *Continue*.
-4. Enter a *QuickSight account name* and *Notification email address*.
-5. Scroll down and choose *Finish*.
+. From the AWS Management Console, search for and choose QuickSight.
+. On the QuickSight page, choose *Sign up for QuickSight*.
+. Keeping the default Enterprise edition, scroll down and choose *Continue*.
+. Enter a QuickSight account name and a notification email address.
+. Scroll down and choose *Finish*. The QuickSight console opens.
 
-You will now be taken to the QuickSight console.
+=== Authorize QuickSight to access AWS services
+For QuickSight to access Athena, Amazon S3, and AWS Lake Formation, a QuickSight administrator must configure the AWS resource permissions. These permissions apply to all QuickSight users. If you're an QuickSight administrator (in which case you see the *Manage QuickSight* option when you open the menu from your profile at the upper right), you can authorize QuickSight access to AWS services by doing the following two procedures.
 
-=== Authorize your QuickSight connection
-To work with Lake Formation and Athena on QuickSight, you must ensure that you have the proper AWS resource permissions configured. To perform this action you must be an Amazon QuickSight administrator. To verify that you have access you should see the Manage QuickSight option when you open the menu from your profile at the upper right.
+==== Authorize QuickSight to access Athena and Amazon S3
+. In the QuickSight console, choose your profile name (upper right) and choose *Manage QuickSight*.
+. Navigate to *Security & Permissions*.
+. Under *QuickSight access to AWS services*, choose *Manage*.
+. Find *Athena* in the list. Clear the box by Athena, and then select it again to enable Athena. Then choose *Next*.
+. Under *S3 Bucket*, choose the S3 buckets that you want to allow read-access by QuickSight. 
+. From the right column, *Write permissions for Athena Workgroup*, choose the S3 buckets that you want to allow query result write-access to. 
+. Choose *Finish*, and save your settings.
 
-Use the following procedure to make sure that you have successfully authorized Amazon Quicksight to use Athena and S3 (permissions to AWS resources apply to all Amazon QuickSight users).
+==== Authorize QuickSight to access Lake Formation database and tables
+. Use AWS Command Line Interface (AWS CLI) to find Amazon Resource Names (ARNs) of the QuickSight users and groups that need access to Lake Formation data. Collect these ARNs, ensuring that the users are QuickSight authors or administrators.  
+* To construct ARNs manually, use this string, replacing the bracketed items:
++
+`arn:aws:quicksight:<REGION_NAME>:<ACCOUNT_ID>:user/default/<QUICKSIGHT_USERNAME>`
+* To collect ARNS programmatically, run the following command in your terminal (Linux or Mac) or at your command prompt (Windows): 
++
+`aws quicksight list-users --aws-account-id 111122223333 --namespace default --region us-east-1`
 
-. Authorize Amazon QuickSight to access the Athena and Amazon S3 services.
-.. Choose your profile name (upper right) and choose *Manage QuickSight*.
-.. Navigate to *Security & Permissions*.
-.. Under *QuickSight access to AWS services*, choose *Manage*.
-.. Find *Athena* in the list. Clear the box by Athena, then select it again to enable Athena. Then choose *Next*.
-.. Under *S3 Bucket*, choose the S3 buckets that you want to allow read-access by Amazon QuickSight. 
-.. From the right column, *Write permissions for Athena Workgroup*, choose the S3 buckets that you want to allow query result write-access to. 
-.. Choose *Finish* to confirm your selection.
-.. Choose *Save* to update your new settings for Amazon QuickSight access to AWS services.
-. Authorize Amazon QuickSight to access Lake Formation database and tables
-.. Collect the Amazon Resource Names (ARNs) of the QuickSight users and groups that need to access the data in Lake Formation. These users should be QuickSight authors or administrators.
-... Use the AWS CLI to find user ARNs or construct the ARNs manually below.
-... To construct manually, replace *REGION_NAME*, *ACCOUNT_ID*, and *QUICKSIGHT_USERNAME* from the following string: `arn:aws:quicksight:<REGION_NAME>:<ACCOUNT_ID>:user/default/<QUICKSIGHT_USERNAME>`
-... To collect user ARNS programmatically with the AWS CLI, run the following list-users command in your terminal (Linux or Mac) or at your command prompt (Windows): `aws quicksight list-users --aws-account-id 111122223333 --namespace default --region us-east-1`
-.. Sign in to the AWS Console and open the AWS Lake Formation console as the data lake administrator. A data lake administrator can grant any principal (IAM, QuickSight, or Active Directory) permissions to Data Catalog resources (databases and tables) or data lake locations in Amazon S3.
-.. Choose *Databases*.
-.. Select the circle next to the database you want to grant access to your QuickSight user.
-.. From the *Actions* drop-down menu, choose *Grant*
-.. Select *SAML users and groups* and enter the QuickSight user ARN
-.. Choose *Named data catalog resources*.
-.. Under *Tables*, open the drop-down menu and select *All tables* or selectively choose individual tables to permit access.
-.. For *Table permissions*, choose *Select* and *Describe*.
-.. Choose *Grant*
-.. Repeat the preceding steps to grant multiple database permissions to your QuickSight user ARN or other users and groups. 
+. Open the Lake Formation console as the data-lake administrator.
++
+A data-lake administrator can grant any principal—AWS Identity and Access Management (IAM), QuickSight, or AWS Directory Service for Microsoft Active Directory—permissions to access AWS Glue Data Catalog resources (databases and tables) or data-lake locations in Amazon S3.
+//TODO Andrew, I spelled out "AWS Directory Service for Microsoft Active Directory" as the official service name. Is that what you're talking about?
+//TODO Andrew, I changed "data catalog" to "AWS Glue Data Catalog" assuming that we're talking about that service; that's a proper noun. Is that what you're talking about?
+. Choose *Databases*, and select the database that you want to grant your QuickSight user access to. Then, for *Actions*, choose *Grant*.
+. Select *SAML users and groups*, and enter the QuickSight user ARN.
+. Choose *Named data catalog resources*.
+. For *Tables*, select *All tables*, or select individual tables to grant access to. Then for *Table permissions*, choose *Select* and *Describe*. Then choose *Grant*.
+. Repeat the preceding steps to grant permissions to other users or groups. 
+//TODO Andrew, I've reorganized some of these steps to keep the procedure to the recommended maximum of seven steps, per AWS style guidelines. Feel free to recombine the steps differently if you see a more logical way to do it based on your familiarity with the UI (for example, creating a few high-level steps with substeps).
 
 === Create a dataset in QuickSight
-After setting the above permissions you are now able to create custom datasets in QuickSight using Athena. This section details that process from the QuickSight console.
 
-. Choose *Datasets* from the navigation pane at the left, then choose *New dataset*.
-. Create a new Athena connection profile:
-.. In the *FROM NEW DATA SOURCES* section, choose the *Athena* data source card.
+After setting the above permissions, you can create custom datasets in QuickSight using Athena as follows:
+
+. In the QuickSight console, in the navigation pane, choose *Datasets*, and then choose *New dataset*.
+. Create an Athena connection profile.
+.. Under *FROM NEW DATA SOURCES*, choose the *Athena* data source card.
 .. For *Data source name*, enter a descriptive name.
 .. For *Athena Workgroup*, choose your workgroup.
 .. Choose *Validate connection* to test the connection.
-.. Choose *Create data source*
-. On the *Choose your table* screen:
-.. Under *Catalog*, choose *AwsDataCatalog*
-.. Choose one of the following:
-... Select the database and table manually from the dropdown.
-... Pull data in with a SQL query by choosing *Use custom SQL*.
-.. Choose *Select* (or *Confirm Query* depending on the option chosen above).
-.. Choose *Visualize* and get started creating your dashboard.
+.. Choose *Create data source*.
 
-After you have created your custom dashboard, you can publish and share it.
+. Choose your table.
+.. On the *Choose your table* screen, under *Catalog*, choose *AwsDataCatalog*.
+.. Do one of the following:
+* Select the database and table manually from the dropdown.
+* Choose *Use custom SQL* to pull data in with a Structured Query Language (SQL) query.
+.. Choose *Select* or *Confirm Query*, depending on the option chosen earlier.
+.. Choose *Visualize*.
 
-For more information on using QuickSight features check out: https://docs.aws.amazon.com/quicksight/latest/user/welcome.html.
+Now you can create, publish, and share your custom dashboard.
 
 == Delete deployed resources
-When you're finished with the architecture that was deployed by this solution, delete the resources from your AWS account so that you're no longer charged for them. These resources include S3 buckets, AWS CloudFormation stacks, DDK bootstrap, CodeCommit repos, AWS Key Management Service (AWS KMS) keys, Lambda layers, and Amazon Simple Queue Service (Amazon SQS) queues and rules. To delete all these resources, follow these steps.
+When you no longer need the architecture that was deployed by this solution, delete the resources from your AWS account so that you're no longer charged for them. These resources include S3 buckets, AWS CloudFormation stacks, DataOps Development Kit (DDK) bootstrap, AWS CodeCommit repos, AWS Key Management Service (AWS KMS) keys, AWS Lambda layers, and SQS queues and rules. 
+
+To delete all these resources, follow these steps:
 
 . Look into `Makefile`.
 +
@@ -121,7 +135,7 @@ $ cd quickstart-amazon-marketing-cloud
 $ cat MakeFile
 ```
 
-. Verify that the following functions are passing the correct stack names.
+. Verify that the following functions are passing the correct stack names. Replace the information in brackets.
 
 * The `delete_repositories` function is passing `-d <AMC_REPO_NAME>` (default: `ddk-amc-quickstart`).
 +
@@ -133,7 +147,7 @@ $ cat MakeFile
 $ make delete_all
 ```
 
-Some CloudWatch general log groups may remain in your account with logs specific to {partner-product-name} solution resources. Examples:
+Some CloudWatch general log groups may remain in your account with logs specific to this solution's resources. Examples:
 
 * `/aws/sagemaker/NotebookInstances`
 * `/aws-glue/jobs/error`
