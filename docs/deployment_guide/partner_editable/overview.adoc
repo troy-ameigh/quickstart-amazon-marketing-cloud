@@ -1,3 +1,3 @@
 This guide covers the information you need to deploy the https://advertising.amazon.com/solutions/products/amazon-marketing-cloud[Amazon Marketing Cloud^] (AMC) Insights on AWS solution using the https://docs.aws.amazon.com/cdk/[AWS Cloud Development Kit (AWS CDK)^] and https://github.com/awslabs/aws-ddk/blob/main/README.md[DataOps Development Kit (DDK)^]. 
 
-For information on using this solution after it's deployed, refer to the https://fwd.aws/nAmW7?[Amazon Marketing Cloud Insights on AWS Partner Solution Operational Guide^].
+For information on using this solution after it's deployed, refer to the https://fwd.aws/WeWKX?[Amazon Marketing Cloud Insights on AWS Partner Solution Operational Guide^].
