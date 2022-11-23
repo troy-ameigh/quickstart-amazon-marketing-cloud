@@ -92,7 +92,7 @@ For QuickSight to access Athena, Amazon S3, and AWS Lake Formation, a QuickSight
 
 === Create a dataset in QuickSight
 
-After QuickSight has been authorized to access AWS services, you can create custom datasets in QuickSight using Athena as follows:
+After you've authorized QuickSight to access AWS services, as described earlier, you can create custom datasets in QuickSight using Athena as follows:
 
 . In the QuickSight console, in the navigation pane, choose *Datasets*, and then choose *New dataset*.
 . Create an Athena connection profile.
