@@ -8,7 +8,7 @@ This solution deploys three microservices, which you can access from the platfor
 
 The PMS microservice uses the platform management library to interact with the other two microservices: Tenant Provisioning Service and Workflow Management Service. 
 
-The TPS microservice is an Amazon Ad Tech solution that adds functionality for managing multiple AMC customers. It provides a centralized location to manage customers, supporting multitenancy and an ability to onboard customers without the need for custom solutions. Customers are mapped one-to-one with AMC instances. When a customer is onboarded, if an Amazon Simple Storage Service (Amazon S3) bucket doesn't already exist for the associated AMC instance, it is deployed.
+The TPS microservice is an Amazon Ad Tech solution that adds functionality for managing multiple AMC customers. It provides a centralized location to manage customers, supporting multitenancy and an ability to onboard customers without the need for custom solutions. Customers are mapped one-to-one with AMC instances. When a customer is onboarded, if an Amazon Simple Storage Service (Amazon S3) bucket doesn't already exist for the associated AMC instance, one is deployed.
 												
 With the WFM microservice, you can do the following:
 
@@ -28,7 +28,7 @@ Hydrate the data lake by populating it with data from your AMC instance. When yo
 
 . In the navigation pane, under *Notebook*, choose *Notebook Instances*. 
 
-. Choose *Open JupyterLab* next to the deployed instance named `aws-quickstart-platform-manager-notebooks` (the prefix, `aws-`, may differ depending on the value set in `ddk.json`). This notebook instance opens in a new tab.
+. Choose *Open JupyterLab* next to the deployed instance named `aws-quickstart-platform-manager-notebooks`. (The prefix, `aws-`, may differ depending on the value set in `ddk.json`.) This notebook instance opens in a new tab.
 
 . Open `-Getting_Started-.ipynb`, and walk through using the TPS and WFM microservices.
 
@@ -63,15 +63,15 @@ To build your first dashboard, you must create a QuickSight account. If you do n
 . Scroll down and choose *Finish*. The QuickSight console opens.
 
 === Authorize QuickSight to access AWS services
-For QuickSight to access Athena, Amazon S3, and AWS Lake Formation, a QuickSight administrator must configure the AWS resource permissions. These permissions apply to all QuickSight users. If you're an QuickSight administrator (in which case you see the *Manage QuickSight* option when you open the menu from your profile at the upper right), you can authorize QuickSight access to AWS services by doing the following two procedures.
+For QuickSight to access Athena, Amazon S3, and AWS Lake Formation, a QuickSight administrator must configure the AWS resource permissions. These permissions apply to all QuickSight users. If you're a QuickSight administrator (in which case you see the *Manage QuickSight* option when you open the menu from your profile at the upper right), you can authorize QuickSight access to AWS services by doing the following two procedures.
 
 ==== Authorize QuickSight to access Athena and Amazon S3
 . In the QuickSight console, choose your profile name (upper right) and choose *Manage QuickSight*.
 . Navigate to *Security & Permissions*.
 . Under *QuickSight access to AWS services*, choose *Manage*.
 . Find *Athena* in the list. Clear the box by Athena, and then select it again to enable Athena. Then choose *Next*.
-. Under *S3 Bucket*, choose the S3 buckets that you want to allow read-access by QuickSight. 
-. From the right column, *Write permissions for Athena Workgroup*, choose the S3 buckets that you want to allow query result write-access to. 
+. Under *S3 Bucket*, choose the S3 buckets to which you want to grant QuickSight read access. 
+. From the right column, *Write permissions for Athena Workgroup*, choose the S3 buckets to which you want to grant QuickSight query-result write access. 
 . Choose *Finish*, and save your settings.
 
 ==== Authorize QuickSight to access Lake Formation database and tables
@@ -79,20 +79,20 @@ For QuickSight to access Athena, Amazon S3, and AWS Lake Formation, a QuickSight
 * To construct ARNs manually, use this string, replacing the bracketed items:
 +
 `arn:aws:quicksight:<REGION_NAME>:<ACCOUNT_ID>:user/default/<QUICKSIGHT_USERNAME>`
-* To collect ARNS programmatically, run the following command in your terminal (Linux or Mac) or at your command prompt (Windows): 
+* To collect ARNS programmatically, run the following command in your terminal (Linux or macOS) or at your command prompt (Windows): 
 +
 `aws quicksight list-users --aws-account-id 111122223333 --namespace default --region us-east-1`
 
 . Open the Lake Formation console as the data-lake administrator.
-. Choose *Databases*, and select the database that you want to grant your QuickSight user access to. Then, for *Actions*, choose *Grant*.
+. Choose *Databases*, and select the database to which you want to grant your QuickSight user access. Then, for *Actions*, choose *Grant*.
 . Select *SAML users and groups*, and enter the QuickSight user ARN.
 . Choose *Named data catalog resources*.
-. For *Tables*, select *All tables*, or select individual tables to grant access to. Then for *Table permissions*, choose *Select* and *Describe*. Then choose *Grant*.
+. For *Tables*, select *All tables*, or select individual tables to which you want to grant your user access. Then for *Table permissions*, choose *Select* and *Describe*. Then choose *Grant*.
 . Repeat the preceding steps to grant permissions to other users or groups. 
 
 === Create a dataset in QuickSight
 
-After setting the above permissions, you can create custom datasets in QuickSight using Athena as follows:
+After you've authorized QuickSight to access AWS services, as described earlier, you can create custom datasets in QuickSight using Athena as follows:
 
 . In the QuickSight console, in the navigation pane, choose *Datasets*, and then choose *New dataset*.
 . Create an Athena connection profile.
