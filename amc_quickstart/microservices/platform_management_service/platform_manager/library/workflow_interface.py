@@ -51,16 +51,18 @@ class WorkflowInterface():
             }
             sqlQuery: str
             filteredMetricsDiscriminatorColumn: str
+            distinctUserCountColumn: str
+            filteredReasonColumn: str
             defaultPayload: {
                     timeWindowEnd: str
                     timeWindowStart: str
                     timeWindowType: str
                     timeWindowTimeZone: str
                     workflowExecutedDate: str
+                    ignoreDataGaps: bool
             }
         }
         '''
-
         item = {
             'customerId': customerId,
             'workflowId': workflowId,
@@ -73,6 +75,10 @@ class WorkflowInterface():
                 item['metadata'][key] = value
         if 'filteredMetricsDiscriminatorColumn' in workflowDetails:
             item['filteredMetricsDiscriminatorColumn'] = workflowDetails['filteredMetricsDiscriminatorColumn']
+        if 'distinctUserCountColumn' in workflowDetails:
+            item['distinctUserCountColumn'] = workflowDetails['distinctUserCountColumn']
+        if 'filteredReasonColumn' in workflowDetails:
+            item['filteredReasonColumn'] = workflowDetails['filteredReasonColumn']
 
         #add item to the AMCWorkflows table
         dynamodb_client_wr= boto3.resource('dynamodb')
@@ -107,6 +113,7 @@ class WorkflowInterface():
             timeWindowEnd: str
             timeWindowType: str
             workflowExecutedDate: str
+            ignoreDataGaps: str
         }
         '''
 
@@ -121,6 +128,7 @@ class WorkflowInterface():
             'timeWindowEnd',
             'timeWindowType',
             'workflowExecutedDate',
+            'ignoreDataGaps'
         }
         if len(payload) > 0:
             payload_overrides = set(payload.keys())
@@ -148,7 +156,8 @@ class WorkflowInterface():
                 timeWindowStart,
                 timeWindowEnd,
                 timeWindowType,
-                workflowExecutedDate
+                workflowExecutedDate,
+                ignoreDataGaps
             }
         }
         '''
@@ -210,6 +219,7 @@ class WorkflowInterface():
             timeWindowEnd: str
             timeWindowType: str
             workflowExecutedDate: str
+            ignoreDataGaps: str
         }
         '''
 
@@ -231,9 +241,10 @@ class WorkflowInterface():
                 'timeWindowEnd',
                 'timeWindowType',
                 'workflowExecutedDate',
+                'ignoreDataGaps'
         }
         if len(payload) > 0:
-                payload_overrides = set(scheduleDetails['payload'].keys())
+                payload_overrides = set(payload.keys())
                 check_payload_values -= payload_overrides
         if len(check_payload_values) > 0:
             lookup_values = PlatformUtilities._get_workflow_default_parameters(
@@ -295,12 +306,15 @@ class WorkflowInterface():
             }
             sqlQuery: str
             filteredMetricsDiscriminatorColumn: str
+            distinctUserCountColumn: str
+            filteredReasonColumn: str
             defaultPayload: {
                     timeWindowEnd: str
                     timeWindowStart: str
                     timeWindowType: str
                     timeWindowTimeZone: str
                     workflowExecutedDate: str
+                    ignoreDataGaps: str
             }
         }
         schedule: {
@@ -329,6 +343,10 @@ class WorkflowInterface():
                 item['metadata'][key] = value
         if 'filteredMetricsDiscriminatorColumn' in workflowDetails:
             item['filteredMetricsDiscriminatorColumn'] = workflowDetails['filteredMetricsDiscriminatorColumn']
+        if 'distinctUserCountColumn' in workflowDetails:
+            item['distinctUserCountColumn'] = workflowDetails['distinctUserCountColumn']
+        if 'filteredReasonColumn' in workflowDetails:
+            item['filteredReasonColumn'] = workflowDetails['filteredReasonColumn']
 
         #check for customerPrefix and endemicType values
         if customerPrefix:
